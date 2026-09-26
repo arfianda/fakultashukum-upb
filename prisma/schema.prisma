@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPERADMIN
+  CONTENT_WRITER
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum EventStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  passwordHash String
+  role         Role     @default(CONTENT_WRITER)
+  createdAt    DateTime @default(now())
+  posts        Post[]
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String     @unique
+  content     String     @db.LongText
+  coverImage  String?
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  authorId    Int
+  author      User       @relation(fields: [authorId], references: [id])
+}
+
+model Event {
+  id          Int         @id @default(autoincrement())
+  title       String
+  slug        String      @unique
+  description String      @db.Text
+  eventDate   DateTime
+  location    String
+  speaker     String?
+  status      EventStatus @default(DRAFT)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Faculty {
+  id             Int      @id @default(autoincrement())
+  name           String
+  titles         String
+  nip            String   @unique
+  specialization String
+  bioQuote       String   @db.Text
+  profileImage   String?
+  researchLink   String?
+  displayOrder   Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}

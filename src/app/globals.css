@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #800000;
+  --color-primary-dark: #570000;
+  --color-primary-deep: #410000;
+  --color-deep-maroon-dark: #5a0000;
+  --color-accent-gold: #c5a059;
+  --color-accent-gold-light: #e8d8b0;
+  --color-surface-stone: #f8f7f4;
+  --color-surface-paper: #ffffff;
+  --color-border-subtle: #e5e1da;
+  --color-border-hairline: #e2bfb9;
+  --color-text-dark: #1c1b1b;
+  --color-text-muted: #5c5854;
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #1c1b1b;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Yale-style architectural dotted matrix motif with academic maroon dots */
+.dotted-matrix-bg {
+  background-image: radial-gradient(#800000 1.2px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+
+.dotted-matrix-subtle {
+  background-image: radial-gradient(#c5a059 1.2px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+
+/* Academic editorial line dividers */
+.hairline-b {
+  border-bottom: 1px solid var(--color-border-subtle, #e5e1da);
+}
+
+.hairline-t {
+  border-top: 1px solid var(--color-border-subtle, #e5e1da);
+}
+
+.hairline-r {
+  border-right: 1px solid var(--color-border-subtle, #e5e1da);
+}
+
+.hairline-l {
+  border-left: 1px solid var(--color-border-subtle, #e5e1da);
+}
+
+/* Keyboard accessibility focus indicator in Academic Maroon (R-32) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #800000;
+  outline-offset: 2px;
 }
