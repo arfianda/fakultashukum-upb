@@ -78,10 +78,10 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   ];
 
   const primaryNavItems = [
-    { key: "study", label: "STUDY OF LAW", href: "#akademik" },
-    { key: "admissions", label: "ADMISSIONS & FINANCIAL AID", href: "#pendaftaran" },
-    { key: "faculty", label: "OUR FACULTY", href: "#fakultas" },
-    { key: "studentlife", label: "STUDENT LIFE", href: "#laboratorium" },
+    { key: "study", label: "PROGRAM STUDI HUKUM", href: "#akademik" },
+    { key: "admissions", label: "PENERIMAAN MAHASISWA & BANTUAN BIAYA", href: "#pendaftaran" },
+    { key: "faculty", label: "TENAGA PENGAJAR", href: "#fakultas" },
+    { key: "studentlife", label: "KEHIDUPAN MAHASISWA", href: "#laboratorium" },
   ];
 
   const megaMenuData: Record<
@@ -104,23 +104,23 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     study: {
       featured: {
         image: "/images/hero-library.jpg",
-        title: "Areas of Study",
+        title: "Bidang Peminatan",
         desc: "Temukan peminatan keahlian doktrin dan kemahiran litigasi",
-        linkText: "ACADEMICS",
+        linkText: "AKADEMIK",
         href: "#akademik",
       },
       columns: [
         {
-          heading: "STUDY AT FH UPB",
+          heading: "STUDI DI FH UPB",
           links: [
             { label: "Program Sarjana (S.H.) & Magister (M.H.)", href: "#akademik" },
             { label: "Bidang Peminatan & Konsentrasi", href: "#akademik" },
             { label: "Kurikulum & Silabus Perkuliahan", href: "#akademik" },
-            { label: "Clinical & Experiential Learning", href: "#laboratorium" },
+            { label: "Pembelajaran Klinis & Praktik Peradilan", href: "#laboratorium" },
           ],
         },
         {
-          heading: "PROGRAMS AND RESOURCES",
+          heading: "PROGRAM & SUMBER DAYA",
           links: [
             { label: "Kalender Akademik & Agenda", href: "#agenda" },
             { label: "Profil Mahasiswa & Ikatan Alumni", href: "#alumni" },
@@ -128,7 +128,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           ],
         },
         {
-          heading: "LIBRARY & RESEARCH",
+          heading: "PERPUSTAKAAN & RISET",
           links: [
             { label: "Perpustakaan Hukum UPB", href: "#laboratorium" },
             { label: "Pelita Law Review (SINTA 2)", href: "#riset", external: true },
@@ -141,9 +141,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     admissions: {
       featured: {
         image: "/images/moot-court.jpg",
-        title: "Admissions & Aid",
+        title: "Penerimaan & Bantuan Biaya",
         desc: "Investasi pendidikan hukum berintegritas tanpa pungli",
-        linkText: "APPLY NOW",
+        linkText: "DAFTAR SEKARANG",
         href: "#pendaftaran",
         isAction: true,
       },
@@ -178,9 +178,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     faculty: {
       featured: {
         image: "/images/prof-hendra.jpg",
-        title: "Our Faculty",
+        title: "Tenaga Pengajar",
         desc: "Guru Besar, saksi ahli, dan akademisi terkemuka",
-        linkText: "FACULTY DIRECTORY",
+        linkText: "DIREKTORI DOSEN",
         href: "#fakultas",
       },
       columns: [
@@ -213,9 +213,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     studentlife: {
       featured: {
         image: "/images/alumni-almira.jpg",
-        title: "Student Life",
+        title: "Kehidupan Mahasiswa",
         desc: "Peradilan semu otentik & advokasi keadilan",
-        linkText: "EXPLORE CAMPUS",
+        linkText: "JELAJAHI KAMPUS",
         href: "#laboratorium",
       },
       columns: [
@@ -298,7 +298,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             {/* Info For group */}
             <div className="flex items-center gap-2 font-semibold text-[#800000]">
               <User className="w-4 h-4 fill-[#800000]" />
-              <span>Info For</span>
+              <span>Informasi Untuk</span>
             </div>
 
             {/* Audience Direct Text Links (No dots, spacious text) */}
@@ -404,7 +404,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               onClick={handleCloseMenuImmediate}
               className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
             >
-              <span>CENTERS &amp; WORKSHOPS</span>
+              <span>PUSAT STUDI &amp; LOKAKARYA</span>
               <ChevronRight className="w-3.5 h-3.5 text-[#C5A059]" />
             </a>
 
@@ -416,7 +416,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               onClick={handleCloseMenuImmediate}
               className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
             >
-              <span>NEWS &amp; EVENTS</span>
+              <span>BERITA &amp; KEGIATAN</span>
               <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
             </a>
           </div>
@@ -587,7 +587,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
             >
-              <span>CENTERS &amp; WORKSHOPS</span>
+              <span>PUSAT STUDI &amp; LOKAKARYA</span>
               <ChevronRight className="w-3.5 h-3.5 text-[#C5A059]" />
             </a>
 
@@ -596,14 +596,14 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
             >
-              <span>NEWS &amp; EVENTS</span>
+              <span>BERITA &amp; KEGIATAN</span>
               <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
             </a>
 
             {/* Audience Links */}
             <div className="pt-3 pb-1">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] block mb-2">
-                Info For:
+                Informasi Untuk:
               </span>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 {audienceLinks.map((aud) => (

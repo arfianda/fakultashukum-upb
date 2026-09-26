@@ -481,7 +481,7 @@ export default function AdminDashboardPage() {
 
                 <div>
                   <label className="block text-xs font-semibold text-[#1C1B1B] uppercase mb-1">
-                    Narasumber / Keynote Speaker
+                    Narasumber / Pembicara Utama
                   </label>
                   <input
                     type="text"
