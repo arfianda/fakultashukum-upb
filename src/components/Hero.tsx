@@ -1,48 +1,69 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useRef, useEffect } from "react";
 import { ArrowRight, Pause, Play, ChevronRight } from "lucide-react";
 
 export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        setIsPlaying(false);
+      });
+    }
+  }, []);
 
   const toggleMediaPlayback = () => {
-    setIsPlaying(!isPlaying);
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(() => {});
+      }
+    }
   };
 
   return (
     <section
       id="hero"
-      className="relative min-h-[600px] sm:min-h-[660px] lg:min-h-[740px] flex items-center bg-[#410000] text-white overflow-hidden"
+      className="relative min-h-[600px] sm:min-h-[660px] lg:min-h-[740px] flex items-center bg-black text-white overflow-hidden"
       aria-label="Pusat Keunggulan Pendidikan Hukum"
     >
-      {/* Full-bleed Architectural Campus Photography with Ambient Motion */}
+      {/* Full-bleed Architectural Campus Video Background with Ambient Motion */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <Image
-          src="/images/hero-library.jpg"
-          alt="Gedung Perpustakaan & Laboratorium Fakultas Hukum Universitas Pelita Bangsa"
-          fill
-          priority
-          sizes="100vw"
-          className={`object-cover object-center transition-transform duration-1000 ${
-            isPlaying ? "scale-100" : "scale-105"
-          }`}
-        />
-        {/* Balanced Academic Vignette: clear text contrast while revealing library architecture */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#380000]/80 via-[#4A0000]/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#250000]/65 via-transparent to-black/30" />
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster="/images/hero-library.jpg"
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          className="w-full h-full object-cover object-center"
+        >
+          <source src="/videos/profile-pelita-bangsa.mp4" type="video/mp4" />
+        </video>
+        {/* Yale Law School style black fade: natural vibrant video colors across center/top, soft black fade on bottom/left for crisp typography */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/25 to-transparent pointer-events-none" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
         <div className="max-w-3xl">
           {/* Monumental Editorial Serif Headline (Direct Yale Law School Typographic Scale) */}
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white leading-[1.12] mb-6 text-balance">
+          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white leading-[1.12] mb-6 text-balance drop-shadow-sm">
             Pusat Keunggulan Pendidikan Hukum
           </h1>
 
           {/* Subtitle Statement on Critical Thinking and Legal Intellect */}
-          <p className="text-base sm:text-lg md:text-xl text-[#F3F0EF] font-light leading-relaxed mb-10 max-w-2xl text-pretty">
+          <p className="text-base sm:text-lg md:text-xl text-[#F3F0EF] font-light leading-relaxed mb-10 max-w-2xl text-pretty drop-shadow-xs">
             Di Fakultas Hukum Universitas Pelita Bangsa, mahasiswa menumbuhkan kemahiran berpikir kritis dan independen terhadap doktrin hukum, peradilan, dan tantangan keadilan masyarakat.
           </p>
 
@@ -77,12 +98,12 @@ export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               {isPlaying ? (
                 <>
                   <Pause className="w-3 h-3 fill-white" />
-                  <span>PAUSE</span>
+                  <span>JEDA</span>
                 </>
               ) : (
                 <>
                   <Play className="w-3 h-3 fill-white" />
-                  <span>PLAY</span>
+                  <span>PUTAR</span>
                 </>
               )}
             </button>

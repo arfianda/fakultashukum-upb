@@ -88,7 +88,7 @@ export function AdmissionModal({
               </div>
               <div>
                 <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-bold block">
-                  ADMISSION APPLICATION &bull; 2026/2027
+                  PENDAFTARAN MAHASISWA BARU &bull; 2026/2027
                 </span>
                 <h3 className="font-serif text-xl font-normal text-[#1C1B1B]">
                   Formulir Penerimaan Fakultas Hukum UPB

@@ -37,7 +37,7 @@ export function FacilitiesSection() {
             <div className="relative inline-flex items-center mb-2">
               <div className="absolute inset-0 -m-1 border border-[#E5E1DA] dotted-matrix-bg opacity-45 pointer-events-none" />
               <span className="relative text-[10px] uppercase tracking-widest text-[#800000] font-bold bg-white px-2 py-0.5">
-                STUDENT LIFE &amp; CENTERS &bull; FASILITAS KAMPUS
+                KEHIDUPAN MAHASISWA &amp; PUSAT STUDI &bull; FASILITAS KAMPUS
               </span>
             </div>
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#1C1B1B] font-normal">

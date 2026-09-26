@@ -7,7 +7,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
   const pathways = [
     {
       title: "Pendaftaran & Beasiswa",
-      sub: "ADMISSIONS & AID",
+      sub: "PENERIMAAN & BEASISWA",
       desc: "Informasi penerimaan Sarjana (S.H.) dan Magister (M.H.), jadwal gelombang seleksi, dan beasiswa prestasi.",
       actionText: "Alur Penerimaan",
       action: onOpenAdmission,
@@ -16,7 +16,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
     },
     {
       title: "Kurikulum & Konsentrasi",
-      sub: "STUDY OF LAW",
+      sub: "PROGRAM STUDI HUKUM",
       desc: "Empat pilar peminatan keilmuan: Pidana, Perdata & Bisnis, Tata Negara, serta Hukum Perdagangan Internasional.",
       actionText: "Struktur Kurikulum",
       href: "#akademik",
@@ -24,7 +24,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
     },
     {
       title: "Laboratorium & Fasilitas",
-      sub: "COURT SIMULATION",
+      sub: "SIMULASI PERADILAN",
       desc: "Ruang sidang peradilan semu (Moot Court) elektronik standar Mahkamah Agung dan perpustakaan hukum terlengkap.",
       actionText: "Fasilitas Kampus",
       href: "#laboratorium",
@@ -32,7 +32,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
     },
     {
       title: "Klinik Bantuan Hukum",
-      sub: "LEGAL AID CLINIC",
+      sub: "BANTUAN HUKUM",
       desc: "Pusat advokasi pro-bono dan pembelaan keadilan masyarakat di bawah supervisi praktisi advokat terakreditasi.",
       actionText: "Layanan Advokasi",
       href: "#laboratorium",
