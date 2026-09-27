@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Award, Briefcase, Building, Landmark, Scale } from "lucide-react";
+import { Briefcase, Building, Landmark, Scale } from "lucide-react";
 
 export function AlumniSection() {
   const placementAreas = [

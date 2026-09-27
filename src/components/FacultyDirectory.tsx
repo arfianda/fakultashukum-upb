@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ExternalLink, X, BookOpen, Scale } from "lucide-react";
+import { ExternalLink, X } from "lucide-react";
 import { FacultyItem } from "@/data/initialData";
 
 export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }) {

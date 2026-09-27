@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, Check, Shield, Award, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 export function AdmissionSection({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const steps = [

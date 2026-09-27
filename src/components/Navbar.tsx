@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { User, Search, X, Menu, ChevronRight, ChevronDown, Scale, ExternalLink, ArrowRight } from "lucide-react";
@@ -13,22 +13,22 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const clearTimer = () => {
+  const clearTimer = useCallback(() => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
     }
-  };
+  }, []);
 
   const handleOpenMenu = (key: string) => {
     clearTimer();
     setActiveMegaMenu(key);
   };
 
-  const handleCloseMenuImmediate = () => {
+  const handleCloseMenuImmediate = useCallback(() => {
     clearTimer();
     setActiveMegaMenu(null);
-  };
+  }, [clearTimer]);
 
   const handleScheduleClose = () => {
     clearTimer();
@@ -68,7 +68,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
       window.removeEventListener("scroll", handleScroll);
       clearTimer();
     };
-  }, [searchOpen, mobileMenuOpen, activeMegaMenu]);
+  }, [searchOpen, mobileMenuOpen, activeMegaMenu, handleCloseMenuImmediate, clearTimer]);
 
   const audienceLinks = [
     { label: "Mahasiswa", href: "#laboratorium" },

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   Scale,
@@ -13,8 +13,6 @@ import {
   ShieldCheck,
   LogOut,
   ExternalLink,
-  AlertCircle,
-  Eye,
 } from "lucide-react";
 import { initialPosts, initialEvents, initialFaculty, PostItem, EventItem, FacultyItem } from "@/data/initialData";
 

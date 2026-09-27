@@ -11,6 +11,7 @@ export function AdmissionModal({
   onClose: () => void;
 }) {
   const [submitted, setSubmitted] = useState(false);
+  const [regNumber, setRegNumber] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -36,6 +37,7 @@ export function AdmissionModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setRegNumber(`FH-UPB-2026-${Math.floor(1000 + Math.random() * 9000)}`);
     setSubmitted(true);
   };
 
@@ -68,7 +70,7 @@ export function AdmissionModal({
             <div className="p-4 bg-[#F8F7F4] border border-[#E5E1DA] text-left text-xs text-[#5C5854] space-y-1 mb-6 font-light">
               <p><strong className="font-semibold text-[#1C1B1B]">Program Dipilih:</strong> {formData.program}</p>
               <p><strong className="font-semibold text-[#1C1B1B]">Jalur Pendaftaran:</strong> {formData.scholarship}</p>
-              <p><strong className="font-semibold text-[#1C1B1B]">Nomor Registrasi:</strong> FH-UPB-2026-{Math.floor(1000 + Math.random() * 9000)}</p>
+              <p><strong className="font-semibold text-[#1C1B1B]">Nomor Registrasi:</strong> {regNumber}</p>
             </div>
             <button
               onClick={() => {
