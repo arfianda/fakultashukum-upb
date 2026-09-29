@@ -108,7 +108,7 @@ export function AdmissionModal({
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  placeholder="Contoh: Rian Pratama, S.H."
+                  placeholder="Contoh: Lorem Ipsum, S.H."
                   className="w-full px-3.5 py-2.5 text-xs border border-[#E5E1DA] focus:border-[#800000] bg-[#F8F7F4]"
                 />
               </div>
@@ -155,7 +155,6 @@ export function AdmissionModal({
                   >
                     <option>Sarjana Hukum (S.H.) - Reguler Pagi</option>
                     <option>Sarjana Hukum (S.H.) - Kelas Eksekutif/Karyawan</option>
-                    <option>Magister Ilmu Hukum (M.H.) - Pascasarjana</option>
                     <option>Pendidikan Khusus Profesi Advokat (PKPA)</option>
                   </select>
                 </div>

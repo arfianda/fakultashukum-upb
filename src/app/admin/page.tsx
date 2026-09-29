@@ -580,7 +580,7 @@ export default function AdminDashboardPage() {
                     required
                     value={newFacultyName}
                     onChange={(e) => setNewFacultyName(e.target.value)}
-                    placeholder="Contoh: Dr. Farhan Siregar, S.H., M.H."
+                    placeholder="Contoh: Prof. Dr. Lorem Ipsum, S.H., M.H."
                     className="w-full px-3 py-2 text-xs border border-[#E5E1DA] focus:border-[#800000] bg-[#FCF9F8]"
                   />
                 </div>

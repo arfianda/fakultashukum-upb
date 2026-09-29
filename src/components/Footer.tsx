@@ -25,7 +25,7 @@ export function Footer() {
             </div>
 
             <p className="text-xs text-[#E5E2E1] leading-relaxed mb-6 max-w-sm font-light">
-              Mendidik calon sarjana dan magister hukum yang berintegritas moral luhur, menguasai kemahiran litigasi ruang sidang, serta berdaya saing global demi tegaknya keadilan dan supremasi hukum.
+              Mendidik calon sarjana hukum yang berintegritas moral luhur, menguasai kemahiran litigasi ruang sidang, serta berdaya saing global demi tegaknya keadilan dan supremasi hukum.
             </p>
 
             <div className="space-y-2.5 text-xs text-[#E5E2E1] font-light">
@@ -62,11 +62,6 @@ export function Footer() {
               </li>
               <li>
                 <a href="#akademik" className="hover:text-[#C5A059] hover:underline transition-colors">
-                  Magister Ilmu Hukum (M.H.)
-                </a>
-              </li>
-              <li>
-                <a href="#akademik" className="hover:text-[#C5A059] hover:underline transition-colors">
                   Pendidikan Advokat (PKPA)
                 </a>
               </li>
@@ -90,22 +85,28 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-[#E5E2E1] font-light">
               <li>
-                <a href="#riset" className="hover:text-[#C5A059] hover:underline transition-colors">
-                  Pelita Law Review (SINTA 2)
+                <a
+                  href="https://journal.pelitabangsa.ac.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#C5A059] hover:underline transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Pelita Law Review (SINTA 2)</span>
+                  <ExternalLink className="w-3 h-3 text-[#E8D8B0]" />
                 </a>
               </li>
               <li>
-                <a href="#laboratorium" className="hover:text-[#C5A059] hover:underline transition-colors">
+                <a href="#fasilitas" className="hover:text-[#C5A059] hover:underline transition-colors">
                   Laboratorium Peradilan Semu
                 </a>
               </li>
               <li>
-                <a href="#laboratorium" className="hover:text-[#C5A059] hover:underline transition-colors">
+                <a href="#fasilitas" className="hover:text-[#C5A059] hover:underline transition-colors">
                   Klinik Bantuan Hukum (KBH)
                 </a>
               </li>
               <li>
-                <a href="#riset" className="hover:text-[#C5A059] hover:underline transition-colors">
+                <a href="#fasilitas" className="hover:text-[#C5A059] hover:underline transition-colors">
                   Pusat Kajian Konstitusi &amp; HAM
                 </a>
               </li>

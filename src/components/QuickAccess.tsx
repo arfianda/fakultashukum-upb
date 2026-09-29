@@ -8,7 +8,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
     {
       title: "Pendaftaran & Beasiswa",
       sub: "PENERIMAAN & BEASISWA",
-      desc: "Informasi penerimaan Sarjana (S.H.) dan Magister (M.H.), jadwal gelombang seleksi, dan beasiswa prestasi.",
+      desc: "Informasi penerimaan Sarjana Hukum (S.H.) kelas Reguler dan Karyawan, jadwal gelombang seleksi, serta beasiswa.",
       actionText: "Alur Penerimaan",
       action: onOpenAdmission,
       href: "#pendaftaran",

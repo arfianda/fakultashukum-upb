@@ -4,14 +4,24 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { User, Search, X, Menu, ChevronRight, ChevronDown, Scale, ExternalLink, ArrowRight } from "lucide-react";
+import { AudiencePortalModal, AudienceType } from "@/components/AudiencePortalModal";
 
 export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const [audienceModalOpen, setAudienceModalOpen] = useState(false);
+  const [audienceTab, setAudienceTab] = useState<AudienceType>("mahasiswa");
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleOpenAudience = (tab: AudienceType) => {
+    setAudienceTab(tab);
+    setAudienceModalOpen(true);
+    handleCloseMenuImmediate();
+    setMobileMenuOpen(false);
+  };
 
   const clearTimer = useCallback(() => {
     if (closeTimerRef.current) {
@@ -70,18 +80,18 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     };
   }, [searchOpen, mobileMenuOpen, activeMegaMenu, handleCloseMenuImmediate, clearTimer]);
 
-  const audienceLinks = [
-    { label: "Mahasiswa", href: "#laboratorium" },
-    { label: "Dosen", href: "#fakultas" },
-    { label: "Staf", href: "#laboratorium" },
-    { label: "Alumni", href: "#alumni" },
+  const audienceList: { key: AudienceType; label: string }[] = [
+    { key: "mahasiswa", label: "Mahasiswa" },
+    { key: "dosen", label: "Dosen" },
+    { key: "staf", label: "Staf" },
+    { key: "alumni", label: "Alumni" },
   ];
 
   const primaryNavItems = [
     { key: "study", label: "PROGRAM STUDI HUKUM", href: "#akademik" },
     { key: "admissions", label: "PENERIMAAN MAHASISWA & BANTUAN BIAYA", href: "#pendaftaran" },
     { key: "faculty", label: "TENAGA PENGAJAR", href: "#fakultas" },
-    { key: "studentlife", label: "KEHIDUPAN MAHASISWA", href: "#laboratorium" },
+    { key: "studentlife", label: "KEHIDUPAN MAHASISWA", href: "#kehidupan-mahasiswa" },
   ];
 
   const megaMenuData: Record<
@@ -113,10 +123,10 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         {
           heading: "STUDI DI FH UPB",
           links: [
-            { label: "Program Sarjana (S.H.) & Magister (M.H.)", href: "#akademik" },
-            { label: "Bidang Peminatan & Konsentrasi", href: "#akademik" },
+            { label: "Program Sarjana Hukum (S.H.)", href: "#akademik" },
+            { label: "Bidang Peminatan & Konsentrasi", href: "#konsentrasi" },
             { label: "Kurikulum & Silabus Perkuliahan", href: "#akademik" },
-            { label: "Pembelajaran Klinis & Praktik Peradilan", href: "#laboratorium" },
+            { label: "Pembelajaran Klinis & Praktik Peradilan", href: "#fasilitas" },
           ],
         },
         {
@@ -130,10 +140,10 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         {
           heading: "PERPUSTAKAAN & RISET",
           links: [
-            { label: "Perpustakaan Hukum UPB", href: "#laboratorium" },
-            { label: "Pelita Law Review (SINTA 2)", href: "#riset", external: true },
-            { label: "Repositori Putusan MK & MA", href: "#riset" },
-            { label: "Koleksi Yurisprudensi Nasional", href: "#riset" },
+            { label: "Perpustakaan Hukum UPB", href: "#fasilitas" },
+            { label: "Pelita Law Review (SINTA 2)", href: "https://journal.pelitabangsa.ac.id", external: true },
+            { label: "Repositori Putusan MK & MA", href: "#berita" },
+            { label: "Koleksi Yurisprudensi Nasional", href: "#berita" },
           ],
         },
       ],
@@ -153,7 +163,6 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           links: [
             { label: "Sarjana Hukum (S.H.) Reguler Pagi", href: "#pendaftaran" },
             { label: "Sarjana Hukum Kelas Karyawan", href: "#pendaftaran" },
-            { label: "Magister Ilmu Hukum (M.H.)", href: "#pendaftaran" },
             { label: "Pendidikan Profesi Advokat (PKPA)", href: "#pendaftaran" },
           ],
         },
@@ -187,8 +196,8 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         {
           heading: "DEWAN GURU BESAR",
           links: [
-            { label: "Prof. Dr. Hendra Gunawan, S.H., LL.M.", href: "#fakultas" },
-            { label: "Prof. Dr. Amaliah Hidayat, S.H., M.H.", href: "#fakultas" },
+            { label: "Prof. Dr. Lorem Ipsum, S.H., LL.M.", href: "#fakultas" },
+            { label: "Prof. Dr. Dolor Sit Amet, S.H., M.H.", href: "#fakultas" },
             { label: "Dewan Pengajar & Praktisi Litigasi", href: "#fakultas" },
           ],
         },
@@ -205,7 +214,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           links: [
             { label: "Repositori SINTA Kemdikbud", href: "https://sinta.kemdikbud.go.id", external: true },
             { label: "Keterangan Saksi Ahli Persidangan", href: "#fakultas" },
-            { label: "Pusat Kajian Konstitusi & HAM", href: "#riset" },
+            { label: "Pusat Kajian Konstitusi & HAM", href: "#fasilitas" },
           ],
         },
       ],
@@ -216,32 +225,32 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         title: "Kehidupan Mahasiswa",
         desc: "Peradilan semu otentik & advokasi keadilan",
         linkText: "JELAJAHI KAMPUS",
-        href: "#laboratorium",
+        href: "#kehidupan-mahasiswa",
       },
       columns: [
         {
           heading: "LABORATORIUM PERADILAN",
           links: [
-            { label: "Ruang Sidang Utama Moot Court", href: "#laboratorium" },
-            { label: "Simulator E-Court Mahkamah Agung", href: "#laboratorium" },
-            { label: "Klinik Advokasi & Mediasi KBH", href: "#laboratorium" },
+            { label: "Ruang Sidang Utama Moot Court", href: "#fasilitas" },
+            { label: "Simulator E-Court Mahkamah Agung", href: "#fasilitas" },
+            { label: "Klinik Advokasi & Mediasi KBH", href: "#fasilitas" },
           ],
         },
         {
           heading: "ORGANISASI MAHASISWA",
           links: [
-            { label: "Moot Court Society (MCS) UPB", href: "#laboratorium" },
-            { label: "Dewan Eksekutif Mahasiswa (DEMA)", href: "#laboratorium" },
-            { label: "Klinik Bantuan Hukum Mahasiswa", href: "#laboratorium" },
-            { label: "Lembaga Debat Konstitusi", href: "#laboratorium" },
+            { label: "Moot Court Society (MCS) UPB", href: "#kehidupan-mahasiswa" },
+            { label: "Dewan Eksekutif Mahasiswa (DEMA)", href: "#kehidupan-mahasiswa" },
+            { label: "Klinik Bantuan Hukum Mahasiswa", href: "#fasilitas" },
+            { label: "Lembaga Debat Konstitusi", href: "#kehidupan-mahasiswa" },
           ],
         },
         {
           heading: "KIPRAH & ALUMNI",
           links: [
-            { label: "Delegasi NMCC Tingkat Nasional", href: "#riset" },
+            { label: "Delegasi NMCC Tingkat Nasional", href: "#kehidupan-mahasiswa" },
             { label: "Ikatan Alumni Fakultas Hukum", href: "#alumni" },
-            { label: "Layanan Bantuan Hukum Pro-Bono", href: "#laboratorium" },
+            { label: "Layanan Bantuan Hukum Pro-Bono", href: "#fasilitas" },
           ],
         },
       ],
@@ -301,17 +310,17 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               <span>Informasi Untuk</span>
             </div>
 
-            {/* Audience Direct Text Links (No dots, spacious text) */}
+            {/* Audience Direct Action Buttons (clean modal triggers, no url bar pollution) */}
             <div className="flex items-center space-x-6 text-[#1C1B1B]">
-              {audienceLinks.map((aud) => (
-                <a
-                  key={aud.label}
-                  href={aud.href}
-                  onClick={handleCloseMenuImmediate}
-                  className="hover:text-[#800000] transition-colors"
+              {audienceList.map((aud) => (
+                <button
+                  key={aud.key}
+                  type="button"
+                  onClick={() => handleOpenAudience(aud.key)}
+                  className="hover:text-[#800000] transition-colors cursor-pointer font-medium focus:outline-none focus-visible:underline"
                 >
                   {aud.label}
-                </a>
+                </button>
               ))}
             </div>
 
@@ -399,7 +408,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           {/* Right Secondary Nav Links (Caret items directly matching Yale Law School) */}
           <div className="flex items-center space-x-6 text-xs font-bold uppercase tracking-wider text-[#800000]">
             <a
-              href="#laboratorium"
+              href="#fasilitas"
               onMouseEnter={handleCloseMenuImmediate}
               onClick={handleCloseMenuImmediate}
               className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
@@ -411,7 +420,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             <span className="text-[#E5E1DA] font-normal">|</span>
 
             <a
-              href="#riset"
+              href="#berita"
               onMouseEnter={handleCloseMenuImmediate}
               onClick={handleCloseMenuImmediate}
               className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
@@ -550,9 +559,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               <p className="font-semibold text-[#800000] mb-1">Hasil Pencarian Cepat:</p>
               <div className="space-y-1">
                 <a href="#akademik" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
-                  &bull; Program Sarjana Hukum (S.H.) &amp; Magister Hukum (M.H.)
+                  &bull; Program Sarjana Hukum (S.H.) Reguler &amp; Kelas Karyawan
                 </a>
-                <a href="#riset" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
+                <a href="#berita" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
                   &bull; Publikasi Jurnal Ilmiah Pelita Law Review &amp; Wacana Putusan MK
                 </a>
                 <a href="#fakultas" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
@@ -583,7 +592,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
             {/* Secondary Nav Items */}
             <a
-              href="#laboratorium"
+              href="#fasilitas"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
             >
@@ -592,7 +601,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             </a>
 
             <a
-              href="#riset"
+              href="#berita"
               onClick={() => setMobileMenuOpen(false)}
               className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
             >
@@ -603,18 +612,19 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             {/* Audience Links */}
             <div className="pt-3 pb-1">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] block mb-2">
-                Informasi Untuk:
+                Informasi Layanan Terpadu:
               </span>
               <div className="grid grid-cols-2 gap-2 text-xs">
-                {audienceLinks.map((aud) => (
-                  <a
-                    key={aud.label}
-                    href={aud.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 bg-[#F8F7F4] border border-[#E5E1DA] text-[#1C1B1B] hover:text-[#800000] font-medium"
+                {audienceList.map((aud) => (
+                  <button
+                    key={aud.key}
+                    type="button"
+                    onClick={() => handleOpenAudience(aud.key)}
+                    className="p-2.5 bg-[#F8F7F4] border border-[#E5E1DA] text-[#1C1B1B] hover:text-[#800000] hover:border-[#800000] font-medium text-left transition-colors flex items-center justify-between cursor-pointer"
                   >
-                    {aud.label}
-                  </a>
+                    <span>{aud.label}</span>
+                    <ChevronRight className="w-3.5 h-3.5 text-[#C5A059]" />
+                  </button>
                 ))}
               </div>
             </div>
@@ -634,6 +644,12 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           </nav>
         </div>
       )}
+      {/* Audience Service Portal Modal */}
+      <AudiencePortalModal
+        isOpen={audienceModalOpen}
+        initialTab={audienceTab}
+        onClose={() => setAudienceModalOpen(false)}
+      />
     </header>
   );
 }
