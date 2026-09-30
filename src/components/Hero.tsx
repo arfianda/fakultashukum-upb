@@ -50,12 +50,18 @@ export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         >
           <source src="/videos/profile-pelita-bangsa.mp4" type="video/mp4" />
         </video>
-        {/* Yale Law School style black fade: natural vibrant video colors across center/top, soft black fade on bottom/left for crisp typography */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/25 to-transparent pointer-events-none" />
+        {/* Subtle multi-stop dark gradient overlay ensuring heading remains legible over video text */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.65))",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 sm:pt-40 lg:pt-48 pb-20 lg:pb-28 w-full">
         <div className="max-w-3xl">
           {/* Monumental Editorial Serif Headline (Direct Yale Law School Typographic Scale) */}
           <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-normal tracking-tight text-white leading-[1.12] mb-6 text-balance drop-shadow-sm">
