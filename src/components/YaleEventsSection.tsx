@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, MapPin, Clock, User, X, CheckCircle } from "lucide-react";
 import { EventItem } from "@/data/initialData";
 
@@ -48,22 +50,27 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
         </div>
 
         {/* Right Action Link (Direct match to "All Events ->" in Yale screenshot) */}
-        <a
-          href="#agenda"
+        <Link
+          href="/agenda"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#800000] hover:text-[#570000] group transition-colors"
         >
           <span>Semua Agenda</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#C5A059]" />
-        </a>
+        </Link>
       </div>
 
       {/* Yale 3-Column x 2-Row Events Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
-        {displayEvents.map((evt) => {
+        {displayEvents.map((evt, idx) => {
           const { day, month } = parseEventDate(evt.eventDate);
           return (
-            <article
+            <motion.article
               key={evt.id}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-20px" }}
+              whileHover={{ y: -3, transition: { duration: 0.18 } }}
+              transition={{ duration: 0.4, delay: (idx % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => {
                 setSelectedEvent(evt);
                 setRegistered(false);
@@ -92,73 +99,90 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
                   {evt.badge}
                 </span>
               </div>
-            </article>
+            </motion.article>
           );
         })}
       </div>
 
       {/* Event Registration & Detail Modal */}
-      {selectedEvent && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs"
-        >
-          <div className="bg-white max-w-lg w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
-            <button
+      <AnimatePresence>
+        {selectedEvent && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setSelectedEvent(null)}
-              className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
-              aria-label="Tutup rincian kegiatan"
+              className="fixed inset-0 bg-black/70 backdrop-blur-xs"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-white max-w-lg w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto z-10"
             >
-              <X className="w-5 h-5" />
-            </button>
-
-            <span className="text-[11px] uppercase tracking-widest text-[#800000] font-bold block mb-2">
-              {selectedEvent.badge} &bull; {selectedEvent.eventDate}
-            </span>
-
-            <h3 className="font-serif text-xl sm:text-2xl text-[#1C1B1B] font-normal mb-4 leading-snug">
-              {selectedEvent.title}
-            </h3>
-
-            <div className="space-y-2 mb-6 p-4 bg-[#F8F7F4] border border-[#E5E1DA] text-xs text-[#5C5854]">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#800000] shrink-0" />
-                <span>{selectedEvent.time}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#800000] shrink-0" />
-                <span>{selectedEvent.location}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-[#800000] shrink-0" />
-                <span>Narasumber: <strong className="text-[#1C1B1B]">{selectedEvent.speaker}</strong></span>
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed mb-6 font-light">
-              {selectedEvent.description}
-            </p>
-
-            {registered ? (
-              <div className="p-4 bg-[#F8F7F4] border border-[#800000] text-center mb-4">
-                <CheckCircle className="w-6 h-6 text-[#800000] mx-auto mb-2" />
-                <p className="text-xs font-bold text-[#1C1B1B]">Konfirmasi Kehadiran Berhasil</p>
-                <p className="text-[11px] text-[#5C5854] font-light">
-                  Akses ruangan &amp; tautan Zoom telah disiapkan untuk agenda ini.
-                </p>
-              </div>
-            ) : (
               <button
-                onClick={() => setRegistered(true)}
-                className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000] transition-colors"
+                onClick={() => setSelectedEvent(null)}
+                className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4] cursor-pointer"
+                aria-label="Tutup rincian kegiatan"
               >
-                Konfirmasi Kehadiran (Gratis)
+                <X className="w-5 h-5" />
               </button>
-            )}
+
+              <span className="text-[11px] uppercase tracking-widest text-[#800000] font-bold block mb-2">
+                {selectedEvent.badge} &bull; {selectedEvent.eventDate}
+              </span>
+
+              <h3 className="font-serif text-xl sm:text-2xl text-[#1C1B1B] font-normal mb-4 leading-snug">
+                {selectedEvent.title}
+              </h3>
+
+              <div className="space-y-2 mb-6 p-4 bg-[#F8F7F4] border border-[#E5E1DA] text-xs text-[#5C5854]">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#800000] shrink-0" />
+                  <span>{selectedEvent.time}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#800000] shrink-0" />
+                  <span>{selectedEvent.location}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-[#800000] shrink-0" />
+                  <span>Narasumber: <strong className="text-[#1C1B1B]">{selectedEvent.speaker}</strong></span>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed mb-6 font-light">
+                {selectedEvent.description}
+              </p>
+
+              {registered ? (
+                <div className="p-4 bg-[#F8F7F4] border border-[#800000] text-center mb-4">
+                  <CheckCircle className="w-6 h-6 text-[#800000] mx-auto mb-2" />
+                  <p className="text-xs font-bold text-[#1C1B1B]">Konfirmasi Kehadiran Berhasil</p>
+                  <p className="text-[11px] text-[#5C5854] font-light">
+                    Akses ruangan &amp; tautan Zoom telah disiapkan untuk agenda ini.
+                  </p>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setRegistered(true)}
+                  className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000] transition-colors cursor-pointer"
+                >
+                  Konfirmasi Kehadiran (Gratis)
+                </button>
+              )}
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 }

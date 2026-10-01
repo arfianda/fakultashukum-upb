@@ -22,10 +22,10 @@ export function FacilitiesSection() {
   ];
 
   const studentOrgs = [
-    { name: "Moot Court Society (MCS) UPB", role: "Organisasi Kompetisi Peradilan Semu Nasional" },
-    { name: "Dewan Eksekutif Mahasiswa (DEMA) FH", role: "Lembaga Eksekutif Tata Kelola Mahasiswa" },
-    { name: "Klinik Bantuan Hukum Mahasiswa (KBHM)", role: "Unit Advokasi Hukum & Pengabdian Sosial" },
-    { name: "Lembaga Kajian & Debat Konstitusi", role: "Komunitas Riset Doktrin Ketatanegaraan" },
+    { name: "Organisasi Mahasiswa I (Lorem Ipsum)", role: "Wadah kegiatan & pengembangan kepemimpinan mahasiswa (Placeholder)" },
+    { name: "Organisasi Mahasiswa II (Lorem Ipsum)", role: "Wadah penalaran & kajian hukum mahasiswa (Placeholder)" },
+    { name: "Organisasi Mahasiswa III (Lorem Ipsum)", role: "Wadah advokasi aspirasi & pengabdian sosial (Placeholder)" },
+    { name: "Komunitas Mahasiswa (Lorem Ipsum)", role: "Forum riset & kompetisi kemahasiswaan (Placeholder)" },
   ];
 
   return (

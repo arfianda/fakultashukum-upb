@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   GraduationCap,
   BookOpen,
@@ -46,6 +48,7 @@ export function AudiencePortalModal({
   onClose,
   onNavigateAnchor,
 }: AudiencePortalModalProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<AudienceType>(initialTab);
   const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
 
@@ -63,8 +66,6 @@ export function AudiencePortalModal({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
 
   const tabConfigs: Record<
     AudienceType,
@@ -123,11 +124,11 @@ export function AudiencePortalModal({
           id: "moot-court-mhs",
           badge: "Laboratorium Sidang",
           title: "Peradilan Semu & Klinik Hukum",
-          subtitle: "Moot Court Society & LKBH",
+          subtitle: "Praktik Sidang & Klinik Hukum",
           description:
             "Jadwal persidangan semu, bimbingan berkas perkara perdata/pidana, serta kegiatan delegasi lomba nasional NMCC.",
           icon: Scale,
-          anchor: "#fasilitas",
+          href: "/pusat-studi/laboratorium-peradilan-semu",
           actionText: "Jelajahi Fasilitas Sidang",
         },
         {
@@ -150,7 +151,7 @@ export function AudiencePortalModal({
           description:
             "Informasi beasiswa prestasi akademik IPK ≥ 3.75, tahfiz Al-Qur'an 10+ Juz, dan skema angsuran biaya pendidikan bebas uang gedung.",
           icon: Award,
-          anchor: "#pendaftaran",
+          href: "/penerimaan/beasiswa",
           actionText: "Info Beasiswa",
         },
       ],
@@ -230,7 +231,7 @@ export function AudiencePortalModal({
           description:
             "Lihat profil publik kepakaran, riwayat pendidikan hukum, dan kontak riset Dewan Guru Besar Fakultas Hukum di website.",
           icon: Users,
-          anchor: "#fakultas",
+          href: "/dosen",
           actionText: "Lihat Direktori Dosen",
         },
       ],
@@ -274,7 +275,7 @@ export function AudiencePortalModal({
           description:
             "Pemesanan dan pemeliharaan ruang sidang peradilan semu (Moot Court), auditorium, perlengkapan sidang elektronik, dan studio klinis.",
           icon: Scale,
-          anchor: "#fasilitas",
+          href: "/pusat-studi/laboratorium-peradilan-semu",
           actionText: "Cek Fasilitas Sidang",
         },
         {
@@ -341,7 +342,7 @@ export function AudiencePortalModal({
           description:
             "Simak profil rekam jejak lulusan di Mahkamah Agung, Kejaksaan, Law Firm terkemuka, dan korporasi kawasan industri.",
           icon: Award,
-          anchor: "#alumni",
+          href: "/tentang/alumni",
           actionText: "Lihat Kiprah Alumni",
         },
         {
@@ -363,7 +364,14 @@ export function AudiencePortalModal({
   const currentTabConfig = tabConfigs[activeTab];
 
   const handleAction = (item: PortalServiceItem) => {
-    if (item.anchor) {
+    if (item.href) {
+      if (item.isExternal) {
+        window.open(item.href, "_blank", "noopener,noreferrer");
+      } else {
+        onClose();
+        router.push(item.href);
+      }
+    } else if (item.anchor) {
       onClose();
       if (onNavigateAnchor) {
         onNavigateAnchor(item.anchor);
@@ -373,158 +381,178 @@ export function AudiencePortalModal({
           el.scrollIntoView({ behavior: "smooth" });
         }
       }
-    } else if (item.href) {
-      if (item.isExternal) {
-        window.open(item.href, "_blank", "noopener,noreferrer");
-      } else {
-        window.location.assign(item.href);
-      }
     }
   };
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fadeIn"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="audience-modal-title"
-    >
-      {/* Dark Academic Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Modal Dialog Content Container */}
-      <div className="relative bg-[#F8F7F4] border border-[#E5E1DA] shadow-2xl w-full max-w-4xl my-8 z-10 flex flex-col max-h-[90vh]">
-        {/* Header with Academic Branding */}
-        <div className="bg-[#800000] text-white px-6 sm:px-8 py-5 border-b border-[#570000] flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-11 border border-white/25 bg-[#570000] flex flex-col items-center justify-center shrink-0">
-              <Scale className="w-5 h-5 text-white stroke-[1.75]" />
-              <div className="h-0.5 w-5 bg-[#C5A059] mt-0.5" />
-            </div>
-            <div>
-              <p className="text-[10px] tracking-widest uppercase text-[#E8D8B0] font-semibold">
-                Fakultas Hukum Universitas Pelita Bangsa
-              </p>
-              <h2 id="audience-modal-title" className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white leading-tight">
-                Portal Informasi &amp; Layanan Terpadu
-              </h2>
-            </div>
-          </div>
-
-          <button
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="audience-modal-title"
+        >
+          {/* Dark Academic Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/75 backdrop-blur-xs"
             onClick={onClose}
-            className="p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            aria-label="Tutup jendela portal"
+            aria-hidden="true"
+          />
+
+          {/* Modal Dialog Content Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            className="relative bg-[#F8F7F4] border border-[#E5E1DA] shadow-2xl w-full max-w-4xl my-8 z-10 flex flex-col max-h-[90vh]"
           >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Audience Tab Navigation Bar */}
-        <div className="bg-white border-b border-[#E5E1DA] px-6 sm:px-8 flex flex-wrap gap-2 pt-3 shrink-0">
-          {(["mahasiswa", "dosen", "staf", "alumni"] as AudienceType[]).map((tabKey) => {
-            const tab = tabConfigs[tabKey];
-            const Icon = tab.icon;
-            const isActive = activeTab === tabKey;
-            return (
-              <button
-                key={tabKey}
-                onClick={() => setActiveTab(tabKey)}
-                className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all border-b-2 -mb-[2px] ${
-                  isActive
-                    ? "border-[#800000] text-[#800000] bg-[#F8F7F4]/80"
-                    : "border-transparent text-[#5C5854] hover:text-[#1C1B1B] hover:border-[#E5E1DA]"
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? "text-[#800000]" : "text-[#5C5854]"}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Tab Header Description */}
-        <div className="px-6 sm:px-8 pt-5 pb-3 border-b border-[#E5E1DA]/60 bg-white/50 shrink-0">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <h3 className="font-serif text-xl sm:text-2xl text-[#1C1B1B] font-bold">
-                {currentTabConfig.title}
-              </h3>
-              <p className="text-xs text-[#5C5854] mt-1 leading-relaxed max-w-2xl font-light">
-                {currentTabConfig.description}
-              </p>
-            </div>
-            <span className="self-start sm:self-center text-[10px] font-bold uppercase tracking-wider text-[#800000] bg-[#800000]/10 border border-[#800000]/20 px-2.5 py-1">
-              {currentTabConfig.services.length} Layanan Tersedia
-            </span>
-          </div>
-        </div>
-
-        {/* Scrollable Services Grid */}
-        <div className="p-6 sm:p-8 overflow-y-auto space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {currentTabConfig.services.map((svc) => {
-              const Icon = svc.icon;
-              return (
-                <div
-                  key={svc.id}
-                  className="bg-white border border-[#E5E1DA] hover:border-[#800000] transition-colors p-5 flex flex-col justify-between group shadow-2xs"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="w-9 h-9 border border-[#800000]/20 bg-[#F8F7F4] flex items-center justify-center text-[#800000] group-hover:bg-[#800000] group-hover:text-white transition-colors">
-                        <Icon className="w-4 h-4 stroke-[1.75]" />
-                      </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F8F7F4] border border-[#E5E1DA] text-[#5C5854]">
-                        {svc.badge}
-                      </span>
-                    </div>
-
-                    <h4 className="font-serif text-base sm:text-lg font-bold text-[#1C1B1B] group-hover:text-[#800000] transition-colors leading-snug">
-                      {svc.title}
-                    </h4>
-                    <p className="text-[11px] font-medium text-[#C5A059] mb-2 uppercase tracking-wide">
-                      {svc.subtitle}
-                    </p>
-                    <p className="text-xs text-[#5C5854] leading-relaxed mb-4 font-light">
-                      {svc.description}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => handleAction(svc)}
-                    className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold uppercase tracking-wider bg-[#F8F7F4] hover:bg-[#800000] text-[#1C1B1B] hover:text-white border border-[#E5E1DA] hover:border-[#800000] transition-all cursor-pointer"
-                  >
-                    <span>{svc.actionText}</span>
-                    {svc.isExternal ? (
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    ) : (
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    )}
-                  </button>
+            {/* Header with Academic Branding */}
+            <div className="bg-[#800000] text-white px-6 sm:px-8 py-5 border-b border-[#570000] flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-11 border border-white/25 bg-[#570000] flex flex-col items-center justify-center shrink-0">
+                  <Scale className="w-5 h-5 text-white stroke-[1.75]" />
+                  <div className="h-0.5 w-5 bg-[#C5A059] mt-0.5" />
                 </div>
-              );
-            })}
-          </div>
-        </div>
+                <div>
+                  <p className="text-[10px] tracking-widest uppercase text-[#E8D8B0] font-semibold">
+                    Fakultas Hukum Universitas Pelita Bangsa
+                  </p>
+                  <h2 id="audience-modal-title" className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white leading-tight">
+                    Portal Informasi &amp; Layanan Terpadu
+                  </h2>
+                </div>
+              </div>
 
-        {/* Footer Technical Support Notice */}
-        <div className="bg-[#EFECE6] border-t border-[#E5E1DA] px-6 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#5C5854] shrink-0">
-          <div className="flex items-center gap-2">
-            <HelpCircle className="w-4 h-4 text-[#800000] shrink-0" />
-            <span>
-              Kendala akses akun SIAKAD / Edlink? Hubungi <strong>Helpdesk BAAK &amp; Biro ICT UPB</strong>
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-[11px] font-medium text-[#800000]">
-            <span>Senin - Sabtu (08:00 - 17:00 WIB)</span>
-          </div>
+              <button
+                onClick={onClose}
+                className="p-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                aria-label="Tutup jendela portal"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Audience Tab Navigation Bar */}
+            <div className="bg-white border-b border-[#E5E1DA] px-6 sm:px-8 flex flex-wrap gap-2 pt-3 shrink-0">
+              {(["mahasiswa", "dosen", "staf", "alumni"] as AudienceType[]).map((tabKey) => {
+                const tab = tabConfigs[tabKey];
+                const Icon = tab.icon;
+                const isActive = activeTab === tabKey;
+                return (
+                  <button
+                    key={tabKey}
+                    onClick={() => setActiveTab(tabKey)}
+                    className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all border-b-2 -mb-[2px] ${
+                      isActive
+                        ? "border-[#800000] text-[#800000] bg-[#F8F7F4]/80"
+                        : "border-transparent text-[#5C5854] hover:text-[#1C1B1B] hover:border-[#E5E1DA]"
+                    }`}
+                  >
+                    <Icon className={`w-4 h-4 ${isActive ? "text-[#800000]" : "text-[#5C5854]"}`} />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab Header & Services with Animated Transitions */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: "easeOut" }}
+                className="flex-1 flex flex-col min-h-0 overflow-hidden"
+              >
+                {/* Tab Header Description */}
+                <div className="px-6 sm:px-8 pt-5 pb-3 border-b border-[#E5E1DA]/60 bg-white/50 shrink-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="font-serif text-xl sm:text-2xl text-[#1C1B1B] font-bold">
+                        {currentTabConfig.title}
+                      </h3>
+                      <p className="text-xs text-[#5C5854] mt-1 leading-relaxed max-w-2xl font-light">
+                        {currentTabConfig.description}
+                      </p>
+                    </div>
+                    <span className="self-start sm:self-center text-[10px] font-bold uppercase tracking-wider text-[#800000] bg-[#800000]/10 border border-[#800000]/20 px-2.5 py-1">
+                      {currentTabConfig.services.length} Layanan Tersedia
+                    </span>
+                  </div>
+                </div>
+
+                {/* Scrollable Services Grid */}
+                <div className="p-6 sm:p-8 overflow-y-auto space-y-4 flex-1">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {currentTabConfig.services.map((svc) => {
+                      const Icon = svc.icon;
+                      return (
+                        <div
+                          key={svc.id}
+                          className="bg-white border border-[#E5E1DA] hover:border-[#800000] transition-colors p-5 flex flex-col justify-between group shadow-2xs"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="w-9 h-9 border border-[#800000]/20 bg-[#F8F7F4] flex items-center justify-center text-[#800000] group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                                <Icon className="w-4 h-4 stroke-[1.75]" />
+                              </div>
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F8F7F4] border border-[#E5E1DA] text-[#5C5854]">
+                                {svc.badge}
+                              </span>
+                            </div>
+
+                            <h4 className="font-serif text-base sm:text-lg font-bold text-[#1C1B1B] group-hover:text-[#800000] transition-colors leading-snug">
+                              {svc.title}
+                            </h4>
+                            <p className="text-[11px] font-medium text-[#C5A059] mb-2 uppercase tracking-wide">
+                              {svc.subtitle}
+                            </p>
+                            <p className="text-xs text-[#5C5854] leading-relaxed mb-4 font-light">
+                              {svc.description}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => handleAction(svc)}
+                            className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold uppercase tracking-wider bg-[#F8F7F4] hover:bg-[#800000] text-[#1C1B1B] hover:text-white border border-[#E5E1DA] hover:border-[#800000] transition-all cursor-pointer"
+                          >
+                            <span>{svc.actionText}</span>
+                            {svc.isExternal ? (
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            ) : (
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Footer Technical Support Notice */}
+            <div className="bg-[#EFECE6] border-t border-[#E5E1DA] px-6 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#5C5854] shrink-0">
+              <div className="flex items-center gap-2">
+                <HelpCircle className="w-4 h-4 text-[#800000] shrink-0" />
+                <span>
+                  Kendala akses akun SIAKAD / Edlink? Hubungi <strong>Helpdesk BAAK &amp; Biro ICT UPB</strong>
+                </span>
+              </div>
+              <div className="flex items-center gap-4 text-[11px] font-medium text-[#800000]">
+                <span>Senin - Sabtu (08:00 - 17:00 WIB)</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 }

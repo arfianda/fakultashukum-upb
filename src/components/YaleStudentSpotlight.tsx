@@ -19,7 +19,7 @@ export function YaleStudentSpotlight() {
       id: "rian",
       name: "Lorem Ipsum",
       classYear: "S.H. '25",
-      role: "Ketua Delegasi Moot Court Society UPB",
+      role: "Mahasiswa Berprestasi (Lorem Ipsum)",
       title: "Pandangan Mahasiswa: Kemahiran Litigasi Nyata di Ruang Sidang Semu",
       quote:
         "Di Fakultas Hukum UPB, kami tidak sekadar menghafal pasal-pasal undang-undang, melainkan dilatih langsung bersidang, menyusun memori kasasi, dan berdebat secara yuridis di hadapan praktisi dan hakim senior. Pengalaman ini memberi rasa percaya diri luar biasa sebelum terjun ke dunia peradilan nyata.",

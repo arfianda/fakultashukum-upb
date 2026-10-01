@@ -105,3 +105,106 @@ export async function getActiveFaculty(): Promise<FacultyItem[]> {
 
   return initialFaculty;
 }
+
+export const getFacultyData = getActiveFaculty;
+
+
+export async function getPostBySlug(slug: string): Promise<PostItem | null> {
+  try {
+    const post = await prisma.post.findUnique({
+      where: { slug },
+      include: { author: true },
+    });
+
+    if (post && post.status === "PUBLISHED") {
+      return {
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.content.replace(/<[^>]+>/g, "").slice(0, 160) + "...",
+        content: post.content,
+        category: "Kajian Yuridis",
+        author: post.author?.username || "Sivitas Akademika FH",
+        authorRole: "Dosen Fakultas Hukum",
+        publishedAt: post.publishedAt
+          ? new Date(post.publishedAt).toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })
+          : "September 2026",
+        readTime: "5 menit baca",
+        coverImage: post.coverImage || "/images/hero-library.jpg",
+        status: post.status as "PUBLISHED",
+      };
+    }
+  } catch {
+    // Database connection fallback
+  }
+
+  const fallback = initialPosts.find((p) => p.slug === slug);
+  return fallback || null;
+}
+
+export async function getEventBySlug(slug: string): Promise<EventItem | null> {
+  try {
+    const event = await prisma.event.findUnique({
+      where: { slug },
+    });
+
+    if (event && event.status === "PUBLISHED") {
+      return {
+        id: event.id,
+        title: event.title,
+        slug: event.slug,
+        description: event.description,
+        eventDate: new Date(event.eventDate).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }),
+        time: "09.00 - 12.30 WIB",
+        location: event.location,
+        speaker: event.speaker || "Narasumber Pakar Hukum",
+        speakerRole: "Akademisi / Praktisi Hukum",
+        badge: "Agenda Akademik",
+        status: event.status as "PUBLISHED",
+      };
+    }
+  } catch {
+    // Database connection fallback
+  }
+
+  const fallback = initialEvents.find((e) => e.slug === slug);
+  return fallback || null;
+}
+
+export function createFacultySlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}
+
+export async function getFacultyBySlug(slug: string): Promise<(FacultyItem & { slug: string }) | null> {
+  const allFaculty = await getFacultyData();
+  const normalizedQuery = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+  const found = allFaculty.find((f) => {
+    const fullSlug = createFacultySlug(f.name);
+    const normalizedName = f.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return (
+      fullSlug === slug ||
+      normalizedName.includes(normalizedQuery) ||
+      normalizedQuery.includes(normalizedName)
+    );
+  });
+
+  if (!found) return null;
+
+  return {
+    ...found,
+    slug: createFacultySlug(found.name),
+  };
+}
+
