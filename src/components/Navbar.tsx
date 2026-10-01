@@ -1,43 +1,95 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { User, Search, X, Menu, ChevronRight, ChevronDown, Scale, ExternalLink, ArrowRight } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  User,
+  Search,
+  X,
+  Menu,
+  ChevronRight,
+  ChevronDown,
+  ExternalLink,
+  ArrowRight,
+  GraduationCap,
+  BookOpen,
+  Briefcase,
+  Building2,
+  Newspaper,
+  Calendar,
+  Info,
+  Phone,
+} from "lucide-react";
+import { AudiencePortalModal, AudienceType } from "@/components/AudiencePortalModal";
 
 export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [audienceModalOpen, setAudienceModalOpen] = useState(false);
+  const [audienceTab, setAudienceTab] = useState<AudienceType>("mahasiswa");
+  const [expandedMobileAccordion, setExpandedMobileAccordion] = useState<string | null>(null);
+
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const clearTimer = () => {
+  const handleOpenAudience = (tab: AudienceType) => {
+    setAudienceTab(tab);
+    setAudienceModalOpen(true);
+    handleCloseMenuImmediate();
+    setMobileMenuOpen(false);
+  };
+
+  const clearTimer = useCallback(() => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
     }
-  };
+  }, []);
 
   const handleOpenMenu = (key: string) => {
     clearTimer();
-    setActiveMegaMenu(key);
+    setActiveMenu(key);
   };
 
-  const handleCloseMenuImmediate = () => {
+  const handleCloseMenuImmediate = useCallback(() => {
     clearTimer();
-    setActiveMegaMenu(null);
+    setActiveMenu(null);
+  }, [clearTimer]);
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    handleCloseMenuImmediate();
+    setMobileMenuOpen(false);
+
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+      if (window.location.hash) {
+        window.history.pushState(null, "", "/");
+      }
+    }
   };
 
   const handleScheduleClose = () => {
     clearTimer();
     closeTimerRef.current = setTimeout(() => {
-      setActiveMegaMenu(null);
-    }, 120);
+      setActiveMenu(null);
+    }, 220);
   };
 
-  // Close menus on Escape key (R-32 accessibility) or clicking outside or scrolling
+  // Close menus on Escape key, click outside, or route change
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -54,7 +106,8 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     };
 
     const handleScroll = () => {
-      if (activeMegaMenu) {
+      setIsScrolled(window.scrollY > 24);
+      if (activeMenu) {
         handleCloseMenuImmediate();
       }
     };
@@ -62,26 +115,101 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     window.addEventListener("keydown", handleKeyDown);
     document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
       clearTimer();
     };
-  }, [searchOpen, mobileMenuOpen, activeMegaMenu]);
+  }, [searchOpen, mobileMenuOpen, activeMenu, handleCloseMenuImmediate, clearTimer]);
 
-  const audienceLinks = [
-    { label: "Mahasiswa", href: "#laboratorium" },
-    { label: "Dosen", href: "#fakultas" },
-    { label: "Staf", href: "#laboratorium" },
-    { label: "Alumni", href: "#alumni" },
+  // Reset menus and drawer on pathname transition
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    if (activeMenu) setActiveMenu(null);
+    if (mobileMenuOpen) setMobileMenuOpen(false);
+    if (searchOpen) setSearchOpen(false);
+  }
+
+  const audienceList: {
+    key: AudienceType;
+    label: string;
+    description: string;
+    icon: typeof GraduationCap;
+  }[] = [
+    {
+      key: "mahasiswa",
+      label: "Mahasiswa",
+      description: "Portal akademik, KRS, dan peradilan semu",
+      icon: GraduationCap,
+    },
+    {
+      key: "dosen",
+      label: "Dosen",
+      description: "Beban kerja dan publikasi riset SINTA",
+      icon: BookOpen,
+    },
+    {
+      key: "staf",
+      label: "Staf",
+      description: "Layanan administrasi dan persuratan",
+      icon: Building2,
+    },
+    {
+      key: "alumni",
+      label: "Alumni",
+      description: "Tracer study dan ikatan alumni",
+      icon: Briefcase,
+    },
   ];
 
+  // Primary Nav Items (with actual URLs for routing)
   const primaryNavItems = [
-    { key: "study", label: "PROGRAM STUDI HUKUM", href: "#akademik" },
-    { key: "admissions", label: "PENERIMAAN MAHASISWA & BANTUAN BIAYA", href: "#pendaftaran" },
-    { key: "faculty", label: "TENAGA PENGAJAR", href: "#fakultas" },
-    { key: "studentlife", label: "KEHIDUPAN MAHASISWA", href: "#laboratorium" },
+    { key: "study", label: "Program Studi", href: "/akademik" },
+    { key: "admissions", label: "Penerimaan & Biaya", href: "/penerimaan" },
+    { key: "faculty", label: "Tenaga Pengajar", href: "/dosen" },
+    { key: "studentlife", label: "Kehidupan Mahasiswa", href: "/kehidupan-mahasiswa" },
+  ];
+
+  // Secondary Nav Items (Overflow / Mega dropdown)
+  const moreNavItems = [
+    {
+      key: "centers",
+      label: "Pusat Studi & Lab",
+      href: "/pusat-studi",
+      desc: "Laboratorium peradilan semu, KBH, dan riset",
+      icon: Building2,
+    },
+    {
+      key: "news",
+      label: "Warta & Kajian",
+      href: "/berita",
+      desc: "Kabar fakultas, yurisprudensi, dan opini",
+      icon: Newspaper,
+    },
+    {
+      key: "agenda",
+      label: "Agenda Akademik",
+      href: "/agenda",
+      desc: "Seminar nasional, kuliah pakar, dan workshop",
+      icon: Calendar,
+    },
+    {
+      key: "about",
+      label: "Tentang",
+      href: "/tentang",
+      desc: "Amanat Dekan, visi misi, dan sejarah",
+      icon: Info,
+    },
+    {
+      key: "contact",
+      label: "Kontak",
+      href: "/kontak",
+      desc: "Lokasi dekanat, jam kerja, dan layanan",
+      icon: Phone,
+    },
   ];
 
   const megaMenuData: Record<
@@ -104,36 +232,35 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     study: {
       featured: {
         image: "/images/hero-library.jpg",
-        title: "Bidang Peminatan",
-        desc: "Temukan peminatan keahlian doktrin dan kemahiran litigasi",
-        linkText: "AKADEMIK",
-        href: "#akademik",
+        title: "Bidang Peminatan Hukum",
+        desc: "Temukan peminatan keahlian doktrin dan kemahiran litigasi ruang sidang.",
+        linkText: "LIHAT PROGRAM STUDI",
+        href: "/akademik",
       },
       columns: [
         {
-          heading: "STUDI DI FH UPB",
+          heading: "PROGRAM PENDIDIKAN",
           links: [
-            { label: "Program Sarjana (S.H.) & Magister (M.H.)", href: "#akademik" },
-            { label: "Bidang Peminatan & Konsentrasi", href: "#akademik" },
-            { label: "Kurikulum & Silabus Perkuliahan", href: "#akademik" },
-            { label: "Pembelajaran Klinis & Praktik Peradilan", href: "#laboratorium" },
+            { label: "Program Sarjana Hukum (S.H.)", href: "/akademik/program-sarjana-hukum" },
+            { label: "Bidang Peminatan & Konsentrasi", href: "/akademik/peminatan" },
+            { label: "Kurikulum & Distribusi Semester", href: "/akademik/kurikulum" },
+            { label: "Pendidikan Khusus Advokat (PKPA)", href: "/akademik/pkpa" },
           ],
         },
         {
-          heading: "PROGRAM & SUMBER DAYA",
+          heading: "AGENDA & ALUMNI",
           links: [
-            { label: "Kalender Akademik & Agenda", href: "#agenda" },
-            { label: "Profil Mahasiswa & Ikatan Alumni", href: "#alumni" },
-            { label: "Workshop Perancangan Kontrak & Litigasi", href: "#agenda" },
+            { label: "Kalender Kegiatan Akademik", href: "/agenda" },
+            { label: "Profil Lulusan & Ikatan Alumni", href: "/tentang/alumni" },
+            { label: "Workshop Kemahiran Litigasi", href: "/akademik/workshop-litigasi" },
           ],
         },
         {
-          heading: "PERPUSTAKAAN & RISET",
+          heading: "LABORATORIUM & RISET",
           links: [
-            { label: "Perpustakaan Hukum UPB", href: "#laboratorium" },
-            { label: "Pelita Law Review (SINTA 2)", href: "#riset", external: true },
-            { label: "Repositori Putusan MK & MA", href: "#riset" },
-            { label: "Koleksi Yurisprudensi Nasional", href: "#riset" },
+            { label: "Laboratorium Peradilan Semu", href: "/pusat-studi/laboratorium-peradilan-semu" },
+            { label: "Pelita Law Review (Jurnal SINTA)", href: "https://journal.pelitabangsa.ac.id", external: true },
+            { label: "Klinik Bantuan Hukum (KBH)", href: "/pusat-studi/klinik-bantuan-hukum" },
           ],
         },
       ],
@@ -142,106 +269,103 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
       featured: {
         image: "/images/moot-court.jpg",
         title: "Penerimaan & Bantuan Biaya",
-        desc: "Investasi pendidikan hukum berintegritas tanpa pungli",
+        desc: "Investasi pendidikan hukum berintegritas tanpa pungutan liar.",
         linkText: "DAFTAR SEKARANG",
-        href: "#pendaftaran",
-        isAction: true,
+        href: "/penerimaan",
       },
       columns: [
         {
           heading: "JALUR PENERIMAAN",
           links: [
-            { label: "Sarjana Hukum (S.H.) Reguler Pagi", href: "#pendaftaran" },
-            { label: "Sarjana Hukum Kelas Karyawan", href: "#pendaftaran" },
-            { label: "Magister Ilmu Hukum (M.H.)", href: "#pendaftaran" },
-            { label: "Pendidikan Profesi Advokat (PKPA)", href: "#pendaftaran" },
+            { label: "Sarjana Hukum (S.H.) Reguler", href: "/penerimaan/reguler" },
+            { label: "Sarjana Hukum Kelas Karyawan", href: "/penerimaan/kelas-karyawan" },
+            { label: "Persyaratan & Jadwal Gelombang", href: "/penerimaan/jadwal" },
           ],
         },
         {
-          heading: "TRANSPARANSI BIAYA",
+          heading: "BIAYA & BEASISWA",
           links: [
-            { label: "Skema Angsuran SPP Bulanan", href: "#pendaftaran" },
-            { label: "Bebas Biaya Gedung (Rp 0)", href: "#pendaftaran" },
-            { label: "Formulir Pendaftaran Mahasiswa Baru", href: "#pendaftaran", isAction: true },
+            { label: "Rincian Biaya & Angsuran Bulanan", href: "/penerimaan/biaya" },
+            { label: "Skema Beasiswa Prestasi & KIP-K", href: "/penerimaan/beasiswa" },
+            { label: "Panduan Pendaftaran Mahasiswa Baru", href: "/penerimaan/daftar" },
           ],
         },
         {
-          heading: "BEASISWA UNGGULAN",
+          heading: "KONSULTASI & INFORMASI",
           links: [
-            { label: "Beasiswa Prestasi Akademik", href: "#pendaftaran" },
-            { label: "Beasiswa Tahfiz Al-Qur'an 10+ Juz", href: "#pendaftaran" },
-            { label: "Beasiswa Kemitraan Korporasi", href: "#pendaftaran" },
+            { label: "Layanan Konsultasi WhatsApp Dekanat", href: "https://wa.me/6281290008801", external: true },
+            { label: "Buku Panduan Akademik PDF", href: "/penerimaan/brosur" },
+            { label: "Pertanyaan Umum (FAQ PMB)", href: "/penerimaan/faq" },
           ],
         },
       ],
     },
     faculty: {
       featured: {
-        image: "/images/prof-hendra.jpg",
-        title: "Tenaga Pengajar",
-        desc: "Guru Besar, saksi ahli, dan akademisi terkemuka",
+        image: "/images/feature-faculty.jpg",
+        title: "Pakar & Tenaga Pengajar",
+        desc: "Belajar langsung dari Guru Besar, praktisi litigasi, dan akademisi hukum terkemuka.",
         linkText: "DIREKTORI DOSEN",
-        href: "#fakultas",
+        href: "/dosen",
       },
       columns: [
         {
-          heading: "DEWAN GURU BESAR",
+          heading: "DIREKTORI PENGAJAR",
           links: [
-            { label: "Prof. Dr. Hendra Gunawan, S.H., LL.M.", href: "#fakultas" },
-            { label: "Prof. Dr. Amaliah Hidayat, S.H., M.H.", href: "#fakultas" },
-            { label: "Dewan Pengajar & Praktisi Litigasi", href: "#fakultas" },
+            { label: "Seluruh Tenaga Pengajar Tetap", href: "/dosen" },
+            { label: "Pakar Hukum Bisnis & Korporasi", href: "/dosen/bidang/hukum-bisnis-korporasi" },
+            { label: "Pakar Hukum Tata Negara", href: "/dosen/bidang/hukum-tata-negara" },
           ],
         },
         {
-          heading: "BIDANG KEPAKARAN",
+          heading: "PUBLIKASI & KARYA",
           links: [
-            { label: "Hukum Tata Negara & Konstitusi", href: "#fakultas" },
-            { label: "Hukum Bisnis Digital & Kontrak", href: "#fakultas" },
-            { label: "Hukum Pidana & Forensik Digital", href: "#fakultas" },
+            { label: "Publikasi Ilmiah SINTA Kemdikbud", href: "https://sinta.kemdikbud.go.id", external: true },
+            { label: "Buku Ajar & Monograf", href: "/dosen/publikasi" },
+            { label: "Keterangan Ahli di Pengadilan", href: "/dosen/keterangan-ahli" },
           ],
         },
         {
-          heading: "PUBLIKASI & KIPRAH",
+          heading: "KELEMBAGAAN",
           links: [
-            { label: "Repositori SINTA Kemdikbud", href: "https://sinta.kemdikbud.go.id", external: true },
-            { label: "Keterangan Saksi Ahli Persidangan", href: "#fakultas" },
-            { label: "Pusat Kajian Konstitusi & HAM", href: "#riset" },
+            { label: "Senat Akademik Fakultas", href: "/tentang/senat-akademik" },
+            { label: "Pusat Kajian Hukum UPB", href: "/pusat-studi" },
+            { label: "Hubungi Dewan Pengajar", href: "/kontak" },
           ],
         },
       ],
     },
     studentlife: {
       featured: {
-        image: "/images/alumni-almira.jpg",
+        image: "/images/feature-tour.jpg",
         title: "Kehidupan Mahasiswa",
-        desc: "Peradilan semu otentik & advokasi keadilan",
-        linkText: "JELAJAHI KAMPUS",
-        href: "#laboratorium",
+        desc: "Kembangkan kepemimpinan, kemahiran debat hukum, dan advokasi sosial.",
+        linkText: "JELAJAHI KEGIATAN",
+        href: "/kehidupan-mahasiswa",
       },
       columns: [
         {
-          heading: "LABORATORIUM PERADILAN",
+          heading: "ORGANISASI KEMAHASISWAAN",
           links: [
-            { label: "Ruang Sidang Utama Moot Court", href: "#laboratorium" },
-            { label: "Simulator E-Court Mahkamah Agung", href: "#laboratorium" },
-            { label: "Klinik Advokasi & Mediasi KBH", href: "#laboratorium" },
+            { label: "Organisasi Mahasiswa I (Lorem Ipsum)", href: "/kehidupan-mahasiswa/organisasi-1" },
+            { label: "Organisasi Mahasiswa II (Lorem Ipsum)", href: "/kehidupan-mahasiswa/organisasi-2" },
+            { label: "Organisasi Mahasiswa III (Lorem Ipsum)", href: "/kehidupan-mahasiswa/organisasi-3" },
           ],
         },
         {
-          heading: "ORGANISASI MAHASISWA",
+          heading: "PRESTASI & AKTIVITAS",
           links: [
-            { label: "Moot Court Society (MCS) UPB", href: "#laboratorium" },
-            { label: "Dewan Eksekutif Mahasiswa (DEMA)", href: "#laboratorium" },
-            { label: "Klinik Bantuan Hukum Mahasiswa", href: "#laboratorium" },
-            { label: "Lembaga Debat Konstitusi", href: "#laboratorium" },
+            { label: "Kejuaraan Peradilan Semu Nasional", href: "/kehidupan-mahasiswa/prestasi" },
+            { label: "Advokasi & Aksi Sosial Keadilan", href: "/kehidupan-mahasiswa/advokasi" },
+            { label: "Klinik Hukum Lapangan Mahasiswa", href: "/pusat-studi/klinik-bantuan-hukum" },
           ],
         },
         {
-          heading: "KIPRAH & ALUMNI",
+          heading: "FASILITAS KAMPUS",
           links: [
-            { label: "Delegasi NMCC Tingkat Nasional", href: "#riset" },
-            { label: "Ikatan Alumni Fakultas Hukum", href: "#alumni" },
-            { label: "Layanan Bantuan Hukum Pro-Bono", href: "#laboratorium" },
+            { label: "Ruang Sidang Semu Modern", href: "/pusat-studi/laboratorium-peradilan-semu" },
+            { label: "Perpustakaan Hukum Terpadu", href: "/tentang/fasilitas/perpustakaan-hukum" },
+            { label: "Auditorium & Ruang Diskusi", href: "/tentang/fasilitas/auditorium" },
           ],
         },
       ],
@@ -255,95 +379,332 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     }
   };
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/berita?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+  // Helper to determine if a route is active
+  const isRouteActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   return (
     <header
       ref={navRef}
-      className="sticky top-0 z-50 bg-white border-b border-[#E5E1DA] shadow-xs relative"
+      className="sticky top-3 sm:top-4 z-50 px-3 sm:px-4 w-full max-w-7xl xl:max-w-[1320px] 2xl:max-w-[1380px] mx-auto -mb-[76px] sm:-mb-[84px] transition-all duration-300 pointer-events-none"
       onMouseLeave={handleScheduleClose}
     >
-      {/* 
-        ROW 1: Top Brand & Audience Bar (Exact Yale Law School Layout)
-        - Left: Official Law School Crest + Serif Wordmark
-        - Right: [User] Info For | Students | Faculty | Staff | Alumni | [Search]
-      */}
       <div
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        onMouseEnter={handleCloseMenuImmediate}
+        onMouseEnter={clearTimer}
+        onMouseLeave={handleScheduleClose}
+        className={`w-full pointer-events-auto transition-all duration-250 ease-out rounded-2xl border relative ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-[14px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-[#E5E1DA] py-2 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
+            : "bg-white/90 backdrop-blur-[14px] shadow-[0_2px_16px_rgba(0,0,0,0.08)] border-white/70 py-2.5 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
+        }`}
       >
-        <div className="flex items-center justify-between h-16 sm:h-20 border-b border-[#F0EDED]">
-          {/* Left: Official Law School Crest + Serif Wordmark */}
+        <div className="flex items-center justify-between gap-2 lg:gap-3">
+          {/* ===================== LEFT: BRAND IDENTITY ===================== */}
           <Link
             href="/"
-            onClick={handleCloseMenuImmediate}
-            className="flex items-center gap-3 sm:gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
+            onClick={handleBrandClick}
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] rounded-xl shrink-0 cursor-pointer"
+            aria-label="Kembali ke Beranda Fakultas Hukum UPB"
           >
-            {/* Crest Shield with Scales & Gold Accent */}
-            <div className="w-10 h-11 sm:w-11 sm:h-12 border border-[#800000] bg-[#800000] text-white flex flex-col items-center justify-center shrink-0 shadow-xs">
-              <Scale className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[1.75]" />
-              <div className="h-0.5 w-5 bg-[#C5A059] mt-0.5" />
+            <div
+              className={`relative shrink-0 flex items-center justify-center transition-all duration-250 ${
+                isScrolled ? "w-9 h-9 sm:w-10 sm:h-10" : "w-10 h-10 sm:w-11 sm:h-11"
+              }`}
+            >
+              <Image
+                src="/images/logo-upb.png"
+                alt="Logo Universitas Pelita Bangsa"
+                width={48}
+                height={48}
+                priority
+                className="w-full h-full object-contain"
+              />
             </div>
 
             <div className="flex flex-col">
-              <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#800000] group-hover:text-[#570000] transition-colors leading-tight">
+              <span
+                className={`font-serif font-bold text-[#800000] group-hover:text-[#570000] tracking-[-0.01em] transition-all duration-250 leading-tight ${
+                  isScrolled
+                    ? "text-base sm:text-lg xl:text-[20px]"
+                    : "text-[17px] sm:text-[19px] xl:text-[22px]"
+                }`}
+              >
                 Fakultas Hukum
               </span>
-              <span className="text-[10px] sm:text-[11px] tracking-widest uppercase text-[#5C5854] font-medium">
+              <span className="font-sans font-medium uppercase text-[#5C5854] tracking-[0.16em] text-[8.5px] sm:text-[9px] xl:text-[10px] mt-0.5 leading-none">
                 Universitas Pelita Bangsa
               </span>
             </div>
           </Link>
 
-          {/* Right: Clean Audience Links & Search Icon (Direct Yale Replica) */}
-          <div className="hidden lg:flex items-center space-x-7 text-sm">
-            {/* Info For group */}
-            <div className="flex items-center gap-2 font-semibold text-[#800000]">
-              <User className="w-4 h-4 fill-[#800000]" />
-              <span>Informasi Untuk</span>
-            </div>
+          {/* ===================== CENTER: MAIN MENU (REAL LINKS + MEGA DROPDOWN) ===================== */}
+          <nav
+            className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink-0"
+            aria-label="Navigasi utama situs"
+          >
+            {primaryNavItems.map((item) => {
+              const isOpen = activeMenu === item.key;
+              const isCurrent = isRouteActive(item.href);
 
-            {/* Audience Direct Text Links (No dots, spacious text) */}
-            <div className="flex items-center space-x-6 text-[#1C1B1B]">
-              {audienceLinks.map((aud) => (
-                <a
-                  key={aud.label}
-                  href={aud.href}
-                  onClick={handleCloseMenuImmediate}
-                  className="hover:text-[#800000] transition-colors"
+              return (
+                <div
+                  key={item.key}
+                  className="relative"
+                  onMouseEnter={() => handleOpenMenu(item.key)}
                 >
-                  {aud.label}
-                </a>
-              ))}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearTimer();
+                      setActiveMenu(isOpen ? null : item.key);
+                    }}
+                    onFocus={() => handleOpenMenu(item.key)}
+                    className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer ${
+                      isOpen
+                        ? "bg-[#800000]/10 text-[#800000]"
+                        : isCurrent
+                        ? "bg-[#800000] text-white font-semibold shadow-xs"
+                        : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06]"
+                    }`}
+                    aria-expanded={isOpen}
+                    aria-haspopup="true"
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                        isOpen ? "rotate-180 text-[#800000]" : isCurrent ? "text-white/80" : "text-[#5C5854]"
+                      }`}
+                    />
+                  </button>
+                </div>
+              );
+            })}
+
+            {/* Menu Dropdown "Lainnya" (Pusat Studi, Berita, Tentang, Kontak) */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleOpenMenu("more")}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  clearTimer();
+                  setActiveMenu(activeMenu === "more" ? null : "more");
+                }}
+                onFocus={() => handleOpenMenu("more")}
+                className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer ${
+                  activeMenu === "more"
+                    ? "bg-[#800000]/10 text-[#800000]"
+                    : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06]"
+                }`}
+                aria-expanded={activeMenu === "more"}
+                aria-haspopup="true"
+              >
+                <span>Lainnya</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-[#5C5854] transition-transform duration-200 ${
+                    activeMenu === "more" ? "rotate-180 text-[#800000]" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Floating "Lainnya" Menu Card */}
+              <AnimatePresence>
+                {activeMenu === "more" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute top-full right-0 pt-2.5 w-64 z-50 pointer-events-auto"
+                    onMouseEnter={clearTimer}
+                    onMouseLeave={handleScheduleClose}
+                  >
+                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-2">
+                      <div className="space-y-1">
+                        {moreNavItems.map((item) => {
+                          const Icon = item.icon;
+                          const isCurrent = isRouteActive(item.href);
+                          return (
+                            <Link
+                              key={item.key}
+                              href={item.href}
+                              onClick={handleCloseMenuImmediate}
+                              className={`w-full text-left p-2.5 rounded-xl group transition-all flex items-start gap-3 cursor-pointer ${
+                                isCurrent ? "bg-[#800000]/10" : "hover:bg-[#800000]/[0.06]"
+                              }`}
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-[#800000]/8 text-[#800000] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                  <span className={`text-[13px] font-semibold transition-colors ${
+                                    isCurrent ? "text-[#800000]" : "text-[#1C1B1B] group-hover:text-[#800000]"
+                                  }`}>
+                                    {item.label}
+                                  </span>
+                                  <ChevronRight className="w-3.5 h-3.5 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                </div>
+                                <p className="text-[11px] text-[#5C5854] mt-0.5 leading-snug">
+                                  {item.desc}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </nav>
+
+          {/* ===================== RIGHT: AUDIENCE + SEARCH + CTA ===================== */}
+          <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 shrink-0">
+            {/* 1. Dropdown "Informasi Untuk" */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleOpenMenu("audience")}
+              onMouseLeave={handleScheduleClose}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  clearTimer();
+                  setActiveMenu(activeMenu === "audience" ? null : "audience");
+                }}
+                onFocus={() => handleOpenMenu("audience")}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[12px] xl:text-[12.5px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer border ${
+                  activeMenu === "audience"
+                    ? "bg-[#800000]/10 text-[#800000] border-[#800000]/20"
+                    : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] border-transparent"
+                }`}
+                aria-expanded={activeMenu === "audience"}
+                aria-haspopup="true"
+              >
+                <User className="w-3.5 h-3.5 text-[#800000]" />
+                <span className="hidden xl:inline">Info Untuk</span>
+                <span className="xl:hidden">Sivitas</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-[#5C5854] transition-transform duration-200 ${
+                    activeMenu === "audience" ? "rotate-180 text-[#800000]" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Floating Audience Menu Card */}
+              <AnimatePresence>
+                {activeMenu === "audience" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute top-full right-0 pt-2.5 w-72 z-50 pointer-events-auto"
+                    onMouseEnter={clearTimer}
+                    onMouseLeave={handleScheduleClose}
+                  >
+                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-2">
+                      <div className="px-3 py-2 border-b border-[#F0EDED] mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854]">
+                          Layanan Portal Sivitas
+                        </p>
+                      </div>
+                      <div className="space-y-1">
+                        {audienceList.map((aud) => {
+                          const Icon = aud.icon;
+                          return (
+                            <button
+                              key={aud.key}
+                              type="button"
+                              onClick={() => handleOpenAudience(aud.key)}
+                              className="w-full text-left p-2.5 rounded-xl hover:bg-[#800000]/[0.06] group transition-all flex items-start gap-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-[#800000]/8 text-[#800000] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[13px] font-semibold text-[#1C1B1B] group-hover:text-[#800000] transition-colors">
+                                    {aud.label}
+                                  </span>
+                                  <ChevronRight className="w-3.5 h-3.5 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                </div>
+                                <p className="text-[11px] text-[#5C5854] leading-tight mt-0.5 truncate">
+                                  {aud.description}
+                                </p>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Clean Bare Search Icon */}
+            {/* 2. Search Icon Button */}
             <button
+              type="button"
               onClick={() => {
                 setSearchOpen(!searchOpen);
                 handleCloseMenuImmediate();
               }}
-              className="p-1.5 text-[#1C1B1B] hover:text-[#800000] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
-              aria-label="Buka pencarian wacana dan direktori"
+              className="w-8 h-8 xl:w-8.5 xl:h-8.5 rounded-full flex items-center justify-center text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer"
+              aria-label="Buka pencarian warta dan direktori"
               title="Pencarian"
             >
-              <Search className="w-4 h-4 stroke-[2.2]" />
+              <Search className="w-4 h-4 stroke-[2]" />
+            </button>
+
+            {/* 3. Solid Maroon CTA Button */}
+            <button
+              type="button"
+              onClick={() => {
+                handleCloseMenuImmediate();
+                if (onOpenAdmission) onOpenAdmission();
+              }}
+              className="inline-flex items-center justify-center px-3.5 xl:px-4 py-1.5 bg-[#800000] hover:bg-[#570000] text-white text-[12px] xl:text-[12.5px] font-semibold tracking-[0.02em] rounded-full transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer shrink-0"
+            >
+              <span>Pendaftaran PMB</span>
             </button>
           </div>
 
-          {/* Mobile Actions: Search & Hamburger Toggle */}
-          <div className="flex items-center lg:hidden gap-2">
+          {/* ===================== MOBILE ACTION BUTTONS (< 1024px) ===================== */}
+          <div className="flex items-center lg:hidden gap-1.5 shrink-0">
             <button
+              type="button"
               onClick={() => {
                 setSearchOpen(!searchOpen);
                 handleCloseMenuImmediate();
               }}
-              className="p-2 text-[#1C1B1B] hover:text-[#800000] transition-colors"
+              className="p-2 rounded-full text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
               aria-label="Pencarian"
             >
               <Search className="w-5 h-5 stroke-[2]" />
             </button>
+
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#800000] hover:bg-[#F8F7F4] transition-colors"
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(!mobileMenuOpen);
+                handleCloseMenuImmediate();
+              }}
+              className="p-2 rounded-full text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
               aria-label={mobileMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
               aria-expanded={mobileMenuOpen}
             >
@@ -351,289 +712,345 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* 
-        ROW 2: Main Navigation Bar with Mega-Menu Trigger (Direct Yale Law School Anatomy)
-        - Left: STUDY OF LAW | ADMISSIONS & FINANCIAL AID | OUR FACULTY | STUDENT LIFE
-        - Right: CENTERS & WORKSHOPS ▶ | NEWS & EVENTS ▼
-      */}
-      <div
-        className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        onMouseLeave={handleScheduleClose}
-      >
-        <div className="flex items-center justify-between h-12">
-          {/* Left Primary Nav Links (Mega-menu triggers) */}
-          <nav
-            className="flex items-center space-x-7 h-full"
-            aria-label="Navigasi Utama"
-            onMouseLeave={handleScheduleClose}
-          >
-            {primaryNavItems.map((item) => {
-              const isActive = activeMegaMenu === item.key;
-              return (
-                <div
-                  key={item.key}
-                  className="h-full flex items-center"
-                  onMouseEnter={() => handleOpenMenu(item.key)}
-                >
-                  <button
-                    onClick={() => {
-                      clearTimer();
-                      setActiveMegaMenu(isActive ? null : item.key);
-                    }}
-                    onFocus={() => handleOpenMenu(item.key)}
-                    className={`text-xs font-bold uppercase tracking-wider transition-colors py-3 relative focus:outline-none ${
-                      isActive
-                        ? "text-[#570000] underline decoration-2 underline-offset-8"
-                        : "text-[#800000] hover:text-[#570000] hover:underline decoration-2 underline-offset-8"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                  </button>
-                </div>
-              );
-            })}
-          </nav>
-
-          {/* Right Secondary Nav Links (Caret items directly matching Yale Law School) */}
-          <div className="flex items-center space-x-6 text-xs font-bold uppercase tracking-wider text-[#800000]">
-            <a
-              href="#laboratorium"
-              onMouseEnter={handleCloseMenuImmediate}
-              onClick={handleCloseMenuImmediate}
-              className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
+        {/* ===================== DESKTOP MEGA-MENU PANEL ===================== */}
+        <AnimatePresence>
+          {activeMenu && ["study", "admissions", "faculty", "studentlife"].includes(activeMenu) && megaMenuData[activeMenu] && (
+            <motion.div
+              key={activeMenu}
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-full left-0 right-0 pt-2.5 z-50 pointer-events-auto"
+              onMouseEnter={clearTimer}
+              onMouseLeave={handleScheduleClose}
             >
-              <span>PUSAT STUDI &amp; LOKAKARYA</span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#C5A059]" />
-            </a>
-
-            <span className="text-[#E5E1DA] font-normal">|</span>
-
-            <a
-              href="#riset"
-              onMouseEnter={handleCloseMenuImmediate}
-              onClick={handleCloseMenuImmediate}
-              className="inline-flex items-center gap-1 hover:text-[#570000] transition-colors"
-            >
-              <span>BERITA &amp; KEGIATAN</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 
-        MEGA-MENU PANEL (Full Screen Width with Centered 7xl Container)
-        - Automatically closes smoothly when cursor leaves or when pointer enters outside areas
-      */}
-      {activeMegaMenu && megaMenuData[activeMegaMenu] && (
-        <>
-          {/* Backdrop hit area: the moment pointer moves outside the mega menu into the page or sides, it immediately closes */}
-          <div
-            className="fixed inset-0 top-[128px] z-40 bg-black/10 backdrop-blur-[0.5px] transition-opacity"
-            onMouseEnter={handleCloseMenuImmediate}
-            onClick={handleCloseMenuImmediate}
-            aria-hidden="true"
-          />
-
-          <div
-            className="absolute top-full left-0 right-0 w-full bg-white border-b border-[#E5E1DA] shadow-xl z-50 animate-fadeIn"
-            onMouseEnter={clearTimer}
-            onMouseLeave={handleScheduleClose}
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-stretch gap-8 lg:gap-10">
-              {/* Column 1: Featured Image Callout Card (Full-height from top to bottom edge, exact Yale structure) */}
-              <div className="w-72 shrink-0 bg-[#800000] text-white flex flex-col justify-between overflow-hidden shadow-xs">
-                <div className="relative h-32 sm:h-36 w-full overflow-hidden shrink-0">
-                  <Image
-                    src={megaMenuData[activeMegaMenu].featured.image}
-                    alt={megaMenuData[activeMegaMenu].featured.title}
-                    fill
-                    sizes="288px"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#570000] via-transparent to-transparent opacity-60" />
-                </div>
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="font-serif text-lg font-bold text-white mb-1.5 leading-snug">
-                      {megaMenuData[activeMegaMenu].featured.title}
-                    </h4>
-                    <p className="text-xs text-[#E8D8B0] leading-snug font-light mb-3">
-                      {megaMenuData[activeMegaMenu].featured.desc}
-                    </p>
+              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] overflow-hidden">
+                <div className="flex items-stretch gap-6 lg:gap-8">
+                  {/* Column 1: Featured Card (Yale Editorial Style) */}
+                  <div className="w-72 shrink-0 bg-[#F8F7F4] border-r border-[#EFECE6] p-4 sm:p-5 flex flex-col justify-between group">
+                    <div>
+                      <div className="relative h-32 sm:h-36 w-full rounded-xl overflow-hidden mb-3.5 shadow-xs">
+                        <Image
+                          src={megaMenuData[activeMenu].featured.image}
+                          alt={megaMenuData[activeMenu].featured.title}
+                          fill
+                          sizes="288px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#800000] mb-1 block">
+                        Sorotan Direktori
+                      </span>
+                      <h4 className="font-serif text-base sm:text-[17px] font-bold text-[#1C1B1B] mb-1.5 leading-snug group-hover:text-[#800000] transition-colors">
+                        {megaMenuData[activeMenu].featured.title}
+                      </h4>
+                      <p className="text-xs text-[#5C5854] leading-relaxed">
+                        {megaMenuData[activeMenu].featured.desc}
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-[#EFECE6] mt-3">
+                      <Link
+                        href={megaMenuData[activeMenu].featured.href}
+                        onClick={() =>
+                          handleLinkClick(
+                            megaMenuData[activeMenu].featured.href,
+                            megaMenuData[activeMenu].featured.isAction
+                          )
+                        }
+                        className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#800000] hover:text-[#570000] transition-colors"
+                      >
+                        <span>{megaMenuData[activeMenu].featured.linkText}</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
                   </div>
-                  <div className="pt-2">
-                    <a
-                      href={megaMenuData[activeMegaMenu].featured.href}
-                      onClick={() =>
-                        handleLinkClick(
-                          megaMenuData[activeMegaMenu].featured.href,
-                          megaMenuData[activeMegaMenu].featured.isAction
-                        )
-                      }
-                      className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-white hover:text-[#C5A059] transition-colors border-b border-white/60 pb-0.5 hover:border-[#C5A059] group"
-                    >
-                      <span>{megaMenuData[activeMegaMenu].featured.linkText}</span>
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#C5A059]" />
-                    </a>
+
+                  {/* Columns 2, 3, 4: Content Links */}
+                  <div className="flex-1 grid grid-cols-3 gap-6 py-6 sm:py-7 pr-6">
+                    {megaMenuData[activeMenu].columns.map((col, idx) => (
+                      <div key={idx} className="flex flex-col space-y-2">
+                        <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#5C5854] mb-1">
+                          {col.heading}
+                        </h5>
+                        <ul className="space-y-1.5">
+                          {col.links.map((link, lIdx) => (
+                            <li key={lIdx}>
+                              {link.external ? (
+                                <a
+                                  href={link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => handleLinkClick(link.href, link.isAction)}
+                                  className="text-xs font-medium text-[#1C1B1B] hover:text-[#800000] px-2 py-1 -mx-2 rounded-lg hover:bg-[#F8F7F4] transition-all inline-flex items-center gap-1 leading-snug group"
+                                >
+                                  <span>{link.label}</span>
+                                  <ExternalLink className="w-3 h-3 text-[#5C5854] group-hover:text-[#800000] transition-colors" />
+                                </a>
+                              ) : (
+                                <Link
+                                  href={link.href}
+                                  onClick={() => handleLinkClick(link.href, link.isAction)}
+                                  className="text-xs font-medium text-[#1C1B1B] hover:text-[#800000] px-2 py-1 -mx-2 rounded-lg hover:bg-[#F8F7F4] transition-all inline-flex items-center gap-1 leading-snug group"
+                                >
+                                  <span>{link.label}</span>
+                                  <ChevronRight className="w-3 h-3 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                </Link>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-
-              {/* Columns 2, 3, 4: Content Link Columns (3 equal columns with comfortable vertical padding) */}
-              <div className="flex-1 grid grid-cols-3 gap-6 py-6 sm:py-7">
-                {megaMenuData[activeMegaMenu].columns.map((col, idx) => (
-                  <div key={idx} className="flex flex-col space-y-2">
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#5C5854] mb-1">
-                      {col.heading}
-                    </h5>
-                    <ul className="space-y-2">
-                      {col.links.map((link, lIdx) => (
-                        <li key={lIdx}>
-                          <a
-                            href={link.href}
-                            target={link.external ? "_blank" : undefined}
-                            rel={link.external ? "noopener noreferrer" : undefined}
-                            onClick={() => handleLinkClick(link.href, link.isAction)}
-                            className="text-xs font-medium text-[#1C1B1B] hover:text-[#800000] hover:underline decoration-1 underline-offset-4 transition-colors inline-flex items-center gap-1 leading-snug group"
-                          >
-                            <span>{link.label}</span>
-                            {link.external && (
-                              <ExternalLink className="w-3 h-3 text-[#C5A059] opacity-75 group-hover:opacity-100 shrink-0" />
-                            )}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* Interactive Search Bar Drawer */}
-      {searchOpen && (
-        <div className="border-t border-[#E5E1DA] bg-[#F8F7F4] px-4 py-4 sm:px-8 shadow-inner animate-fadeIn">
-          <div className="max-w-3xl mx-auto flex items-center gap-3">
-            <Search className="w-5 h-5 text-[#800000] shrink-0" />
-            <input
-              type="text"
-              autoFocus
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari kurikulum, nama dosen, putusan, jurnal atau wacana hukum..."
-              className="w-full bg-white border border-[#E5E1DA] px-4 py-2 text-xs sm:text-sm text-[#1C1B1B] focus:outline-none focus:border-[#800000]"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="text-xs text-[#5C5854] hover:text-[#1C1B1B]"
-                aria-label="Bersihkan pencarian"
-              >
-                Reset
-              </button>
-            )}
-            <button
-              onClick={() => setSearchOpen(false)}
-              className="p-2 text-[#5C5854] hover:text-[#1C1B1B]"
-              aria-label="Tutup pencarian"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-          {searchQuery.trim().length > 0 && (
-            <div className="max-w-3xl mx-auto mt-3 pt-3 border-t border-[#E5E1DA] text-xs text-[#5C5854]">
-              <p className="font-semibold text-[#800000] mb-1">Hasil Pencarian Cepat:</p>
-              <div className="space-y-1">
-                <a href="#akademik" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
-                  &bull; Program Sarjana Hukum (S.H.) &amp; Magister Hukum (M.H.)
-                </a>
-                <a href="#riset" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
-                  &bull; Publikasi Jurnal Ilmiah Pelita Law Review &amp; Wacana Putusan MK
-                </a>
-                <a href="#fakultas" onClick={() => setSearchOpen(false)} className="block py-1 hover:underline hover:text-[#800000]">
-                  &bull; Direktori Dewan Guru Besar &amp; Saksi Ahli
-                </a>
-              </div>
-            </div>
+            </motion.div>
           )}
-        </div>
-      )}
+        </AnimatePresence>
 
-      {/* Mobile Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-[#E5E1DA] shadow-xl px-6 pt-4 pb-6">
-          <nav className="flex flex-col space-y-3" aria-label="Navigasi Menu Mobile">
-            {/* Primary Nav Items */}
-            {primaryNavItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
-              >
-                <span>{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-[#C5A059]" />
-              </a>
-            ))}
-
-            {/* Secondary Nav Items */}
-            <a
-              href="#laboratorium"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
+        {/* ===================== SEARCH OVERLAY MODAL ===================== */}
+        <AnimatePresence>
+          {searchOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-full left-0 right-0 pt-2.5 z-50 pointer-events-auto"
             >
-              <span>PUSAT STUDI &amp; LOKAKARYA</span>
-              <ChevronRight className="w-3.5 h-3.5 text-[#C5A059]" />
-            </a>
+              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-4 sm:p-6">
+                <form onSubmit={handleSearchSubmit} className="relative">
+                  <div className="flex items-center gap-3 border-b-2 border-[#800000] pb-2">
+                    <Search className="w-5 h-5 text-[#800000] shrink-0" />
+                    <input
+                      type="search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Cari warta hukum, kegiatan, kurikulum, atau tenaga pengajar..."
+                      className="w-full text-sm sm:text-base font-medium text-[#1C1B1B] placeholder-[#8E706C] focus:outline-none bg-transparent"
+                      autoFocus
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSearchOpen(false)}
+                      className="p-1 rounded-md text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                      aria-label="Tutup pencarian"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
 
-            <a
-              href="#riset"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2.5 text-sm font-bold text-[#800000] uppercase tracking-wider border-b border-[#F0EDED] flex items-center justify-between"
+                  <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#5C5854]">
+                    <span className="font-semibold uppercase tracking-wider text-[10px]">
+                      Pencarian Populer:
+                    </span>
+                    <Link
+                      href="/akademik/kurikulum"
+                      onClick={() => setSearchOpen(false)}
+                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                    >
+                      Kurikulum S.H.
+                    </Link>
+                    <Link
+                      href="/penerimaan/biaya"
+                      onClick={() => setSearchOpen(false)}
+                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                    >
+                      Biaya Kuliah
+                    </Link>
+                    <Link
+                      href="/pusat-studi/laboratorium-peradilan-semu"
+                      onClick={() => setSearchOpen(false)}
+                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                    >
+                      Peradilan Semu
+                    </Link>
+                    <Link
+                      href="/dosen"
+                      onClick={() => setSearchOpen(false)}
+                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                    >
+                      Guru Besar
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ===================== MOBILE DRAWER (< 1024px) ===================== */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden absolute top-full left-0 right-0 pt-2.5 z-50 pointer-events-auto"
             >
-              <span>BERITA &amp; KEGIATAN</span>
-              <ChevronDown className="w-3.5 h-3.5 text-[#C5A059]" />
-            </a>
+            <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.16)] border border-[#E5E1DA] p-4 max-h-[80vh] overflow-y-auto">
+              <div className="space-y-1 pb-4 border-b border-[#F0EDED]">
+                {primaryNavItems.map((item) => {
+                  const isCurrent = isRouteActive(item.href);
+                  const isExpanded = expandedMobileAccordion === item.key;
+                  const menuDetails = megaMenuData[item.key];
 
-            {/* Audience Links */}
-            <div className="pt-3 pb-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] block mb-2">
-                Informasi Untuk:
-              </span>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                {audienceLinks.map((aud) => (
-                  <a
-                    key={aud.label}
-                    href={aud.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 bg-[#F8F7F4] border border-[#E5E1DA] text-[#1C1B1B] hover:text-[#800000] font-medium"
-                  >
-                    {aud.label}
-                  </a>
-                ))}
+                  return (
+                    <div key={item.key} className="rounded-xl overflow-hidden border border-transparent">
+                      <div className="flex items-center justify-between">
+                        {menuDetails ? (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setExpandedMobileAccordion(isExpanded ? null : item.key)
+                            }
+                            className={`w-full flex items-center justify-between py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors text-left cursor-pointer ${
+                              isCurrent
+                                ? "text-[#800000] bg-[#800000]/10"
+                                : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                            }`}
+                          >
+                            <span>{item.label}</span>
+                            <ChevronDown
+                              className={`w-4 h-4 transition-transform duration-200 ${
+                                isExpanded ? "rotate-180 text-[#800000]" : "text-[#5C5854]"
+                              }`}
+                            />
+                          </button>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex-1 py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors ${
+                              isCurrent
+                                ? "text-[#800000] bg-[#800000]/10"
+                                : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+                      </div>
+
+                      {/* Mobile Accordion Children */}
+                      <AnimatePresence>
+                        {isExpanded && menuDetails && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-4 pr-2 py-2 bg-[#F8F7F4] rounded-lg mt-1 space-y-2 text-xs">
+                              <Link
+                                href={item.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="py-1 text-[#800000] font-semibold block border-b border-[#E5E1DA] pb-1.5 mb-1.5"
+                              >
+                                {menuDetails.featured.linkText} &rarr;
+                              </Link>
+                              {menuDetails.columns.flatMap((col) => col.links).map((link, lIdx) => (
+                                <div key={lIdx}>
+                                  {link.external ? (
+                                    <a
+                                      href={link.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                      className="py-1 text-[#5C5854] hover:text-[#800000] inline-flex items-center gap-1.5"
+                                    >
+                                      <span>{link.label}</span>
+                                      <ExternalLink className="w-3 h-3" />
+                                    </a>
+                                  ) : (
+                                    <Link
+                                      href={link.href}
+                                      onClick={() => {
+                                        setMobileMenuOpen(false);
+                                        if (link.isAction && onOpenAdmission) onOpenAdmission();
+                                      }}
+                                      className="py-1 text-[#5C5854] hover:text-[#800000] block"
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
+
+                {/* Secondary Items in Mobile */}
+                {moreNavItems.map((item) => {
+                  const isCurrent = isRouteActive(item.href);
+                  return (
+                    <Link
+                      key={item.key}
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`block py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors ${
+                        isCurrent
+                          ? "text-[#800000] bg-[#800000]/10"
+                          : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Portal Sivitas on Mobile */}
+              <div className="pt-4 pb-2">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] px-3 mb-2">
+                  Portal Sivitas Kampus
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {audienceList.map((aud) => (
+                    <button
+                      key={aud.key}
+                      type="button"
+                      onClick={() => handleOpenAudience(aud.key)}
+                      className="text-left p-2.5 rounded-lg border border-[#E5E1DA] hover:bg-[#800000]/[0.06] text-xs font-semibold text-[#1C1B1B] hover:text-[#800000] transition-colors"
+                    >
+                      {aud.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile CTA */}
+              <div className="pt-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (onOpenAdmission) onOpenAdmission();
+                  }}
+                  className="w-full py-2.5 bg-[#800000] hover:bg-[#570000] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center"
+                >
+                  Pendaftaran PMB 2026/2027
+                </button>
               </div>
             </div>
+          </motion.div>
+        )}
+        </AnimatePresence>
+      </div>
 
-            {/* Mobile Actions */}
-            <div className="pt-4 flex flex-col gap-2.5">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onOpenAdmission) onOpenAdmission();
-                }}
-                className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000] transition-colors"
-              >
-                Pendaftaran Mahasiswa Baru
-              </button>
-            </div>
-          </nav>
-        </div>
-      )}
+      <AudiencePortalModal
+        isOpen={audienceModalOpen}
+        onClose={() => setAudienceModalOpen(false)}
+        initialTab={audienceTab}
+      />
     </header>
   );
 }

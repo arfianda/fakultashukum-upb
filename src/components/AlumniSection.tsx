@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Award, Briefcase, Building, Landmark, Scale } from "lucide-react";
+import { Briefcase, Building, Landmark, Scale } from "lucide-react";
 
 export function AlumniSection() {
   const placementAreas = [
@@ -55,7 +55,7 @@ export function AlumniSection() {
               <div className="relative w-56 h-72 sm:w-64 sm:h-80 border-2 border-[#C5A059] overflow-hidden bg-white shadow-xs">
                 <Image
                   src="/images/alumni-almira.jpg"
-                  alt="Almira Rahmadhany, S.H., LL.M. - Alumni Fakultas Hukum UPB"
+                  alt="Lorem Ipsum, S.H., LL.M. - Alumni Fakultas Hukum UPB"
                   fill
                   sizes="300px"
                   className="object-cover object-top"
@@ -70,7 +70,7 @@ export function AlumniSection() {
               </div>
 
               <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1C1B1B] mb-1">
-                Almira Rahmadhany, S.H., LL.M.
+                Lorem Ipsum, S.H., LL.M.
               </h3>
 
               <p className="text-xs sm:text-sm font-semibold text-[#800000] mb-4">

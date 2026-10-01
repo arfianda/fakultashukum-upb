@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { AdmissionProvider } from "@/context/AdmissionContext";
+import { RootShell } from "@/components/layout/RootShell";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -17,9 +19,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Fakultas Hukum Universitas Pelita Bangsa | Integritas & Keadilan",
+  title: {
+    template: "%s | Fakultas Hukum UPB",
+    default: "Fakultas Hukum Universitas Pelita Bangsa | Integritas & Keadilan",
+  },
   description:
-    "Portal Resmi Fakultas Hukum Universitas Pelita Bangsa. Menyelenggarakan pendidikan Sarjana Hukum (S.H.) berstandar keunggulan akademik, kemahiran litigasi, riset yurisprudensi, dan advokasi keadilan publik.",
+    "Portal Resmi Fakultas Hukum Universitas Pelita Bangsa. Menyelenggarakan pendidikan Sarjana Hukum (S.H.) berstandar keunggulan akademik, kemahiran litigasi ruang sidang, riset yurisprudensi, dan advokasi keadilan publik.",
   keywords: [
     "Fakultas Hukum UPB",
     "Universitas Pelita Bangsa",
@@ -48,7 +53,9 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
       <body className="min-h-screen flex flex-col font-sans bg-[#FCF9F8] text-[#1C1B1B] antialiased">
-        {children}
+        <AdmissionProvider>
+          <RootShell>{children}</RootShell>
+        </AdmissionProvider>
       </body>
     </html>
   );

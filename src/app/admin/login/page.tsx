@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Scale, Lock, User, ArrowLeft, AlertCircle, CheckCircle } from "lucide-react";
+import { Scale, Lock, User, ArrowLeft, AlertCircle } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();

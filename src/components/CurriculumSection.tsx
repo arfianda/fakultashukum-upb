@@ -59,27 +59,27 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
 
   const degrees = [
     {
-      program: "Sarjana Hukum (S.H.)",
-      badge: "Program Sarjana",
+      program: "Sarjana Hukum (S.H.) - Kelas Reguler",
+      badge: "Program Sarjana Reguler",
       period: "8 Semester (144 SKS)",
-      desc: "Membentuk sarjana hukum berkepribadian etis dengan penguasaan doktrin hukum substantif, kemahiran litigasi ruang sidang, serta kemampuan legal writing yang presisi.",
+      desc: "Perkuliahan komprehensif bagi lulusan SMA/SMK/MA sederajat dengan perkuliahan tatap muka penuh, praktikum peradilan semu intensif, dan pembinaan kepemimpinan hukum.",
       features: [
-        "Tersedia Kelas Reguler Pagi & Kelas Karyawan Malam",
+        "Jadwal Perkuliahan Hari Kerja (Senin - Jumat)",
         "Praktik Peradilan Semu Wajib (Laboratorium Moot Court)",
         "Magang Terstruktur di Pengadilan & Kantor Advokat Mitra",
         "Lulusan berhak menyandang gelar Sarjana Hukum (S.H.)",
       ],
     },
     {
-      program: "Magister Ilmu Hukum (M.H.)",
-      badge: "Program Pascasarjana",
-      period: "4 Semester (36 SKS)",
-      desc: "Dirancang untuk para praktisi hukum, aparatur negara, dan akademisi yang hendak memperdalam metodologi riset hukum kritis serta keahlian hukum bisnis strategis.",
+      program: "Sarjana Hukum (S.H.) - Kelas Karyawan",
+      badge: "Program Sarjana Paralel",
+      period: "8 Semester (144 SKS)",
+      desc: "Dirancang fleksibel bagi para profesional, karyawan industri, dan aparatur yang hendak meraih gelar Sarjana Hukum tanpa meninggalkan rutinitas pekerjaan harian.",
       features: [
-        "Jadwal Kuliah Akhir Pekan (Sabtu - Hybrid Learning)",
-        "Fokus Konsentrasi: Hukum Bisnis & Hukum Kebijakan Publik",
-        "Bimbingan Penulisan Tesis oleh Dewan Guru Besar Bereputasi",
-        "Lulusan menyandang gelar Magister Hukum (M.H.)",
+        "Jadwal Perkuliahan Fleksibel (Malam & Akhir Pekan Hybrid)",
+        "Kurikulum, Bobot 144 SKS & Akreditasi Setara Penuh Kelas Reguler",
+        "Diajar oleh Dosen Praktisi Hukum dan Akademisi Senior",
+        "Akses Penuh Laboratorium Sidang Semu & Klinik Hukum",
       ],
     },
     {

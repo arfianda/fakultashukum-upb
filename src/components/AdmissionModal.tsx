@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, Scale } from "lucide-react";
 
 export function AdmissionModal({
@@ -11,6 +13,7 @@ export function AdmissionModal({
   onClose: () => void;
 }) {
   const [submitted, setSubmitted] = useState(false);
+  const [regNumber, setRegNumber] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -32,20 +35,38 @@ export function AdmissionModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setRegNumber(`FH-UPB-2026-${Math.floor(1000 + Math.random() * 9000)}`);
     setSubmitted(true);
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-xs"
-    >
-      <div className="bg-white max-w-xl w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto">
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        >
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/65 backdrop-blur-xs"
+          />
+
+          {/* Dialog Container */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            className="bg-white max-w-xl w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[92vh] overflow-y-auto z-10"
+          >
         <button
           onClick={onClose}
           className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
@@ -68,17 +89,26 @@ export function AdmissionModal({
             <div className="p-4 bg-[#F8F7F4] border border-[#E5E1DA] text-left text-xs text-[#5C5854] space-y-1 mb-6 font-light">
               <p><strong className="font-semibold text-[#1C1B1B]">Program Dipilih:</strong> {formData.program}</p>
               <p><strong className="font-semibold text-[#1C1B1B]">Jalur Pendaftaran:</strong> {formData.scholarship}</p>
-              <p><strong className="font-semibold text-[#1C1B1B]">Nomor Registrasi:</strong> FH-UPB-2026-{Math.floor(1000 + Math.random() * 9000)}</p>
+              <p><strong className="font-semibold text-[#1C1B1B]">Nomor Registrasi:</strong> {regNumber}</p>
             </div>
-            <button
-              onClick={() => {
-                setSubmitted(false);
-                onClose();
-              }}
-              className="px-8 py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
-            >
-              Selesai &amp; Kembali
-            </button>
+            <div className="flex flex-col items-center gap-3">
+              <button
+                onClick={() => {
+                  setSubmitted(false);
+                  onClose();
+                }}
+                className="px-8 py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
+              >
+                Selesai &amp; Kembali
+              </button>
+              <Link
+                href="/penerimaan/daftar"
+                onClick={onClose}
+                className="text-xs text-[#800000] hover:underline"
+              >
+                Lihat panduan lengkap pendaftaran mahasiswa baru &rarr;
+              </Link>
+            </div>
           </div>
         ) : (
           <div>
@@ -106,7 +136,7 @@ export function AdmissionModal({
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  placeholder="Contoh: Rian Pratama, S.H."
+                  placeholder="Contoh: Lorem Ipsum, S.H."
                   className="w-full px-3.5 py-2.5 text-xs border border-[#E5E1DA] focus:border-[#800000] bg-[#F8F7F4]"
                 />
               </div>
@@ -153,7 +183,6 @@ export function AdmissionModal({
                   >
                     <option>Sarjana Hukum (S.H.) - Reguler Pagi</option>
                     <option>Sarjana Hukum (S.H.) - Kelas Eksekutif/Karyawan</option>
-                    <option>Magister Ilmu Hukum (M.H.) - Pascasarjana</option>
                     <option>Pendidikan Khusus Profesi Advokat (PKPA)</option>
                   </select>
                 </div>
@@ -197,13 +226,25 @@ export function AdmissionModal({
                 </button>
               </div>
 
+              <div className="text-center pt-1">
+                <Link
+                  href="/penerimaan/daftar"
+                  onClick={onClose}
+                  className="text-xs text-[#800000] hover:text-[#570000] font-medium underline underline-offset-4"
+                >
+                  Lihat panduan pendaftaran lengkap &rarr;
+                </Link>
+              </div>
+
               <p className="text-[11px] text-[#5C5854] text-center font-light">
                 Data Anda dilindungi dan hanya digunakan untuk keperluan seleksi resmi Fakultas Hukum Universitas Pelita Bangsa.
               </p>
             </form>
           </div>
         )}
-      </div>
-    </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }
