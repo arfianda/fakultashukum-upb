@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Play, X, Quote } from "lucide-react";
 
-export function YaleStudentSpotlight() {
+export function UpbStudentSpotlight() {
   const [activeStory, setActiveStory] = useState<{
     name: string;
     classYear: string;
@@ -42,7 +42,7 @@ export function YaleStudentSpotlight() {
       {/* Scroll anchor target */}
       <div id="mahasiswa-spotlight" className="absolute -top-24 left-0 pointer-events-none" aria-hidden="true" />
 
-      {/* Background container offset block (Direct match to Yale screenshot dark blue block) */}
+      {/* Background container offset block (Direct match to Desain Referensi dark blue block) */}
       <div className="absolute inset-y-0 left-0 w-full lg:w-4/5 bg-gradient-to-r from-[#3A0000] via-[#480000] to-[#48060B] z-0" />
       <div className="absolute inset-0 dotted-matrix-bg opacity-15 pointer-events-none z-0" aria-hidden="true" />
 
@@ -66,7 +66,7 @@ export function YaleStudentSpotlight() {
               {/* Dark Vignette Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20 group-hover:from-[#48060B]/85 transition-colors" />
 
-              {/* Center Circular Play Button (Direct match to Yale screenshot) */}
+              {/* Center Circular Play Button (Direct match to Desain Referensi) */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#710912]/90 border-2 border-white flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-[#C28D39] transition-all">
                   <Play className="w-6 h-6 fill-white translate-x-0.5" />

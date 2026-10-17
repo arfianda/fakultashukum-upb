@@ -183,7 +183,7 @@ export function InfoPage({ data }: { data: InfoPageData }) {
             )}
           </main>
 
-          {/* Sidebar: "Dalam Bagian Ini" (Yale Style Navigation) */}
+          {/* Sidebar: "Dalam Bagian Ini" (UPB Editorial Style Navigation) */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="bg-white border border-[#E2D9C8] rounded-2xl p-6 shadow-xs sticky top-24">
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#544942] mb-3 pb-2 border-b border-[#F4ECE1]">

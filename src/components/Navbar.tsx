@@ -728,7 +728,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
             >
               <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] overflow-hidden">
                 <div className="flex items-stretch gap-6 lg:gap-8">
-                  {/* Column 1: Featured Card (Yale Editorial Style) */}
+                  {/* Column 1: Featured Card (UPB Editorial Style) */}
                   <div className="w-72 shrink-0 bg-[#FAF7F2] border-r border-[#E2D9C8] p-4 sm:p-5 flex flex-col justify-between group">
                     <div>
                       <div className="relative h-32 sm:h-36 w-full rounded-xl overflow-hidden mb-3.5 shadow-xs">

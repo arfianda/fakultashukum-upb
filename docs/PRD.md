@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD): Website Utama Fakultas Hukum Universitas Pelita Bangsa
 
 ## 1. Product Overview
-Website Utama Fakultas Hukum (FH) adalah wajah digital publik (landing page) institusi yang dirancang dengan estetika klasik-modern berwibawa, mengambil inspirasi visual dari Yale Law School dengan balutan identitas warna Dark Maroon (#800000). 
+Website Utama Fakultas Hukum (FH) adalah wajah digital publik (landing page) institusi yang dirancang dengan estetika klasik-modern berwibawa khas Fakultas Hukum Universitas Pelita Bangsa (FH UPB) dengan balutan identitas warna Deep Burgundy (#710912), Antique Gold (#C28D39), dan Dark Espresso (#362822). 
 Objektif utama produk ini adalah membangun kredibilitas, memusatkan informasi akademik, dan menarik minat calon mahasiswa baru. Produk ini memecahkan masalah ketiadaan pusat informasi publik yang representatif dan profesional.
 
 ## 2. Target Audience

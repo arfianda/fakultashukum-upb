@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, MapPin, Clock, User, X, CheckCircle } from "lucide-react";
 import { EventItem } from "@/data/initialData";
 
-export function YaleEventsSection({ events }: { events: EventItem[] }) {
+export function UpbEventsSection({ events }: { events: EventItem[] }) {
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [registered, setRegistered] = useState(false);
 
@@ -39,7 +39,7 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
 
   return (
     <section id="agenda" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20 border-t border-[#E2D9C8]" aria-label="Agenda Seminar dan Kegiatan Akademik">
-      {/* Yale Law School Signature Header with Top Dotted Matrix Pattern */}
+      {/* Fakultas Hukum UPB Signature Header with Top Dotted Matrix Pattern */}
       <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#E2D9C8]">
         <div className="relative">
           {/* Rectangular Dotted Matrix motif floating directly above/behind the word */}
@@ -49,7 +49,7 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
           </h2>
         </div>
 
-        {/* Right Action Link (Direct match to "All Events ->" in Yale screenshot) */}
+        {/* Right Action Link (Direct match to "All Events ->" in Desain Referensi) */}
         <Link
           href="/agenda"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#710912] hover:text-[#48060B] group transition-colors"
@@ -59,7 +59,7 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
         </Link>
       </div>
 
-      {/* Yale 3-Column x 2-Row Events Grid */}
+      {/* UPB 3-Column x 2-Row Events Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
         {displayEvents.map((evt, idx) => {
           const { day, month } = parseEventDate(evt.eventDate);
@@ -77,7 +77,7 @@ export function YaleEventsSection({ events }: { events: EventItem[] }) {
               }}
               className="flex items-start gap-4 group cursor-pointer"
             >
-              {/* Distinctive Yale Calendar Date Block */}
+              {/* Distinctive Kalender Akademik UPB Block */}
               <div className="shrink-0 text-center w-14 pt-0.5">
                 <span className="block text-[11px] font-bold uppercase tracking-widest text-[#544942]">
                   {month}

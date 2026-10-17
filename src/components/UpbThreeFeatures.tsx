@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ChevronRight, X } from "lucide-react";
 
-export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
+export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const [modalType, setModalType] = useState<"tour" | "centers" | null>(null);
 
   const features = [
@@ -40,11 +40,11 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
       <div id="pusat-studi" className="absolute -top-24 left-0 pointer-events-none" aria-hidden="true" />
       <div id="laboratorium" className="absolute -top-24 left-0 pointer-events-none" aria-hidden="true" />
 
-      {/* 3 Editorial Cards side-by-side with Yale Dotted Matrix accent header */}
+      {/* 3 Editorial Cards side-by-side with UPB Dotted Matrix accent header */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {features.map((item) => (
           <div key={item.id} className="relative flex flex-col justify-between group">
-            {/* Yale Signature Dotted Matrix Motif floating above the card */}
+            {/* UPB Signature Dotted Matrix Motif floating above the card */}
             <div className="w-20 h-4 dotted-matrix-bg opacity-60 mb-2" aria-hidden="true" />
 
             <div>
@@ -70,7 +70,7 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
               </p>
             </div>
 
-            {/* Solid Dark Maroon Button (Direct match to Yale screenshot) */}
+            {/* Solid Dark Maroon Button (Direct match to Desain Referensi) */}
             <div>
               {item.href ? (
                 <a

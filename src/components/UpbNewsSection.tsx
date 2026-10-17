@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Calendar, Clock, X } from "lucide-react";
 import { PostItem } from "@/data/initialData";
 
-export function YaleNewsSection({ posts }: { posts: PostItem[] }) {
+export function UpbNewsSection({ posts }: { posts: PostItem[] }) {
   const [selectedPost, setSelectedPost] = useState<PostItem | null>(null);
 
   const leadPost = posts[0] || null;
@@ -15,7 +15,7 @@ export function YaleNewsSection({ posts }: { posts: PostItem[] }) {
 
   return (
     <section id="berita" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20" aria-label="Warta dan Berita Fakultas Hukum">
-      {/* Yale Law School Signature Section Header with Vertical Dotted Matrix Accent */}
+      {/* Fakultas Hukum UPB Signature Section Header with Vertical Dotted Matrix Accent */}
       <div className="flex items-center justify-between pb-6 mb-10 border-b border-[#E2D9C8]">
         <div className="flex items-center gap-3">
           {/* Signature Dotted Matrix Motif block */}
@@ -25,7 +25,7 @@ export function YaleNewsSection({ posts }: { posts: PostItem[] }) {
           </h2>
         </div>
 
-        {/* Right Action Link (Direct match to "All News ->" in Yale screenshot) */}
+        {/* Right Action Link (Direct match to "All News ->" in Desain Referensi) */}
         <Link
           href="/berita"
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#710912] hover:text-[#48060B] group transition-colors"
@@ -35,7 +35,7 @@ export function YaleNewsSection({ posts }: { posts: PostItem[] }) {
         </Link>
       </div>
 
-      {/* Yale 2-Column Editorial News Grid */}
+      {/* UPB 2-Column Editorial News Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column (Main Featured Story with Large Image) */}
         {leadPost && (
@@ -99,7 +99,7 @@ export function YaleNewsSection({ posts }: { posts: PostItem[] }) {
               onClick={() => setSelectedPost(post)}
               className="flex items-start gap-4 pb-5 border-b border-[#E2D9C8] last:border-b-0 cursor-pointer group"
             >
-              {/* Thumbnail Image on the left (Direct match to Yale screenshot) */}
+              {/* Thumbnail Image on the left (Direct match to Desain Referensi) */}
               <div className="relative w-28 sm:w-32 h-20 shrink-0 overflow-hidden bg-[#FAF7F2] border border-[#E2D9C8]">
                 {post.coverImage ? (
                   <Image

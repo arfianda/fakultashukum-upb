@@ -113,10 +113,10 @@ export function AgendaListingClient({
         </div>
       )}
 
-      {/* Events List Cards (Yale Date-Badge Scheme) */}
+      {/* Events List Cards (Kalender Akademik UPB Scheme) */}
       <div className="space-y-6">
         {filteredEvents.map((event, idx) => {
-          // Parse date parts for prominent Yale badge
+          // Parse date parts for prominent UPB badge
           const dateParts = event.eventDate.split(" ");
           const day = dateParts[0] || "01";
           const monthYear = dateParts.slice(1).join(" ") || "Oktober 2026";
@@ -131,7 +131,7 @@ export function AgendaListingClient({
               transition={{ duration: 0.4, delay: (idx % 4) * 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="bg-white border border-[#E2D9C8] rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
             >
-              {/* Prominent Yale Date Block */}
+              {/* Prominent Kalender Akademik UPB Block */}
               <div className="shrink-0 w-24 h-24 rounded-xl bg-[#FAF7F2] border-2 border-[#710912]/20 flex flex-col items-center justify-center text-center p-2 group-hover:border-[#710912] group-hover:bg-[#710912] transition-colors">
                 <span className="text-2xl sm:text-3xl font-serif font-bold text-[#710912] group-hover:text-white leading-none">
                   {day}

@@ -3,7 +3,7 @@
 import React from "react";
 import { Newspaper, Users, Landmark, Compass } from "lucide-react";
 
-export function YaleQuickBar() {
+export function UpbQuickBar() {
   const items = [
     { label: "BERITA & WARTA", href: "#berita", icon: Newspaper },
     { label: "DIREKTORI DOSEN", href: "#fakultas", icon: Users },

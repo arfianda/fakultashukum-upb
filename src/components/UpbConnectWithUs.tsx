@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Camera } from "lucide-react";
 
-export function YaleConnectWithUs() {
+export function UpbConnectWithUs() {
   const photos = [
     {
       id: 1,
@@ -25,11 +25,11 @@ export function YaleConnectWithUs() {
 
   return (
     <section id="komunitas" className="relative py-16 lg:py-24 bg-[#FAF7F2] border-t border-[#E2D9C8] overflow-hidden" aria-label="Media Sosial dan Komunitas Kampus">
-      {/* Subtle Yale-style Dotted Matrix Backdrop */}
+      {/* Subtle UPB Editorial Dotted Matrix Backdrop */}
       <div className="absolute inset-0 dotted-matrix-bg opacity-30 pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Centered Serif Section Heading (Direct match to Yale screenshot) */}
+        {/* Centered Serif Section Heading (Direct match to Desain Referensi) */}
         <div className="text-center mb-12">
           <div className="w-16 h-3 mx-auto dotted-matrix-bg opacity-70 mb-2" aria-hidden="true" />
           <h2 className="font-serif text-3xl sm:text-4xl text-[#0D0D0D] font-normal tracking-tight">
@@ -63,7 +63,7 @@ export function YaleConnectWithUs() {
             </div>
           ))}
 
-          {/* Item 4: Official X / Twitter Card (Direct match to Yale screenshot) */}
+          {/* Item 4: Official X / Twitter Card (Direct match to Desain Referensi) */}
           <div className="relative aspect-square bg-white border border-[#E2D9C8] p-6 flex flex-col justify-between shadow-sm hover:border-[#710912] transition-colors">
             <div>
               {/* Header with X icon */}
@@ -108,7 +108,7 @@ export function YaleConnectWithUs() {
           </div>
         </div>
 
-        {/* Centered Social Follow Row (Direct match to Yale screenshot) */}
+        {/* Centered Social Follow Row (Direct match to Desain Referensi) */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-6 border-t border-[#E2D9C8]">
           <span className="text-[11px] font-bold uppercase tracking-widest text-[#544942]">
             IKUTI KAMI:

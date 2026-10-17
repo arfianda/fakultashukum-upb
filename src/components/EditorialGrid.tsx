@@ -21,7 +21,7 @@ export function EditorialGrid({
 
   return (
     <section id="riset" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24" aria-label="Wacana dan Berita Hukum">
-      {/* Signature Yale Law School Section Header with Dotted Matrix Motif in Academic Maroon */}
+      {/* Signature Fakultas Hukum UPB Section Header with Dotted Matrix Motif in Academic Maroon */}
       <div className="flex flex-col sm:flex-row items-center justify-between pb-8 mb-12 border-b border-[#E2D9C8] gap-4">
         {/* Centered/Left Signature Motif directly matching screenshot */}
         <div className="relative inline-flex items-center justify-center">

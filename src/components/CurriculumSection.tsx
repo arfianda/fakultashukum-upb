@@ -99,7 +99,7 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
   return (
     <section id="akademik" className="bg-[#FAF7F2] border-t border-[#E2D9C8] py-16 lg:py-24" aria-label="Program Studi dan Kurikulum">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header with Yale Law School Architectural Motif */}
+        {/* Section Header with UPB Architectural Motif */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#E2D9C8]">
           <div>
             <div className="relative inline-flex items-center mb-2">

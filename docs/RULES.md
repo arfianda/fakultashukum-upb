@@ -14,8 +14,8 @@ The lead developer overseeing this project operates on a Linux environment (Ende
 - **Icons:** Lucide React
 
 ## 3. Design System & UI/UX Guidelines
-The visual architecture is inspired by classic-modern prestige (e.g., Yale Law School).
-- **Primary Color:** Dark Maroon / Crimson Deep (`#800000` or `bg-red-900` with custom hex).
+The visual architecture is inspired by prestigious academic editorial design (Fakultas Hukum UPB).
+- **Primary Color:** Deep Burgundy (`#710912`), Antique Gold (`#C28D39`), Dark Espresso (`#362822`).
 - **Backgrounds:** Crisp White (`#FFFFFF`) and Light Gray (`#F9FAFB`).
 - **Borders:** Thin, precise 1px borders for grids and cards to maximize whitespace.
 - **Typography:**

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Check, X } from "lucide-react";
 
-export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
+export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const [activeArea, setActiveArea] = useState<{
     title: string;
     subtitle?: string;
@@ -69,7 +69,7 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
       <div className="absolute inset-0 dotted-matrix-bg opacity-15 pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Yale Section Header: Centered serif title with right action link */}
+        {/* UPB Section Header: Centered serif title with right action link */}
         <div className="flex flex-col sm:flex-row items-center justify-between pb-6 mb-12 border-b border-white/20 gap-4">
           <div className="text-center sm:text-left">
             <span className="text-[10px] uppercase tracking-widest text-[#EFE5D2] font-bold block mb-1">
