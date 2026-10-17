@@ -89,13 +89,13 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
           </a>
         </div>
 
-        {/* 3 Large Photographic Cards (Direct match to Yale screenshot) */}
+        {/* 3 Large Photographic Cards with modern organic rounded shape matching the leaf reference */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {areas.map((area) => (
             <div
               key={area.id}
               onClick={() => setActiveArea(area)}
-              className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden group cursor-pointer border border-white/15 hover:border-[#C5A059] transition-all shadow-xl"
+              className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden group cursor-pointer border border-white/20 hover:border-[#C5A059] transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1.5 rounded-tr-[3.5rem] rounded-bl-[3.5rem] sm:rounded-tr-[4.5rem] sm:rounded-bl-[4.5rem] lg:rounded-tr-[5.5rem] lg:rounded-bl-[5.5rem] isolate"
             >
               {/* Image with zoom on hover */}
               <Image
@@ -111,13 +111,13 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
 
               {/* Subtitle pill at top */}
               <div className="absolute top-4 left-4">
-                <span className="text-[9px] uppercase tracking-widest font-bold px-2.5 py-1 bg-black/60 text-[#E8D8B0] border border-white/10 backdrop-blur-xs">
+                <span className="text-[9px] uppercase tracking-widest font-bold px-3 py-1 bg-black/60 text-[#E8D8B0] border border-white/10 backdrop-blur-xs rounded-full">
                   {area.subtitle}
                 </span>
               </div>
 
               {/* Title anchored at bottom */}
-              <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 pb-8 pl-8 flex flex-col justify-end">
                 <h3 className="font-serif text-xl sm:text-2xl text-white font-normal leading-snug group-hover:text-[#E8D8B0] transition-colors mb-2">
                   {area.title}
                 </h3>
@@ -130,11 +130,11 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
           ))}
         </div>
 
-        {/* Center Action Button (Direct match to Yale screenshot ghost button) */}
+        {/* Center Action Button (Pill shape) */}
         <div className="text-center">
           <a
             href="#akademik"
-            className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/70 hover:border-white text-white hover:bg-white/10 text-xs font-bold uppercase tracking-widest transition-all"
+            className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/70 hover:border-white text-white hover:bg-white/10 text-xs font-bold uppercase tracking-widest transition-all rounded-full"
           >
             <span>JELAJAHI KURIKULUM &amp; KONSENTRASI LENGKAP</span>
             <ArrowRight className="w-4 h-4 text-[#C5A059]" />
@@ -149,10 +149,10 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs text-[#1C1B1B]"
         >
-          <div className="bg-white max-w-xl w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white max-w-xl w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto rounded-3xl">
             <button
               onClick={() => setActiveArea(null)}
-              className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
+              className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4] rounded-full transition-colors"
               aria-label="Tutup detail konsentrasi"
             >
               <X className="w-5 h-5" />
@@ -169,7 +169,7 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
               {activeArea.desc}
             </p>
 
-            <div className="mb-6 p-4 bg-[#F8F7F4] border border-[#E5E1DA]">
+            <div className="mb-6 p-4 bg-[#F8F7F4] border border-[#E5E1DA] rounded-2xl">
               <p className="text-[11px] font-bold text-[#1C1B1B] uppercase tracking-wider mb-2.5">
                 Mata Kuliah Keahlian Utama:
               </p>
@@ -193,13 +193,13 @@ export function YaleAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => 
                   setActiveArea(null);
                   if (onOpenAdmission) onOpenAdmission();
                 }}
-                className="flex-1 py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
+                className="flex-1 py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000] rounded-full transition-colors shadow-xs"
               >
                 Daftar Program Studi Ini
               </button>
               <button
                 onClick={() => setActiveArea(null)}
-                className="px-6 py-3 border border-[#E5E1DA] text-xs font-bold uppercase tracking-wider hover:bg-[#F8F7F4]"
+                className="px-6 py-3 border border-[#E5E1DA] text-xs font-bold uppercase tracking-wider hover:bg-[#F8F7F4] rounded-full transition-colors"
               >
                 Tutup
               </button>
