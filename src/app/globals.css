@@ -73,6 +73,47 @@ body {
   background-size: 6px 6px;
 }
 
+/* Striped indicator pattern matching Pillio dashboard references */
+.striped-bar-pattern {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(197, 160, 89, 0.3),
+    rgba(197, 160, 89, 0.3) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.striped-bar-light {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.3) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.striped-bar-neutral {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(140, 130, 122, 0.18),
+    rgba(140, 130, 122, 0.18) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.striped-bar-maroon {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(128, 0, 0, 0.2),
+    rgba(128, 0, 0, 0.2) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
 /* Academic editorial line dividers */
 .hairline-b {
   border-bottom: 1px solid var(--color-border-subtle, #e5e1da);
