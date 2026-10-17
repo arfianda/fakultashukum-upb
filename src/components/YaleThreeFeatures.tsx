@@ -49,7 +49,7 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
 
             <div>
               {/* Card Image */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden mb-6 bg-[#F8F7F4] border border-[#E5E1DA]">
+              <div className="relative aspect-[16/10] w-full overflow-hidden mb-6 bg-[#FAF7F2] border border-[#E2D9C8]">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -60,12 +60,12 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
               </div>
 
               {/* Title */}
-              <h3 className="font-serif text-2xl font-normal text-[#1C1B1B] group-hover:text-[#800000] transition-colors mb-3 leading-snug">
+              <h3 className="font-serif text-2xl font-normal text-[#0D0D0D] group-hover:text-[#710912] transition-colors mb-3 leading-snug">
                 {item.title}
               </h3>
 
               {/* Description */}
-              <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed mb-6 font-light">
+              <p className="text-xs sm:text-sm text-[#544942] leading-relaxed mb-6 font-light">
                 {item.desc}
               </p>
             </div>
@@ -75,18 +75,18 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
               {item.href ? (
                 <a
                   href={item.href}
-                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-[#800000] hover:bg-[#570000] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-bold uppercase tracking-wider transition-colors"
                 >
                   <span>{item.actionText}</span>
-                  <ChevronRight className="w-4 h-4 ml-1 text-[#E8D8B0]" />
+                  <ChevronRight className="w-4 h-4 ml-1 text-[#EFE5D2]" />
                 </a>
               ) : (
                 <button
                   onClick={item.onClick}
-                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-[#800000] hover:bg-[#570000] text-white text-xs font-bold uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-bold uppercase tracking-wider transition-colors"
                 >
                   <span>{item.actionText}</span>
-                  <ChevronRight className="w-4 h-4 ml-1 text-[#E8D8B0]" />
+                  <ChevronRight className="w-4 h-4 ml-1 text-[#EFE5D2]" />
                 </button>
               )}
             </div>
@@ -101,10 +101,10 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs"
         >
-          <div className="bg-white max-w-lg w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white max-w-lg w-full border border-[#E2D9C8] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setModalType(null)}
-              className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
+              className="absolute top-6 right-6 p-2 text-[#544942] hover:text-[#0D0D0D] hover:bg-[#FAF7F2]"
               aria-label="Tutup jendela informasi"
             >
               <X className="w-5 h-5" />
@@ -112,19 +112,19 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
 
             {modalType === "tour" ? (
               <div>
-                <span className="text-[10px] uppercase tracking-widest text-[#800000] font-bold block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-[#710912] font-bold block mb-1">
                   EKSPLORASI KAMPUS
                 </span>
-                <h3 className="font-serif text-2xl text-[#1C1B1B] mb-3">
+                <h3 className="font-serif text-2xl text-[#0D0D0D] mb-3">
                   Tur Kampus &amp; Fasilitas Hukum
                 </h3>
-                <div className="relative aspect-[16/9] w-full mb-4 border border-[#E5E1DA]">
+                <div className="relative aspect-[16/9] w-full mb-4 border border-[#E2D9C8]">
                   <Image src="/images/feature-tour.jpg" alt="Fasilitas Kampus" fill className="object-cover" />
                 </div>
-                <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed mb-4 font-light">
+                <p className="text-xs sm:text-sm text-[#544942] leading-relaxed mb-4 font-light">
                   Fakultas Hukum Universitas Pelita Bangsa berlokasi strategis di Jl. Inspeksi Kalimalang, Cikarang Pusat, terintegrasi dengan pusat denyut ekonomi dan koridor industri terbesar di Asia Tenggara. Fasilitas mencakup:
                 </p>
-                <ul className="text-xs text-[#5C5854] space-y-2 mb-6 list-disc list-inside">
+                <ul className="text-xs text-[#544942] space-y-2 mb-6 list-disc list-inside">
                   <li><strong>Laboratorium Moot Court:</strong> Tata letak persidangan resmi lengkap dengan majelis hakim, jaksa, dan panitera elektronik.</li>
                   <li><strong>Perpustakaan Riset Hukum:</strong> Ribuan koleksi yurisprudensi MA/MK dan akses jurnal internasional terindeks.</li>
                   <li><strong>Klinik Konsultasi Hukum:</strong> Ruang mediasi sengketa perdata dan advokasi masyarakat.</li>
@@ -134,33 +134,33 @@ export function YaleThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () =>
                     setModalType(null);
                     if (onOpenAdmission) onOpenAdmission();
                   }}
-                  className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
+                  className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B]"
                 >
                   Daftar Kunjungan Kampus
                 </button>
               </div>
             ) : (
               <div>
-                <span className="text-[10px] uppercase tracking-widest text-[#800000] font-bold block mb-1">
+                <span className="text-[10px] uppercase tracking-widest text-[#710912] font-bold block mb-1">
                   PENGABDIAN &amp; RISET
                 </span>
-                <h3 className="font-serif text-2xl text-[#1C1B1B] mb-3">
+                <h3 className="font-serif text-2xl text-[#0D0D0D] mb-3">
                   Pusat Studi &amp; Klinik Bantuan Hukum
                 </h3>
-                <div className="relative aspect-[16/9] w-full mb-4 border border-[#E5E1DA]">
+                <div className="relative aspect-[16/9] w-full mb-4 border border-[#E2D9C8]">
                   <Image src="/images/feature-centers.jpg" alt="Pusat Studi" fill className="object-cover" />
                 </div>
-                <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed mb-4 font-light">
+                <p className="text-xs sm:text-sm text-[#544942] leading-relaxed mb-4 font-light">
                   Pusat Studi Hukum UPB mewadahi riset strategis dan pelayanan pro-bono masyarakat:
                 </p>
-                <ul className="text-xs text-[#5C5854] space-y-2 mb-6 list-disc list-inside">
+                <ul className="text-xs text-[#544942] space-y-2 mb-6 list-disc list-inside">
                   <li><strong>Pusat Bantuan Hukum (PBH UPB):</strong> Pendampingan hukum cuma-cuma bagi warga kurang mampu.</li>
                   <li><strong>Pusat Studi Hukum Bisnis &amp; Industri:</strong> Kajian regulasi ketenagakerjaan, investasi, dan kontrak manufaktur.</li>
                   <li><strong>Pusat Kajian Konstitusi &amp; HAM:</strong> Diseminasi wacana demokrasi dan analisis putusan peradilan.</li>
                 </ul>
                 <button
                   onClick={() => setModalType(null)}
-                  className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
+                  className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B]"
                 >
                   Selesai
                 </button>

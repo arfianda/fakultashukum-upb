@@ -24,7 +24,7 @@ export function YaleConnectWithUs() {
   ];
 
   return (
-    <section id="komunitas" className="relative py-16 lg:py-24 bg-[#F8F7F4] border-t border-[#E5E1DA] overflow-hidden" aria-label="Media Sosial dan Komunitas Kampus">
+    <section id="komunitas" className="relative py-16 lg:py-24 bg-[#FAF7F2] border-t border-[#E2D9C8] overflow-hidden" aria-label="Media Sosial dan Komunitas Kampus">
       {/* Subtle Yale-style Dotted Matrix Backdrop */}
       <div className="absolute inset-0 dotted-matrix-bg opacity-30 pointer-events-none" aria-hidden="true" />
 
@@ -32,7 +32,7 @@ export function YaleConnectWithUs() {
         {/* Centered Serif Section Heading (Direct match to Yale screenshot) */}
         <div className="text-center mb-12">
           <div className="w-16 h-3 mx-auto dotted-matrix-bg opacity-70 mb-2" aria-hidden="true" />
-          <h2 className="font-serif text-3xl sm:text-4xl text-[#1C1B1B] font-normal tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl text-[#0D0D0D] font-normal tracking-tight">
             Terhubung Dengan Kami
           </h2>
         </div>
@@ -43,7 +43,7 @@ export function YaleConnectWithUs() {
           {photos.map((item) => (
             <div
               key={item.id}
-              className="relative aspect-square overflow-hidden bg-white border border-[#E5E1DA] shadow-sm group hover:border-[#800000] transition-colors"
+              className="relative aspect-square overflow-hidden bg-white border border-[#E2D9C8] shadow-sm group hover:border-[#710912] transition-colors"
             >
               <Image
                 src={item.image}
@@ -64,43 +64,43 @@ export function YaleConnectWithUs() {
           ))}
 
           {/* Item 4: Official X / Twitter Card (Direct match to Yale screenshot) */}
-          <div className="relative aspect-square bg-white border border-[#E5E1DA] p-6 flex flex-col justify-between shadow-sm hover:border-[#800000] transition-colors">
+          <div className="relative aspect-square bg-white border border-[#E2D9C8] p-6 flex flex-col justify-between shadow-sm hover:border-[#710912] transition-colors">
             <div>
               {/* Header with X icon */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-[#800000] text-white flex items-center justify-center font-serif text-xs font-bold">
+                  <div className="w-8 h-8 rounded-full bg-[#710912] text-white flex items-center justify-center font-serif text-xs font-bold">
                     UPB
                   </div>
                   <div>
-                    <span className="block text-xs font-bold text-[#1C1B1B] leading-tight">
+                    <span className="block text-xs font-bold text-[#0D0D0D] leading-tight">
                       Fakultas Hukum UPB
                     </span>
-                    <span className="block text-[11px] text-[#5C5854]">
+                    <span className="block text-[11px] text-[#544942]">
                       @FH_PelitaBangsa
                     </span>
                   </div>
                 </div>
 
                 {/* X / Twitter logo SVG */}
-                <svg className="w-4 h-4 text-[#1C1B1B] fill-current" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-[#0D0D0D] fill-current" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </div>
 
               {/* Tweet content */}
-              <p className="font-serif text-xs sm:text-[13px] text-[#1C1B1B] leading-relaxed mb-3">
+              <p className="font-serif text-xs sm:text-[13px] text-[#0D0D0D] leading-relaxed mb-3">
                 &ldquo;Selamat kepada delegasi mahasiswa Fakultas Hukum UPB yang berhasil meraih Trofi Berkas Terbaik pada National Moot Court Competition 2026. Bukti ketajaman analisis doktrin yuridis ruang sidang.&rdquo;
               </p>
             </div>
 
-            <div className="pt-3 border-t border-[#E5E1DA] text-[10px] text-[#5C5854] flex items-center justify-between">
+            <div className="pt-3 border-t border-[#E2D9C8] text-[10px] text-[#544942] flex items-center justify-between">
               <span>24 Sep 2026 &bull; Cikarang, ID</span>
               <a
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#800000] font-bold hover:underline"
+                className="text-[#710912] font-bold hover:underline"
               >
                 Lihat di X &rarr;
               </a>
@@ -109,17 +109,17 @@ export function YaleConnectWithUs() {
         </div>
 
         {/* Centered Social Follow Row (Direct match to Yale screenshot) */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-6 border-t border-[#E5E1DA]">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[#5C5854]">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-6 border-t border-[#E2D9C8]">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#544942]">
             IKUTI KAMI:
           </span>
-          <div className="flex items-center gap-5 text-[#5C5854]">
+          <div className="flex items-center gap-5 text-[#544942]">
             {/* X */}
             <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#800000] transition-colors p-1"
+              className="hover:text-[#710912] transition-colors p-1"
               aria-label="Akun X Twitter Resmi"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export function YaleConnectWithUs() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#800000] transition-colors p-1"
+              className="hover:text-[#710912] transition-colors p-1"
               aria-label="Instagram Resmi"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export function YaleConnectWithUs() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#800000] transition-colors p-1"
+              className="hover:text-[#710912] transition-colors p-1"
               aria-label="LinkedIn Resmi"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -158,7 +158,7 @@ export function YaleConnectWithUs() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#800000] transition-colors p-1"
+              className="hover:text-[#710912] transition-colors p-1"
               aria-label="Facebook Resmi"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -171,7 +171,7 @@ export function YaleConnectWithUs() {
               href="https://youtube.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#800000] transition-colors p-1"
+              className="hover:text-[#710912] transition-colors p-1"
               aria-label="YouTube Resmi"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">

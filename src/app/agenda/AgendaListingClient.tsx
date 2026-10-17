@@ -50,21 +50,21 @@ export function AgendaListingClient({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
       {/* Search and Category Filter Toolbar */}
-      <div className="mb-10 sm:mb-12 bg-white p-5 sm:p-6 rounded-2xl border border-[#E5E1DA] shadow-xs">
+      <div className="mb-10 sm:mb-12 bg-white p-5 sm:p-6 rounded-2xl border border-[#E2D9C8] shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div className="relative flex-1 max-w-lg">
-            <Search className="w-4 h-4 text-[#8E706C] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#8A6E67] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari tema kegiatan, narasumber, atau tempat pelaksanaan..."
-              className="w-full pl-10 pr-4 py-2.5 bg-[#F8F7F4] border border-[#E5E1DA] rounded-xl text-xs sm:text-sm text-[#1C1B1B] placeholder-[#8E706C] focus:outline-none focus:ring-2 focus:ring-[#800000] focus:bg-white transition-all"
+              className="w-full pl-10 pr-4 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-xl text-xs sm:text-sm text-[#0D0D0D] placeholder-[#8A6E67] focus:outline-none focus:ring-2 focus:ring-[#710912] focus:bg-white transition-all"
             />
           </div>
 
-          <p className="text-xs text-[#5C5854] font-medium shrink-0">
-            Menampilkan <span className="font-bold text-[#800000]">{filteredEvents.length}</span> agenda akademik
+          <p className="text-xs text-[#544942] font-medium shrink-0">
+            Menampilkan <span className="font-bold text-[#710912]">{filteredEvents.length}</span> agenda akademik
           </p>
         </div>
 
@@ -77,10 +77,10 @@ export function AgendaListingClient({
                 key={b}
                 type="button"
                 onClick={() => setSelectedBadge(b)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] ${
                   isSelected
-                    ? "bg-[#800000] text-white shadow-xs"
-                    : "bg-[#F8F7F4] text-[#5C5854] hover:bg-[#800000]/10 hover:text-[#800000]"
+                    ? "bg-[#710912] text-white shadow-xs"
+                    : "bg-[#FAF7F2] text-[#544942] hover:bg-[#710912]/10 hover:text-[#710912]"
                 }`}
               >
                 {b}
@@ -92,12 +92,12 @@ export function AgendaListingClient({
 
       {/* Empty State */}
       {filteredEvents.length === 0 && (
-        <div className="text-center py-16 bg-white border border-[#E5E1DA] rounded-2xl p-8">
-          <CalendarCheck className="w-12 h-12 text-[#8E706C]/50 mx-auto mb-3" />
-          <h3 className="font-serif text-lg font-semibold text-[#1C1B1B] mb-2">
+        <div className="text-center py-16 bg-white border border-[#E2D9C8] rounded-2xl p-8">
+          <CalendarCheck className="w-12 h-12 text-[#8A6E67]/50 mx-auto mb-3" />
+          <h3 className="font-serif text-lg font-semibold text-[#0D0D0D] mb-2">
             Tidak Ada Agenda yang Sesuai
           </h3>
-          <p className="text-xs sm:text-sm text-[#5C5854] max-w-md mx-auto mb-6">
+          <p className="text-xs sm:text-sm text-[#544942] max-w-md mx-auto mb-6">
             Kriteria filter atau kata kunci pencarian yang Anda masukkan tidak menghasilkan agenda kegiatan.
           </p>
           <button
@@ -106,7 +106,7 @@ export function AgendaListingClient({
               setSelectedBadge("Semua");
               setSearchQuery("");
             }}
-            className="px-4 py-2 bg-[#800000] text-white text-xs font-semibold rounded-full hover:bg-[#570000] transition-colors"
+            className="px-4 py-2 bg-[#710912] text-white text-xs font-semibold rounded-full hover:bg-[#48060B] transition-colors"
           >
             Reset Pencarian
           </button>
@@ -129,14 +129,14 @@ export function AgendaListingClient({
               viewport={{ once: true, margin: "-20px" }}
               whileHover={{ y: -3, transition: { duration: 0.18 } }}
               transition={{ duration: 0.4, delay: (idx % 4) * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-white border border-[#E5E1DA] rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
+              className="bg-white border border-[#E2D9C8] rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md transition-all flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
             >
               {/* Prominent Yale Date Block */}
-              <div className="shrink-0 w-24 h-24 rounded-xl bg-[#F8F7F4] border-2 border-[#800000]/20 flex flex-col items-center justify-center text-center p-2 group-hover:border-[#800000] group-hover:bg-[#800000] transition-colors">
-                <span className="text-2xl sm:text-3xl font-serif font-bold text-[#800000] group-hover:text-white leading-none">
+              <div className="shrink-0 w-24 h-24 rounded-xl bg-[#FAF7F2] border-2 border-[#710912]/20 flex flex-col items-center justify-center text-center p-2 group-hover:border-[#710912] group-hover:bg-[#710912] transition-colors">
+                <span className="text-2xl sm:text-3xl font-serif font-bold text-[#710912] group-hover:text-white leading-none">
                   {day}
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] group-hover:text-[#E8D8B0] mt-1 leading-tight">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#544942] group-hover:text-[#EFE5D2] mt-1 leading-tight">
                   {monthYear}
                 </span>
               </div>
@@ -144,32 +144,32 @@ export function AgendaListingClient({
               {/* Event Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex flex-wrap items-center gap-2 mb-2">
-                  <span className="px-2.5 py-0.5 bg-[#800000]/10 text-[#800000] text-[10px] font-bold uppercase tracking-wider rounded-md">
+                  <span className="px-2.5 py-0.5 bg-[#710912]/10 text-[#710912] text-[10px] font-bold uppercase tracking-wider rounded-md">
                     {event.badge}
                   </span>
-                  <span className="text-xs text-[#5C5854] flex items-center gap-1 font-light">
-                    <Clock className="w-3.5 h-3.5 text-[#800000]" />
+                  <span className="text-xs text-[#544942] flex items-center gap-1 font-light">
+                    <Clock className="w-3.5 h-3.5 text-[#710912]" />
                     {event.time}
                   </span>
                 </div>
 
-                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#1C1B1B] group-hover:text-[#800000] transition-colors leading-snug mb-2.5">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors leading-snug mb-2.5">
                   <Link href={`/agenda/${event.slug}`}>{event.title}</Link>
                 </h3>
 
-                <p className="text-xs sm:text-sm text-[#5C5854] leading-relaxed line-clamp-2 mb-4 font-light">
+                <p className="text-xs sm:text-sm text-[#544942] leading-relaxed line-clamp-2 mb-4 font-light">
                   {event.description}
                 </p>
 
                 {/* Metadata Pills */}
-                <div className="flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-[#5C5854] pt-3 border-t border-[#F0EDED] font-light">
+                <div className="flex flex-wrap items-center gap-y-2 gap-x-5 text-xs text-[#544942] pt-3 border-t border-[#F4ECE1] font-light">
                   <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#800000] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#710912] shrink-0" />
                     <span>{event.location}</span>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-[#800000] shrink-0" />
-                    <span className="font-medium text-[#1C1B1B]">{event.speaker}</span>
+                    <User className="w-3.5 h-3.5 text-[#710912] shrink-0" />
+                    <span className="font-medium text-[#0D0D0D]">{event.speaker}</span>
                   </span>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export function AgendaListingClient({
               <div className="shrink-0 self-end md:self-center">
                 <Link
                   href={`/agenda/${event.slug}`}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#800000]/10 hover:bg-[#800000] text-[#800000] hover:text-white text-xs font-semibold tracking-wider transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#710912]/10 hover:bg-[#710912] text-[#710912] hover:text-white text-xs font-semibold tracking-wider transition-all"
                 >
                   <span>Detail &amp; Hadir</span>
                   <ArrowRight className="w-3.5 h-3.5" />

@@ -92,36 +92,36 @@ export function AdminSidebar({
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-        <div className="h-full bg-white rounded-3xl border border-[#EBE7E1] shadow-[0_4px_24px_rgba(28,27,27,0.04)] flex flex-col justify-between p-5">
+        <div className="h-full bg-white rounded-3xl border border-[#E2D9C8] shadow-[0_4px_24px_rgba(28,27,27,0.04)] flex flex-col justify-between p-5">
           {/* Top Brand Section */}
           <div>
-            <div className="flex items-center justify-between pb-6 border-b border-[#F2EFE9]">
+            <div className="flex items-center justify-between pb-6 border-b border-[#FAF7F2]">
               <Link
                 href="/admin"
                 className="flex items-center gap-3 group"
                 onClick={() => setMobileOpen(false)}
               >
                 {/* Pillio-inspired tilted emblem customized with Academic Maroon & Gold */}
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#800000] to-[#570000] flex items-center justify-center text-[#E8D8B0] shadow-sm shadow-[#800000]/20 group-hover:scale-105 transition-transform">
-                  <Scale className="w-5 h-5 text-[#E8D8B0]" />
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#710912] to-[#48060B] flex items-center justify-center text-[#EFE5D2] shadow-sm shadow-[#710912]/20 group-hover:scale-105 transition-transform">
+                  <Scale className="w-5 h-5 text-[#EFE5D2]" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <span className="font-serif font-bold text-base tracking-tight text-[#1C1B1B]">
+                    <span className="font-serif font-bold text-base tracking-tight text-[#0D0D0D]">
                       Lintas Hukum
                     </span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#FAF4E8] text-[#800000] border border-[#E8D8B0]/60 shrink-0">
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#EFE5D2] text-[#710912] border border-[#EFE5D2]/60 shrink-0">
                       FH UPB
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#7A756F]">Pusat Kelola Fakultas</p>
+                  <p className="text-[11px] text-[#73655D]">Pusat Kelola Fakultas</p>
                 </div>
               </Link>
             </div>
 
             {/* Navigation Menu */}
             <nav className="mt-6 space-y-1.5">
-              <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#A39E97] uppercase">
+              <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#9C8F85] uppercase">
                 Menu Utama
               </div>
               {navItems.map((item) => {
@@ -137,14 +137,14 @@ export function AdminSidebar({
                     }}
                     className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 ${
                       isActive
-                        ? "bg-[#800000] text-white shadow-sm shadow-[#800000]/20"
-                        : "text-[#5C5854] hover:bg-[#F8F7F4] hover:text-[#1C1B1B]"
+                        ? "bg-[#710912] text-white shadow-sm shadow-[#710912]/20"
+                        : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <Icon
                         className={`w-4 h-4 transition-colors ${
-                          isActive ? "text-[#E8D8B0]" : "text-[#7A756F]"
+                          isActive ? "text-[#EFE5D2]" : "text-[#73655D]"
                         }`}
                       />
                       <span>{item.label}</span>
@@ -155,7 +155,7 @@ export function AdminSidebar({
                         className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                           isActive
                             ? "bg-white/20 text-white"
-                            : "bg-[#F4F1EA] text-[#5C5854]"
+                            : "bg-[#F5EDE0] text-[#544942]"
                         }`}
                       >
                         {item.badge}
@@ -168,40 +168,40 @@ export function AdminSidebar({
           </div>
 
           {/* Bottom Section */}
-          <div className="pt-6 border-t border-[#F2EFE9] space-y-1">
-            <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#A39E97] uppercase">
+          <div className="pt-6 border-t border-[#FAF7F2] space-y-1">
+            <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#9C8F85] uppercase">
               Sistem
             </div>
 
             <Link
               href="/"
               target="_blank"
-              className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-[#5C5854] hover:bg-[#F8F7F4] hover:text-[#800000] transition-colors"
+              className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#710912] transition-colors"
             >
               <div className="flex items-center gap-3">
-                <ExternalLink className="w-4 h-4 text-[#7A756F]" />
+                <ExternalLink className="w-4 h-4 text-[#73655D]" />
                 <span>Lihat Web Utama</span>
               </div>
-              <ChevronRight className="w-3.5 h-3.5 text-[#A39E97]" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#9C8F85]" />
             </Link>
 
             <button
               onClick={() => setActiveView("security")}
               className={`w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium transition-colors ${
                 activeView === "security"
-                  ? "bg-[#F8F7F4] text-[#800000] font-semibold"
-                  : "text-[#5C5854] hover:bg-[#F8F7F4] hover:text-[#1C1B1B]"
+                  ? "bg-[#FAF7F2] text-[#710912] font-semibold"
+                  : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
               }`}
             >
-              <Settings className="w-4 h-4 text-[#7A756F]" />
+              <Settings className="w-4 h-4 text-[#73655D]" />
               <span>Pengaturan &amp; Audit</span>
             </button>
 
             <a
               href="mailto:hukum@pelitabangsa.ac.id"
-              className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-[#5C5854] hover:bg-[#F8F7F4] hover:text-[#1C1B1B] transition-colors"
+              className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D] transition-colors"
             >
-              <HelpCircle className="w-4 h-4 text-[#7A756F]" />
+              <HelpCircle className="w-4 h-4 text-[#73655D]" />
               <span>Bantuan &amp; Kontak</span>
             </a>
 

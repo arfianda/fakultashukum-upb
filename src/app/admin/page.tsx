@@ -78,7 +78,7 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F2EE] text-[#1C1B1B] font-sans antialiased selection:bg-[#800000] selection:text-white">
+    <div className="min-h-screen bg-[#F4F2EE] text-[#0D0D0D] font-sans antialiased selection:bg-[#710912] selection:text-white">
       {/* Floating Pill Sidebar */}
       <AdminSidebar
         activeView={activeView}
@@ -143,8 +143,8 @@ export default function AdminDashboardPage() {
       {/* Toast Notification Alert */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 animate-dropdown">
-          <div className="bg-[#1C1B1B] text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white/10 text-xs">
-            <CheckCircle className="w-4 h-4 text-[#C5A059] shrink-0" />
+          <div className="bg-[#0D0D0D] text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white/10 text-xs">
+            <CheckCircle className="w-4 h-4 text-[#C28D39] shrink-0" />
             <span className="font-medium">{toastMessage}</span>
             <button
               onClick={() => setToastMessage(null)}

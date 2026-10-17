@@ -22,7 +22,7 @@ export default async function BeritaPage() {
         breadcrumbs={[{ label: "Warta & Kajian Hukum" }]}
       />
 
-      <Suspense fallback={<div className="max-w-7xl mx-auto p-12 text-center text-sm text-[#5C5854]">Memuat warta fakultas...</div>}>
+      <Suspense fallback={<div className="max-w-7xl mx-auto p-12 text-center text-sm text-[#544942]">Memuat warta fakultas...</div>}>
         <BeritaListingClient initialPosts={posts} />
       </Suspense>
     </>

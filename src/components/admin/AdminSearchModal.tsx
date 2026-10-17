@@ -75,21 +75,21 @@ export function AdminSearchModal({
         onClick={onClose}
       />
 
-      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-[#EBE7E1] shadow-[0_24px_60px_rgba(28,27,27,0.22)] overflow-hidden z-10 animate-dropdown">
+      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-[#E2D9C8] shadow-[0_24px_60px_rgba(28,27,27,0.22)] overflow-hidden z-10 animate-dropdown">
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-[#F2EFE9]">
-          <Search className="w-5 h-5 text-[#800000]" />
+        <div className="flex items-center gap-3 px-5 py-4 border-b border-[#FAF7F2]">
+          <Search className="w-5 h-5 text-[#710912]" />
           <input
             type="text"
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Ketik untuk mencari artikel, agenda, atau dosen..."
-            className="w-full text-sm text-[#1C1B1B] placeholder-[#A39E97] focus:outline-none"
+            className="w-full text-sm text-[#0D0D0D] placeholder-[#9C8F85] focus:outline-none"
           />
           <button
             onClick={onClose}
-            className="text-xs text-[#A39E97] hover:text-[#1C1B1B] px-2 py-1 rounded-md bg-[#F8F7F4] border border-[#E5E1DA]"
+            className="text-xs text-[#9C8F85] hover:text-[#0D0D0D] px-2 py-1 rounded-md bg-[#FAF7F2] border border-[#E2D9C8]"
           >
             ESC
           </button>
@@ -100,7 +100,7 @@ export function AdminSearchModal({
           {/* Quick Navigation suggestions when query is empty */}
           {!query && (
             <div className="space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#A39E97] px-2 mb-2">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#9C8F85] px-2 mb-2">
                 Pintasan Cepat
               </div>
               <button
@@ -108,30 +108,30 @@ export function AdminSearchModal({
                   onNavigateToView("overview");
                   onClose();
                 }}
-                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-xs font-semibold text-[#1C1B1B] text-left transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-xs font-semibold text-[#0D0D0D] text-left transition-colors"
               >
                 <span>Buka Dashboard Utama</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#A39E97]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85]" />
               </button>
               <button
                 onClick={() => {
                   onNavigateToView("articles");
                   onClose();
                 }}
-                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-xs font-semibold text-[#1C1B1B] text-left transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-xs font-semibold text-[#0D0D0D] text-left transition-colors"
               >
                 <span>Kelola Publikasi &amp; Naskah Riset</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#A39E97]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85]" />
               </button>
               <button
                 onClick={() => {
                   onNavigateToView("agenda");
                   onClose();
                 }}
-                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-xs font-semibold text-[#1C1B1B] text-left transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-xs font-semibold text-[#0D0D0D] text-left transition-colors"
               >
                 <span>Kalender Kuliah Tamu &amp; Sidang Semu</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#A39E97]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85]" />
               </button>
             </div>
           )}
@@ -139,7 +139,7 @@ export function AdminSearchModal({
           {/* Articles result */}
           {query && filteredPosts.length > 0 && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#800000] px-2 mb-2 flex items-center gap-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#710912] px-2 mb-2 flex items-center gap-1.5">
                 <FileText className="w-3 h-3" />
                 <span>Naskah Artikel ({filteredPosts.length})</span>
               </div>
@@ -151,17 +151,17 @@ export function AdminSearchModal({
                       onNavigateToView("articles");
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-left transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-left transition-colors group"
                   >
                     <div>
-                      <div className="font-serif font-bold text-xs text-[#1C1B1B] group-hover:text-[#800000] transition-colors">
+                      <div className="font-serif font-bold text-xs text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
                         {p.title}
                       </div>
-                      <div className="text-[11px] text-[#7A756F]">
+                      <div className="text-[11px] text-[#73655D]">
                         {p.category} &bull; {p.publishedAt}
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#A39E97] group-hover:text-[#800000] shrink-0" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85] group-hover:text-[#710912] shrink-0" />
                   </button>
                 ))}
               </div>
@@ -171,7 +171,7 @@ export function AdminSearchModal({
           {/* Events result */}
           {query && filteredEvents.length > 0 && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#800000] px-2 mb-2 flex items-center gap-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#710912] px-2 mb-2 flex items-center gap-1.5">
                 <Calendar className="w-3 h-3" />
                 <span>Agenda Akademik ({filteredEvents.length})</span>
               </div>
@@ -183,17 +183,17 @@ export function AdminSearchModal({
                       onNavigateToView("agenda");
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-left transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-left transition-colors group"
                   >
                     <div>
-                      <div className="font-serif font-bold text-xs text-[#1C1B1B] group-hover:text-[#800000] transition-colors">
+                      <div className="font-serif font-bold text-xs text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
                         {e.title}
                       </div>
-                      <div className="text-[11px] text-[#7A756F]">
+                      <div className="text-[11px] text-[#73655D]">
                         {e.eventDate} &bull; {e.speaker}
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#A39E97] group-hover:text-[#800000] shrink-0" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85] group-hover:text-[#710912] shrink-0" />
                   </button>
                 ))}
               </div>
@@ -203,7 +203,7 @@ export function AdminSearchModal({
           {/* Faculty result */}
           {query && filteredFaculty.length > 0 && (
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#800000] px-2 mb-2 flex items-center gap-1.5">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#710912] px-2 mb-2 flex items-center gap-1.5">
                 <Users className="w-3 h-3" />
                 <span>Dewan Dosen ({filteredFaculty.length})</span>
               </div>
@@ -215,17 +215,17 @@ export function AdminSearchModal({
                       onNavigateToView("faculty");
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#F8F7F4] text-left transition-colors group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-2xl hover:bg-[#FAF7F2] text-left transition-colors group"
                   >
                     <div>
-                      <div className="font-serif font-bold text-xs text-[#1C1B1B] group-hover:text-[#800000] transition-colors">
+                      <div className="font-serif font-bold text-xs text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
                         {f.name}
                       </div>
-                      <div className="text-[11px] text-[#7A756F]">
+                      <div className="text-[11px] text-[#73655D]">
                         {f.titles} &bull; NIP: {f.nip}
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#A39E97] group-hover:text-[#800000] shrink-0" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#9C8F85] group-hover:text-[#710912] shrink-0" />
                   </button>
                 ))}
               </div>
@@ -233,7 +233,7 @@ export function AdminSearchModal({
           )}
 
           {query && !hasResults && (
-            <div className="text-center py-8 text-xs text-[#7A756F]">
+            <div className="text-center py-8 text-xs text-[#73655D]">
               Tidak ditemukan data yang cocok dengan &ldquo;{query}&rdquo;
             </div>
           )}

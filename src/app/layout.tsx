@@ -52,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col font-sans bg-[#FCF9F8] text-[#1C1B1B] antialiased">
+      <body className="min-h-screen flex flex-col font-sans bg-[#FAF7F2] text-[#0D0D0D] antialiased">
         <AdmissionProvider>
           <RootShell>{children}</RootShell>
         </AdmissionProvider>

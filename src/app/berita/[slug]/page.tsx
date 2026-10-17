@@ -67,32 +67,32 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
         />
 
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
-          <span className="px-3 py-1 bg-[#800000] text-white text-[11px] font-bold uppercase tracking-wider rounded-md">
+          <span className="px-3 py-1 bg-[#710912] text-white text-[11px] font-bold uppercase tracking-wider rounded-md">
             {post.category}
           </span>
-          <span className="text-xs text-[#5C5854] flex items-center gap-1 font-light">
-            <Calendar className="w-3.5 h-3.5 text-[#800000]" />
+          <span className="text-xs text-[#544942] flex items-center gap-1 font-light">
+            <Calendar className="w-3.5 h-3.5 text-[#710912]" />
             {post.publishedAt}
           </span>
-          <span className="text-xs text-[#8E706C]">&bull;</span>
-          <span className="text-xs text-[#5C5854] flex items-center gap-1 font-light">
-            <Clock className="w-3.5 h-3.5 text-[#800000]" />
+          <span className="text-xs text-[#8A6E67]">&bull;</span>
+          <span className="text-xs text-[#544942] flex items-center gap-1 font-light">
+            <Clock className="w-3.5 h-3.5 text-[#710912]" />
             {post.readTime}
           </span>
         </div>
 
-        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold text-[#1C1B1B] leading-tight mb-6">
+        <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold text-[#0D0D0D] leading-tight mb-6">
           {post.title}
         </h1>
 
-        <div className="p-4 sm:p-5 bg-[#F8F7F4] border-l-4 border-[#800000] rounded-r-xl text-xs sm:text-sm text-[#5C5854] leading-relaxed italic font-serif">
+        <div className="p-4 sm:p-5 bg-[#FAF7F2] border-l-4 border-[#710912] rounded-r-xl text-xs sm:text-sm text-[#544942] leading-relaxed italic font-serif">
           {post.excerpt}
         </div>
       </div>
 
       {/* Main Image Banner */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-12">
-        <div className="relative h-72 sm:h-96 md:h-[460px] w-full rounded-2xl overflow-hidden border border-[#E5E1DA] shadow-xs bg-[#F0EDED]">
+        <div className="relative h-72 sm:h-96 md:h-[460px] w-full rounded-2xl overflow-hidden border border-[#E2D9C8] shadow-xs bg-[#F4ECE1]">
           <Image
             src={post.coverImage || "/images/hero-library.jpg"}
             alt={post.title}
@@ -102,7 +102,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
             className="object-cover"
           />
         </div>
-        <p className="text-[11px] text-[#5C5854] text-center mt-2 italic font-light">
+        <p className="text-[11px] text-[#544942] text-center mt-2 italic font-light">
           Dokumentasi Publikasi Resmi Fakultas Hukum Universitas Pelita Bangsa
         </p>
       </div>
@@ -113,38 +113,38 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
           {/* Main Article Content (lg: 8 cols) */}
           <div className="lg:col-span-8">
             <div
-              className="prose prose-sm sm:prose-base max-w-none text-[#1C1B1B] leading-relaxed
-                prose-headings:font-serif prose-headings:text-[#570000] prose-headings:font-bold
-                prose-p:mb-5 prose-p:font-light prose-p:text-[#2C2928] prose-p:leading-relaxed
-                prose-blockquote:border-l-4 prose-blockquote:border-[#C5A059] prose-blockquote:bg-[#F8F7F4] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:italic prose-blockquote:my-6
-                prose-blockquote:text-[#570000] prose-blockquote:font-serif
-                prose-strong:font-semibold prose-strong:text-[#1C1B1B]"
+              className="prose prose-sm sm:prose-base max-w-none text-[#0D0D0D] leading-relaxed
+                prose-headings:font-serif prose-headings:text-[#48060B] prose-headings:font-bold
+                prose-p:mb-5 prose-p:font-light prose-p:text-[#241E1C] prose-p:leading-relaxed
+                prose-blockquote:border-l-4 prose-blockquote:border-[#C28D39] prose-blockquote:bg-[#FAF7F2] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:italic prose-blockquote:my-6
+                prose-blockquote:text-[#48060B] prose-blockquote:font-serif
+                prose-strong:font-semibold prose-strong:text-[#0D0D0D]"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
             {/* Author Attribution Card */}
-            <div className="mt-12 p-6 bg-[#F8F7F4] border border-[#E5E1DA] rounded-2xl flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#800000] text-white flex items-center justify-center shrink-0">
+            <div className="mt-12 p-6 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#710912] text-white flex items-center justify-center shrink-0">
                 <User className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#800000] block mb-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-0.5">
                   Penulis / Sumber Rilis
                 </span>
-                <h4 className="font-serif text-base font-bold text-[#1C1B1B] leading-snug">
+                <h4 className="font-serif text-base font-bold text-[#0D0D0D] leading-snug">
                   {post.author}
                 </h4>
-                <p className="text-xs text-[#5C5854] mt-0.5 font-light">
+                <p className="text-xs text-[#544942] mt-0.5 font-light">
                   {post.authorRole}
                 </p>
               </div>
             </div>
 
             {/* Back Navigation Bar */}
-            <div className="mt-8 pt-6 border-t border-[#E5E1DA] flex items-center justify-between">
+            <div className="mt-8 pt-6 border-t border-[#E2D9C8] flex items-center justify-between">
               <Link
                 href="/berita"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-[#800000] hover:text-[#570000] px-4 py-2 rounded-full bg-[#800000]/10 hover:bg-[#800000]/15 transition-all"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-[#710912] hover:text-[#48060B] px-4 py-2 rounded-full bg-[#710912]/10 hover:bg-[#710912]/15 transition-all"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Kembali ke Seluruh Warta</span>
@@ -155,10 +155,10 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
           {/* Sidebar: Related Articles & Institutional Info (lg: 4 cols) */}
           <aside className="lg:col-span-4 space-y-8">
             {/* Related News Widget */}
-            <div className="bg-white border border-[#E5E1DA] rounded-2xl p-6 shadow-xs">
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#F0EDED]">
-                <BookmarkCheck className="w-4 h-4 text-[#800000]" />
-                <h3 className="font-serif text-base font-bold text-[#1C1B1B]">
+            <div className="bg-white border border-[#E2D9C8] rounded-2xl p-6 shadow-xs">
+              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#F4ECE1]">
+                <BookmarkCheck className="w-4 h-4 text-[#710912]" />
+                <h3 className="font-serif text-base font-bold text-[#0D0D0D]">
                   Warta Terkait Lainnya
                 </h3>
               </div>
@@ -170,23 +170,23 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
                     href={`/berita/${rel.slug}`}
                     className="block group"
                   >
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#800000] block mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-1">
                       {rel.category}
                     </span>
-                    <h4 className="text-xs font-semibold text-[#1C1B1B] group-hover:text-[#800000] transition-colors leading-snug line-clamp-2 mb-1">
+                    <h4 className="text-xs font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors leading-snug line-clamp-2 mb-1">
                       {rel.title}
                     </h4>
-                    <span className="text-[10px] text-[#5C5854] block">
+                    <span className="text-[10px] text-[#544942] block">
                       {rel.publishedAt}
                     </span>
                   </Link>
                 ))}
               </div>
 
-              <div className="mt-5 pt-4 border-t border-[#F0EDED]">
+              <div className="mt-5 pt-4 border-t border-[#F4ECE1]">
                 <Link
                   href="/berita"
-                  className="text-xs font-semibold text-[#800000] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-semibold text-[#710912] hover:underline inline-flex items-center gap-1"
                 >
                   <span>Lihat Indeks Berita Lengkap</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -195,21 +195,21 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
             </div>
 
             {/* Academic Juris Callout Widget */}
-            <div className="bg-[#5A0000] text-white rounded-2xl p-6 shadow-xs">
-              <div className="w-8 h-8 rounded-lg bg-[#C5A059] text-[#5A0000] flex items-center justify-center mb-3">
+            <div className="bg-[#48060B] text-white rounded-2xl p-6 shadow-xs">
+              <div className="w-8 h-8 rounded-lg bg-[#C28D39] text-[#48060B] flex items-center justify-center mb-3">
                 <Scale className="w-4 h-4" />
               </div>
               <h4 className="font-serif text-base font-bold text-white mb-2 leading-snug">
                 Portal Riset &amp; Jurnal Hukum
               </h4>
-              <p className="text-xs text-[#E5E2E1] leading-relaxed mb-4 font-light">
+              <p className="text-xs text-[#E2D9C8] leading-relaxed mb-4 font-light">
                 Akses publikasi karya ilmiah dosen dan mahasiswa melalui Pelita Law Review terakreditasi SINTA.
               </p>
               <a
                 href="https://journal.pelitabangsa.ac.id"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#C5A059] text-[#5A0000] text-xs font-bold rounded-lg hover:bg-white transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#C28D39] text-[#48060B] text-xs font-bold rounded-lg hover:bg-white transition-colors"
               >
                 <span>Buka Jurnal SINTA</span>
               </a>

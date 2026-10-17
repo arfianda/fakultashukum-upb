@@ -63,7 +63,7 @@ export function Breadcrumbs({ items }: { items?: BreadcrumbItem[] }) {
   return (
     <nav aria-label="Navigasi remah roti" className="w-full mb-4">
       <ol
-        className="flex flex-wrap items-center gap-1.5 text-xs text-[#5C5854]"
+        className="flex flex-wrap items-center gap-1.5 text-xs text-[#544942]"
         itemScope
         itemType="https://schema.org/BreadcrumbList"
       >
@@ -80,7 +80,7 @@ export function Breadcrumbs({ items }: { items?: BreadcrumbItem[] }) {
             >
               {index > 0 && (
                 <ChevronRight
-                  className="w-3.5 h-3.5 text-[#8E706C]/70 shrink-0"
+                  className="w-3.5 h-3.5 text-[#8A6E67]/70 shrink-0"
                   aria-hidden="true"
                 />
               )}
@@ -88,12 +88,12 @@ export function Breadcrumbs({ items }: { items?: BreadcrumbItem[] }) {
               {item.href && !isLast ? (
                 <Link
                   href={item.href}
-                  className="hover:text-[#800000] hover:underline transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#800000] rounded-xs"
+                  className="hover:text-[#710912] hover:underline transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#710912] rounded-xs"
                   itemProp="item"
                 >
                   {index === 0 ? (
                     <span className="inline-flex items-center gap-1">
-                      <Home className="w-3.5 h-3.5 text-[#800000] shrink-0" />
+                      <Home className="w-3.5 h-3.5 text-[#710912] shrink-0" />
                       <span itemProp="name">{item.label}</span>
                     </span>
                   ) : (
@@ -102,7 +102,7 @@ export function Breadcrumbs({ items }: { items?: BreadcrumbItem[] }) {
                 </Link>
               ) : (
                 <span
-                  className="font-medium text-[#1C1B1B] max-w-[280px] sm:max-w-md truncate"
+                  className="font-medium text-[#0D0D0D] max-w-[280px] sm:max-w-md truncate"
                   aria-current="page"
                   itemProp="name"
                 >

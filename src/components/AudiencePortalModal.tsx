@@ -410,17 +410,17 @@ export function AudiencePortalModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className="relative bg-[#F8F7F4] border border-[#E5E1DA] shadow-2xl w-full max-w-4xl my-8 z-10 flex flex-col max-h-[90vh]"
+            className="relative bg-[#FAF7F2] border border-[#E2D9C8] shadow-2xl w-full max-w-4xl my-8 z-10 flex flex-col max-h-[90vh]"
           >
             {/* Header with Academic Branding */}
-            <div className="bg-[#800000] text-white px-6 sm:px-8 py-5 border-b border-[#570000] flex items-center justify-between shrink-0">
+            <div className="bg-[#710912] text-white px-6 sm:px-8 py-5 border-b border-[#48060B] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-11 border border-white/25 bg-[#570000] flex flex-col items-center justify-center shrink-0">
+                <div className="w-10 h-11 border border-white/25 bg-[#48060B] flex flex-col items-center justify-center shrink-0">
                   <Scale className="w-5 h-5 text-white stroke-[1.75]" />
-                  <div className="h-0.5 w-5 bg-[#C5A059] mt-0.5" />
+                  <div className="h-0.5 w-5 bg-[#C28D39] mt-0.5" />
                 </div>
                 <div>
-                  <p className="text-[10px] tracking-widest uppercase text-[#E8D8B0] font-semibold">
+                  <p className="text-[10px] tracking-widest uppercase text-[#EFE5D2] font-semibold">
                     Fakultas Hukum Universitas Pelita Bangsa
                   </p>
                   <h2 id="audience-modal-title" className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white leading-tight">
@@ -439,7 +439,7 @@ export function AudiencePortalModal({
             </div>
 
             {/* Audience Tab Navigation Bar */}
-            <div className="bg-white border-b border-[#E5E1DA] px-6 sm:px-8 flex flex-wrap gap-2 pt-3 shrink-0">
+            <div className="bg-white border-b border-[#E2D9C8] px-6 sm:px-8 flex flex-wrap gap-2 pt-3 shrink-0">
               {(["mahasiswa", "dosen", "staf", "alumni"] as AudienceType[]).map((tabKey) => {
                 const tab = tabConfigs[tabKey];
                 const Icon = tab.icon;
@@ -450,11 +450,11 @@ export function AudiencePortalModal({
                     onClick={() => setActiveTab(tabKey)}
                     className={`flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all border-b-2 -mb-[2px] ${
                       isActive
-                        ? "border-[#800000] text-[#800000] bg-[#F8F7F4]/80"
-                        : "border-transparent text-[#5C5854] hover:text-[#1C1B1B] hover:border-[#E5E1DA]"
+                        ? "border-[#710912] text-[#710912] bg-[#FAF7F2]/80"
+                        : "border-transparent text-[#544942] hover:text-[#0D0D0D] hover:border-[#E2D9C8]"
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? "text-[#800000]" : "text-[#5C5854]"}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? "text-[#710912]" : "text-[#544942]"}`} />
                     <span>{tab.label}</span>
                   </button>
                 );
@@ -472,17 +472,17 @@ export function AudiencePortalModal({
                 className="flex-1 flex flex-col min-h-0 overflow-hidden"
               >
                 {/* Tab Header Description */}
-                <div className="px-6 sm:px-8 pt-5 pb-3 border-b border-[#E5E1DA]/60 bg-white/50 shrink-0">
+                <div className="px-6 sm:px-8 pt-5 pb-3 border-b border-[#E2D9C8]/60 bg-white/50 shrink-0">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                      <h3 className="font-serif text-xl sm:text-2xl text-[#1C1B1B] font-bold">
+                      <h3 className="font-serif text-xl sm:text-2xl text-[#0D0D0D] font-bold">
                         {currentTabConfig.title}
                       </h3>
-                      <p className="text-xs text-[#5C5854] mt-1 leading-relaxed max-w-2xl font-light">
+                      <p className="text-xs text-[#544942] mt-1 leading-relaxed max-w-2xl font-light">
                         {currentTabConfig.description}
                       </p>
                     </div>
-                    <span className="self-start sm:self-center text-[10px] font-bold uppercase tracking-wider text-[#800000] bg-[#800000]/10 border border-[#800000]/20 px-2.5 py-1">
+                    <span className="self-start sm:self-center text-[10px] font-bold uppercase tracking-wider text-[#710912] bg-[#710912]/10 border border-[#710912]/20 px-2.5 py-1">
                       {currentTabConfig.services.length} Layanan Tersedia
                     </span>
                   </div>
@@ -496,32 +496,32 @@ export function AudiencePortalModal({
                       return (
                         <div
                           key={svc.id}
-                          className="bg-white border border-[#E5E1DA] hover:border-[#800000] transition-colors p-5 flex flex-col justify-between group shadow-2xs"
+                          className="bg-white border border-[#E2D9C8] hover:border-[#710912] transition-colors p-5 flex flex-col justify-between group shadow-2xs"
                         >
                           <div>
                             <div className="flex items-center justify-between mb-3">
-                              <div className="w-9 h-9 border border-[#800000]/20 bg-[#F8F7F4] flex items-center justify-center text-[#800000] group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                              <div className="w-9 h-9 border border-[#710912]/20 bg-[#FAF7F2] flex items-center justify-center text-[#710912] group-hover:bg-[#710912] group-hover:text-white transition-colors">
                                 <Icon className="w-4 h-4 stroke-[1.75]" />
                               </div>
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F8F7F4] border border-[#E5E1DA] text-[#5C5854]">
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-[#FAF7F2] border border-[#E2D9C8] text-[#544942]">
                                 {svc.badge}
                               </span>
                             </div>
 
-                            <h4 className="font-serif text-base sm:text-lg font-bold text-[#1C1B1B] group-hover:text-[#800000] transition-colors leading-snug">
+                            <h4 className="font-serif text-base sm:text-lg font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors leading-snug">
                               {svc.title}
                             </h4>
-                            <p className="text-[11px] font-medium text-[#C5A059] mb-2 uppercase tracking-wide">
+                            <p className="text-[11px] font-medium text-[#C28D39] mb-2 uppercase tracking-wide">
                               {svc.subtitle}
                             </p>
-                            <p className="text-xs text-[#5C5854] leading-relaxed mb-4 font-light">
+                            <p className="text-xs text-[#544942] leading-relaxed mb-4 font-light">
                               {svc.description}
                             </p>
                           </div>
 
                           <button
                             onClick={() => handleAction(svc)}
-                            className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold uppercase tracking-wider bg-[#F8F7F4] hover:bg-[#800000] text-[#1C1B1B] hover:text-white border border-[#E5E1DA] hover:border-[#800000] transition-all cursor-pointer"
+                            className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 text-xs font-bold uppercase tracking-wider bg-[#FAF7F2] hover:bg-[#710912] text-[#0D0D0D] hover:text-white border border-[#E2D9C8] hover:border-[#710912] transition-all cursor-pointer"
                           >
                             <span>{svc.actionText}</span>
                             {svc.isExternal ? (
@@ -539,14 +539,14 @@ export function AudiencePortalModal({
             </AnimatePresence>
 
             {/* Footer Technical Support Notice */}
-            <div className="bg-[#EFECE6] border-t border-[#E5E1DA] px-6 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#5C5854] shrink-0">
+            <div className="bg-[#E2D9C8] border-t border-[#E2D9C8] px-6 sm:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-[#544942] shrink-0">
               <div className="flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-[#800000] shrink-0" />
+                <HelpCircle className="w-4 h-4 text-[#710912] shrink-0" />
                 <span>
                   Kendala akses akun SIAKAD / Edlink? Hubungi <strong>Helpdesk BAAK &amp; Biro ICT UPB</strong>
                 </span>
               </div>
-              <div className="flex items-center gap-4 text-[11px] font-medium text-[#800000]">
+              <div className="flex items-center gap-4 text-[11px] font-medium text-[#710912]">
                 <span>Senin - Sabtu (08:00 - 17:00 WIB)</span>
               </div>
             </div>

@@ -405,7 +405,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         onMouseLeave={handleScheduleClose}
         className={`w-full pointer-events-auto transition-all duration-250 ease-out rounded-2xl border relative ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-[14px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-[#E5E1DA] py-2 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
+            ? "bg-white/95 backdrop-blur-[14px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-[#E2D9C8] py-2 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
             : "bg-white/90 backdrop-blur-[14px] shadow-[0_2px_16px_rgba(0,0,0,0.08)] border-white/70 py-2.5 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
         }`}
       >
@@ -414,7 +414,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           <Link
             href="/"
             onClick={handleBrandClick}
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] rounded-xl shrink-0 cursor-pointer"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] rounded-xl shrink-0 cursor-pointer"
             aria-label="Kembali ke Beranda Fakultas Hukum UPB"
           >
             <div
@@ -434,7 +434,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
             <div className="flex flex-col">
               <span
-                className={`font-serif font-bold text-[#800000] group-hover:text-[#570000] tracking-[-0.01em] transition-all duration-250 leading-tight ${
+                className={`font-serif font-bold text-[#710912] group-hover:text-[#48060B] tracking-[-0.01em] transition-all duration-250 leading-tight ${
                   isScrolled
                     ? "text-base sm:text-lg xl:text-[20px]"
                     : "text-[17px] sm:text-[19px] xl:text-[22px]"
@@ -442,7 +442,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               >
                 Fakultas Hukum
               </span>
-              <span className="font-sans font-medium uppercase text-[#5C5854] tracking-[0.16em] text-[8.5px] sm:text-[9px] xl:text-[10px] mt-0.5 leading-none">
+              <span className="font-sans font-medium uppercase text-[#544942] tracking-[0.16em] text-[8.5px] sm:text-[9px] xl:text-[10px] mt-0.5 leading-none">
                 Universitas Pelita Bangsa
               </span>
             </div>
@@ -470,12 +470,12 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                       setActiveMenu(isOpen ? null : item.key);
                     }}
                     onFocus={() => handleOpenMenu(item.key)}
-                    className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer ${
+                    className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer ${
                       isOpen
-                        ? "bg-[#800000]/10 text-[#800000]"
+                        ? "bg-[#710912]/10 text-[#710912]"
                         : isCurrent
-                        ? "bg-[#800000] text-white font-semibold shadow-xs"
-                        : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06]"
+                        ? "bg-[#710912] text-white font-semibold shadow-xs"
+                        : "text-[#0D0D0D] hover:text-[#710912] hover:bg-[#710912]/[0.06]"
                     }`}
                     aria-expanded={isOpen}
                     aria-haspopup="true"
@@ -483,7 +483,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                     <span>{item.label}</span>
                     <ChevronDown
                       className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-[#800000]" : isCurrent ? "text-white/80" : "text-[#5C5854]"
+                        isOpen ? "rotate-180 text-[#710912]" : isCurrent ? "text-white/80" : "text-[#544942]"
                       }`}
                     />
                   </button>
@@ -503,18 +503,18 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                   setActiveMenu(activeMenu === "more" ? null : "more");
                 }}
                 onFocus={() => handleOpenMenu("more")}
-                className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer ${
+                className={`font-sans font-medium text-[12px] xl:text-[13px] px-2.5 xl:px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap inline-flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer ${
                   activeMenu === "more"
-                    ? "bg-[#800000]/10 text-[#800000]"
-                    : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06]"
+                    ? "bg-[#710912]/10 text-[#710912]"
+                    : "text-[#0D0D0D] hover:text-[#710912] hover:bg-[#710912]/[0.06]"
                 }`}
                 aria-expanded={activeMenu === "more"}
                 aria-haspopup="true"
               >
                 <span>Lainnya</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-[#5C5854] transition-transform duration-200 ${
-                    activeMenu === "more" ? "rotate-180 text-[#800000]" : ""
+                  className={`w-3.5 h-3.5 text-[#544942] transition-transform duration-200 ${
+                    activeMenu === "more" ? "rotate-180 text-[#710912]" : ""
                   }`}
                 />
               </button>
@@ -531,7 +531,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                     onMouseEnter={clearTimer}
                     onMouseLeave={handleScheduleClose}
                   >
-                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-2">
+                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] p-2">
                       <div className="space-y-1">
                         {moreNavItems.map((item) => {
                           const Icon = item.icon;
@@ -542,22 +542,22 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                               href={item.href}
                               onClick={handleCloseMenuImmediate}
                               className={`w-full text-left p-2.5 rounded-xl group transition-all flex items-start gap-3 cursor-pointer ${
-                                isCurrent ? "bg-[#800000]/10" : "hover:bg-[#800000]/[0.06]"
+                                isCurrent ? "bg-[#710912]/10" : "hover:bg-[#710912]/[0.06]"
                               }`}
                             >
-                              <div className="w-8 h-8 rounded-lg bg-[#800000]/8 text-[#800000] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                              <div className="w-8 h-8 rounded-lg bg-[#710912]/8 text-[#710912] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#710912] group-hover:text-white transition-colors">
                                 <Icon className="w-4 h-4" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between">
                                   <span className={`text-[13px] font-semibold transition-colors ${
-                                    isCurrent ? "text-[#800000]" : "text-[#1C1B1B] group-hover:text-[#800000]"
+                                    isCurrent ? "text-[#710912]" : "text-[#0D0D0D] group-hover:text-[#710912]"
                                   }`}>
                                     {item.label}
                                   </span>
-                                  <ChevronRight className="w-3.5 h-3.5 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                                 </div>
-                                <p className="text-[11px] text-[#5C5854] mt-0.5 leading-snug">
+                                <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
                                   {item.desc}
                                 </p>
                               </div>
@@ -587,20 +587,20 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                   setActiveMenu(activeMenu === "audience" ? null : "audience");
                 }}
                 onFocus={() => handleOpenMenu("audience")}
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[12px] xl:text-[12.5px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer border ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[12px] xl:text-[12.5px] font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer border ${
                   activeMenu === "audience"
-                    ? "bg-[#800000]/10 text-[#800000] border-[#800000]/20"
-                    : "text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] border-transparent"
+                    ? "bg-[#710912]/10 text-[#710912] border-[#710912]/20"
+                    : "text-[#0D0D0D] hover:text-[#710912] hover:bg-[#710912]/[0.06] border-transparent"
                 }`}
                 aria-expanded={activeMenu === "audience"}
                 aria-haspopup="true"
               >
-                <User className="w-3.5 h-3.5 text-[#800000]" />
+                <User className="w-3.5 h-3.5 text-[#710912]" />
                 <span className="hidden xl:inline">Info Untuk</span>
                 <span className="xl:hidden">Sivitas</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-[#5C5854] transition-transform duration-200 ${
-                    activeMenu === "audience" ? "rotate-180 text-[#800000]" : ""
+                  className={`w-3.5 h-3.5 text-[#544942] transition-transform duration-200 ${
+                    activeMenu === "audience" ? "rotate-180 text-[#710912]" : ""
                   }`}
                 />
               </button>
@@ -617,9 +617,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                     onMouseEnter={clearTimer}
                     onMouseLeave={handleScheduleClose}
                   >
-                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-2">
-                      <div className="px-3 py-2 border-b border-[#F0EDED] mb-1">
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854]">
+                    <div className="bg-white rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] p-2">
+                      <div className="px-3 py-2 border-b border-[#F4ECE1] mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-[#544942]">
                           Layanan Portal Sivitas
                         </p>
                       </div>
@@ -631,19 +631,19 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                               key={aud.key}
                               type="button"
                               onClick={() => handleOpenAudience(aud.key)}
-                              className="w-full text-left p-2.5 rounded-xl hover:bg-[#800000]/[0.06] group transition-all flex items-start gap-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
+                              className="w-full text-left p-2.5 rounded-xl hover:bg-[#710912]/[0.06] group transition-all flex items-start gap-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912]"
                             >
-                              <div className="w-8 h-8 rounded-lg bg-[#800000]/8 text-[#800000] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#800000] group-hover:text-white transition-colors">
+                              <div className="w-8 h-8 rounded-lg bg-[#710912]/8 text-[#710912] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#710912] group-hover:text-white transition-colors">
                                 <Icon className="w-4 h-4" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center justify-between">
-                                  <span className="text-[13px] font-semibold text-[#1C1B1B] group-hover:text-[#800000] transition-colors">
+                                  <span className="text-[13px] font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
                                     {aud.label}
                                   </span>
-                                  <ChevronRight className="w-3.5 h-3.5 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                                 </div>
-                                <p className="text-[11px] text-[#5C5854] leading-tight mt-0.5 truncate">
+                                <p className="text-[11px] text-[#544942] leading-tight mt-0.5 truncate">
                                   {aud.description}
                                 </p>
                               </div>
@@ -664,7 +664,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                 setSearchOpen(!searchOpen);
                 handleCloseMenuImmediate();
               }}
-              className="w-8 h-8 xl:w-8.5 xl:h-8.5 rounded-full flex items-center justify-center text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer"
+              className="w-8 h-8 xl:w-8.5 xl:h-8.5 rounded-full flex items-center justify-center text-[#0D0D0D] hover:text-[#710912] hover:bg-[#710912]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer"
               aria-label="Buka pencarian warta dan direktori"
               title="Pencarian"
             >
@@ -678,7 +678,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                 handleCloseMenuImmediate();
                 if (onOpenAdmission) onOpenAdmission();
               }}
-              className="inline-flex items-center justify-center px-3.5 xl:px-4 py-1.5 bg-[#800000] hover:bg-[#570000] text-white text-[12px] xl:text-[12.5px] font-semibold tracking-[0.02em] rounded-full transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000] cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center px-3.5 xl:px-4 py-1.5 bg-[#710912] hover:bg-[#48060B] text-white text-[12px] xl:text-[12.5px] font-semibold tracking-[0.02em] rounded-full transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer shrink-0"
             >
               <span>Pendaftaran PMB</span>
             </button>
@@ -692,7 +692,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                 setSearchOpen(!searchOpen);
                 handleCloseMenuImmediate();
               }}
-              className="p-2 rounded-full text-[#1C1B1B] hover:text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
+              className="p-2 rounded-full text-[#0D0D0D] hover:text-[#710912] hover:bg-[#710912]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912]"
               aria-label="Pencarian"
             >
               <Search className="w-5 h-5 stroke-[2]" />
@@ -704,7 +704,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                 setMobileMenuOpen(!mobileMenuOpen);
                 handleCloseMenuImmediate();
               }}
-              className="p-2 rounded-full text-[#800000] hover:bg-[#800000]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#800000]"
+              className="p-2 rounded-full text-[#710912] hover:bg-[#710912]/[0.06] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912]"
               aria-label={mobileMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
               aria-expanded={mobileMenuOpen}
             >
@@ -726,10 +726,10 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               onMouseEnter={clearTimer}
               onMouseLeave={handleScheduleClose}
             >
-              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] overflow-hidden">
+              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] overflow-hidden">
                 <div className="flex items-stretch gap-6 lg:gap-8">
                   {/* Column 1: Featured Card (Yale Editorial Style) */}
-                  <div className="w-72 shrink-0 bg-[#F8F7F4] border-r border-[#EFECE6] p-4 sm:p-5 flex flex-col justify-between group">
+                  <div className="w-72 shrink-0 bg-[#FAF7F2] border-r border-[#E2D9C8] p-4 sm:p-5 flex flex-col justify-between group">
                     <div>
                       <div className="relative h-32 sm:h-36 w-full rounded-xl overflow-hidden mb-3.5 shadow-xs">
                         <Image
@@ -740,17 +740,17 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#800000] mb-1 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] mb-1 block">
                         Sorotan Direktori
                       </span>
-                      <h4 className="font-serif text-base sm:text-[17px] font-bold text-[#1C1B1B] mb-1.5 leading-snug group-hover:text-[#800000] transition-colors">
+                      <h4 className="font-serif text-base sm:text-[17px] font-bold text-[#0D0D0D] mb-1.5 leading-snug group-hover:text-[#710912] transition-colors">
                         {megaMenuData[activeMenu].featured.title}
                       </h4>
-                      <p className="text-xs text-[#5C5854] leading-relaxed">
+                      <p className="text-xs text-[#544942] leading-relaxed">
                         {megaMenuData[activeMenu].featured.desc}
                       </p>
                     </div>
-                    <div className="pt-3 border-t border-[#EFECE6] mt-3">
+                    <div className="pt-3 border-t border-[#E2D9C8] mt-3">
                       <Link
                         href={megaMenuData[activeMenu].featured.href}
                         onClick={() =>
@@ -759,7 +759,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                             megaMenuData[activeMenu].featured.isAction
                           )
                         }
-                        className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#800000] hover:text-[#570000] transition-colors"
+                        className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
                       >
                         <span>{megaMenuData[activeMenu].featured.linkText}</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -771,7 +771,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                   <div className="flex-1 grid grid-cols-3 gap-6 py-6 sm:py-7 pr-6">
                     {megaMenuData[activeMenu].columns.map((col, idx) => (
                       <div key={idx} className="flex flex-col space-y-2">
-                        <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#5C5854] mb-1">
+                        <h5 className="text-[11px] font-bold uppercase tracking-wider text-[#544942] mb-1">
                           {col.heading}
                         </h5>
                         <ul className="space-y-1.5">
@@ -783,19 +783,19 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   onClick={() => handleLinkClick(link.href, link.isAction)}
-                                  className="text-xs font-medium text-[#1C1B1B] hover:text-[#800000] px-2 py-1 -mx-2 rounded-lg hover:bg-[#F8F7F4] transition-all inline-flex items-center gap-1 leading-snug group"
+                                  className="text-xs font-medium text-[#0D0D0D] hover:text-[#710912] px-2 py-1 -mx-2 rounded-lg hover:bg-[#FAF7F2] transition-all inline-flex items-center gap-1 leading-snug group"
                                 >
                                   <span>{link.label}</span>
-                                  <ExternalLink className="w-3 h-3 text-[#5C5854] group-hover:text-[#800000] transition-colors" />
+                                  <ExternalLink className="w-3 h-3 text-[#544942] group-hover:text-[#710912] transition-colors" />
                                 </a>
                               ) : (
                                 <Link
                                   href={link.href}
                                   onClick={() => handleLinkClick(link.href, link.isAction)}
-                                  className="text-xs font-medium text-[#1C1B1B] hover:text-[#800000] px-2 py-1 -mx-2 rounded-lg hover:bg-[#F8F7F4] transition-all inline-flex items-center gap-1 leading-snug group"
+                                  className="text-xs font-medium text-[#0D0D0D] hover:text-[#710912] px-2 py-1 -mx-2 rounded-lg hover:bg-[#FAF7F2] transition-all inline-flex items-center gap-1 leading-snug group"
                                 >
                                   <span>{link.label}</span>
-                                  <ChevronRight className="w-3 h-3 text-[#5C5854] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  <ChevronRight className="w-3 h-3 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                                 </Link>
                               )}
                             </li>
@@ -820,57 +820,57 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="absolute top-full left-0 right-0 pt-2.5 z-50 pointer-events-auto"
             >
-              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E5E1DA] p-4 sm:p-6">
+              <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.14),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] p-4 sm:p-6">
                 <form onSubmit={handleSearchSubmit} className="relative">
-                  <div className="flex items-center gap-3 border-b-2 border-[#800000] pb-2">
-                    <Search className="w-5 h-5 text-[#800000] shrink-0" />
+                  <div className="flex items-center gap-3 border-b-2 border-[#710912] pb-2">
+                    <Search className="w-5 h-5 text-[#710912] shrink-0" />
                     <input
                       type="search"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Cari warta hukum, kegiatan, kurikulum, atau tenaga pengajar..."
-                      className="w-full text-sm sm:text-base font-medium text-[#1C1B1B] placeholder-[#8E706C] focus:outline-none bg-transparent"
+                      className="w-full text-sm sm:text-base font-medium text-[#0D0D0D] placeholder-[#8A6E67] focus:outline-none bg-transparent"
                       autoFocus
                     />
                     <button
                       type="button"
                       onClick={() => setSearchOpen(false)}
-                      className="p-1 rounded-md text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                      className="p-1 rounded-md text-[#544942] hover:text-[#0D0D0D] hover:bg-[#FAF7F2]"
                       aria-label="Tutup pencarian"
                     >
                       <X className="w-5 h-5" />
                     </button>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#5C5854]">
+                  <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-[#544942]">
                     <span className="font-semibold uppercase tracking-wider text-[10px]">
                       Pencarian Populer:
                     </span>
                     <Link
                       href="/akademik/kurikulum"
                       onClick={() => setSearchOpen(false)}
-                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                      className="px-2.5 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#710912]/10 hover:text-[#710912] transition-colors"
                     >
                       Kurikulum S.H.
                     </Link>
                     <Link
                       href="/penerimaan/biaya"
                       onClick={() => setSearchOpen(false)}
-                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                      className="px-2.5 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#710912]/10 hover:text-[#710912] transition-colors"
                     >
                       Biaya Kuliah
                     </Link>
                     <Link
                       href="/pusat-studi/laboratorium-peradilan-semu"
                       onClick={() => setSearchOpen(false)}
-                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                      className="px-2.5 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#710912]/10 hover:text-[#710912] transition-colors"
                     >
                       Peradilan Semu
                     </Link>
                     <Link
                       href="/dosen"
                       onClick={() => setSearchOpen(false)}
-                      className="px-2.5 py-1 rounded-full bg-[#F8F7F4] hover:bg-[#800000]/10 hover:text-[#800000] transition-colors"
+                      className="px-2.5 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#710912]/10 hover:text-[#710912] transition-colors"
                     >
                       Guru Besar
                     </Link>
@@ -891,8 +891,8 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="lg:hidden absolute top-full left-0 right-0 pt-2.5 z-50 pointer-events-auto"
             >
-            <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.16)] border border-[#E5E1DA] p-4 max-h-[80vh] overflow-y-auto">
-              <div className="space-y-1 pb-4 border-b border-[#F0EDED]">
+            <div className="bg-white rounded-2xl shadow-[0_16px_40px_rgba(0,0,0,0.16)] border border-[#E2D9C8] p-4 max-h-[80vh] overflow-y-auto">
+              <div className="space-y-1 pb-4 border-b border-[#F4ECE1]">
                 {primaryNavItems.map((item) => {
                   const isCurrent = isRouteActive(item.href);
                   const isExpanded = expandedMobileAccordion === item.key;
@@ -909,14 +909,14 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                             }
                             className={`w-full flex items-center justify-between py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors text-left cursor-pointer ${
                               isCurrent
-                                ? "text-[#800000] bg-[#800000]/10"
-                                : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                                ? "text-[#710912] bg-[#710912]/10"
+                                : "text-[#0D0D0D] hover:bg-[#FAF7F2]"
                             }`}
                           >
                             <span>{item.label}</span>
                             <ChevronDown
                               className={`w-4 h-4 transition-transform duration-200 ${
-                                isExpanded ? "rotate-180 text-[#800000]" : "text-[#5C5854]"
+                                isExpanded ? "rotate-180 text-[#710912]" : "text-[#544942]"
                               }`}
                             />
                           </button>
@@ -926,8 +926,8 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                             onClick={() => setMobileMenuOpen(false)}
                             className={`flex-1 py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors ${
                               isCurrent
-                                ? "text-[#800000] bg-[#800000]/10"
-                                : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                                ? "text-[#710912] bg-[#710912]/10"
+                                : "text-[#0D0D0D] hover:bg-[#FAF7F2]"
                             }`}
                           >
                             {item.label}
@@ -945,11 +945,11 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                             className="overflow-hidden"
                           >
-                            <div className="pl-4 pr-2 py-2 bg-[#F8F7F4] rounded-lg mt-1 space-y-2 text-xs">
+                            <div className="pl-4 pr-2 py-2 bg-[#FAF7F2] rounded-lg mt-1 space-y-2 text-xs">
                               <Link
                                 href={item.href}
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="py-1 text-[#800000] font-semibold block border-b border-[#E5E1DA] pb-1.5 mb-1.5"
+                                className="py-1 text-[#710912] font-semibold block border-b border-[#E2D9C8] pb-1.5 mb-1.5"
                               >
                                 {menuDetails.featured.linkText} &rarr;
                               </Link>
@@ -961,7 +961,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={() => setMobileMenuOpen(false)}
-                                      className="py-1 text-[#5C5854] hover:text-[#800000] inline-flex items-center gap-1.5"
+                                      className="py-1 text-[#544942] hover:text-[#710912] inline-flex items-center gap-1.5"
                                     >
                                       <span>{link.label}</span>
                                       <ExternalLink className="w-3 h-3" />
@@ -973,7 +973,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                                         setMobileMenuOpen(false);
                                         if (link.isAction && onOpenAdmission) onOpenAdmission();
                                       }}
-                                      className="py-1 text-[#5C5854] hover:text-[#800000] block"
+                                      className="py-1 text-[#544942] hover:text-[#710912] block"
                                     >
                                       {link.label}
                                     </Link>
@@ -998,8 +998,8 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`block py-2.5 px-3 text-sm font-semibold rounded-lg transition-colors ${
                         isCurrent
-                          ? "text-[#800000] bg-[#800000]/10"
-                          : "text-[#1C1B1B] hover:bg-[#F8F7F4]"
+                          ? "text-[#710912] bg-[#710912]/10"
+                          : "text-[#0D0D0D] hover:bg-[#FAF7F2]"
                       }`}
                     >
                       {item.label}
@@ -1010,7 +1010,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
               {/* Portal Sivitas on Mobile */}
               <div className="pt-4 pb-2">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-[#5C5854] px-3 mb-2">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-[#544942] px-3 mb-2">
                   Portal Sivitas Kampus
                 </p>
                 <div className="grid grid-cols-2 gap-2">
@@ -1019,7 +1019,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                       key={aud.key}
                       type="button"
                       onClick={() => handleOpenAudience(aud.key)}
-                      className="text-left p-2.5 rounded-lg border border-[#E5E1DA] hover:bg-[#800000]/[0.06] text-xs font-semibold text-[#1C1B1B] hover:text-[#800000] transition-colors"
+                      className="text-left p-2.5 rounded-lg border border-[#E2D9C8] hover:bg-[#710912]/[0.06] text-xs font-semibold text-[#0D0D0D] hover:text-[#710912] transition-colors"
                     >
                       {aud.label}
                     </button>
@@ -1035,7 +1035,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                     setMobileMenuOpen(false);
                     if (onOpenAdmission) onOpenAdmission();
                   }}
-                  className="w-full py-2.5 bg-[#800000] hover:bg-[#570000] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center"
+                  className="w-full py-2.5 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center"
                 >
                   Pendaftaran PMB 2026/2027
                 </button>

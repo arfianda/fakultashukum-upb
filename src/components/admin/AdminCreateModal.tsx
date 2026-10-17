@@ -204,21 +204,21 @@ export function AdminCreateModal({
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-[#EBE7E1] shadow-[0_20px_50px_rgba(28,27,27,0.2)] p-6 z-10 max-h-[90vh] overflow-y-auto animate-dropdown">
+      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-[#E2D9C8] shadow-[0_20px_50px_rgba(28,27,27,0.2)] p-6 z-10 max-h-[90vh] overflow-y-auto animate-dropdown">
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-[#F2EFE9]">
+        <div className="flex items-center justify-between pb-4 border-b border-[#FAF7F2]">
           <div>
-            <h3 className="font-serif font-bold text-lg text-[#1C1B1B]">
+            <h3 className="font-serif font-bold text-lg text-[#0D0D0D]">
               Entri Data Akademik Baru
             </h3>
-            <p className="text-xs text-[#7A756F]">
+            <p className="text-xs text-[#73655D]">
               Publikasikan wacana riset, jadwalkan acara, atau daftarkan pengajar
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-[#F8F7F4] text-[#A39E97] hover:text-[#1C1B1B] transition-colors"
+            className="p-1.5 rounded-full hover:bg-[#FAF7F2] text-[#9C8F85] hover:text-[#0D0D0D] transition-colors"
             title="Tutup dialog"
           >
             <X className="w-5 h-5" />
@@ -226,14 +226,14 @@ export function AdminCreateModal({
         </div>
 
         {/* Tab Selection */}
-        <div className="flex items-center gap-2 p-1 bg-[#F8F7F4] rounded-2xl border border-[#EBE7E1] my-5">
+        <div className="flex items-center gap-2 p-1 bg-[#FAF7F2] rounded-2xl border border-[#E2D9C8] my-5">
           <button
             type="button"
             onClick={() => setActiveTab("post")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold transition-all ${
               activeTab === "post"
-                ? "bg-white text-[#800000] shadow-xs"
-                : "text-[#7A756F] hover:text-[#1C1B1B]"
+                ? "bg-white text-[#710912] shadow-xs"
+                : "text-[#73655D] hover:text-[#0D0D0D]"
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -244,8 +244,8 @@ export function AdminCreateModal({
             onClick={() => setActiveTab("event")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold transition-all ${
               activeTab === "event"
-                ? "bg-white text-[#800000] shadow-xs"
-                : "text-[#7A756F] hover:text-[#1C1B1B]"
+                ? "bg-white text-[#710912] shadow-xs"
+                : "text-[#73655D] hover:text-[#0D0D0D]"
             }`}
           >
             <Calendar className="w-3.5 h-3.5" />
@@ -256,8 +256,8 @@ export function AdminCreateModal({
             onClick={() => setActiveTab("faculty")}
             className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-semibold transition-all ${
               activeTab === "faculty"
-                ? "bg-white text-[#800000] shadow-xs"
-                : "text-[#7A756F] hover:text-[#1C1B1B]"
+                ? "bg-white text-[#710912] shadow-xs"
+                : "text-[#73655D] hover:text-[#0D0D0D]"
             }`}
           >
             <Users className="w-3.5 h-3.5" />
@@ -269,7 +269,7 @@ export function AdminCreateModal({
         {activeTab === "post" && (
           <form onSubmit={handleSubmitPost} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Judul Naskah / Publikasi *
               </label>
               <input
@@ -278,19 +278,19 @@ export function AdminCreateModal({
                 value={postTitle}
                 onChange={(e) => setPostTitle(e.target.value)}
                 placeholder="Contoh: Analisis Kepatutan Putusan Peradilan Niaga..."
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   Kategori Keilmuan
                 </label>
                 <select
                   value={postCategory}
                   onChange={(e) => setPostCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 >
                   <option>Kajian Yuridis</option>
                   <option>Yurisprudensi &amp; Konstitusi</option>
@@ -301,13 +301,13 @@ export function AdminCreateModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   Status Penerbitan
                 </label>
                 <select
                   value={postStatus}
                   onChange={(e) => setPostStatus(e.target.value as "DRAFT" | "PUBLISHED")}
-                  className="w-full px-3 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 >
                   <option value="PUBLISHED">Langsung Terbit (Aktif)</option>
                   <option value="DRAFT">Simpan Sebagai Draf</option>
@@ -316,7 +316,7 @@ export function AdminCreateModal({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Isi Doktrin / Analisis (Sanitasi DOMPurify Aman) *
               </label>
               <textarea
@@ -325,7 +325,7 @@ export function AdminCreateModal({
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}
                 placeholder="Tuliskan telaah hukum atau analisis komparatif di sini..."
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none font-mono"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none font-mono"
               />
             </div>
 
@@ -333,7 +333,7 @@ export function AdminCreateModal({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-[#800000] hover:bg-[#570000] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-3 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>
@@ -352,7 +352,7 @@ export function AdminCreateModal({
         {activeTab === "event" && (
           <form onSubmit={handleSubmitEvent} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Nama Agenda / Simposium *
               </label>
               <input
@@ -361,13 +361,13 @@ export function AdminCreateModal({
                 value={eventTitle}
                 onChange={(e) => setEventTitle(e.target.value)}
                 placeholder="Contoh: Kuliah Tamu: Transformasi Regulasi Kecerdasan Buatan..."
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   Tanggal Pelaksanaan *
                 </label>
                 <input
@@ -376,12 +376,12 @@ export function AdminCreateModal({
                   value={eventDate}
                   onChange={(e) => setEventDate(e.target.value)}
                   placeholder="Contoh: 28 Oktober 2026"
-                  className="w-full px-3.5 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   Ruang / Lokasi
                 </label>
                 <input
@@ -389,13 +389,13 @@ export function AdminCreateModal({
                   value={eventLocation}
                   onChange={(e) => setEventLocation(e.target.value)}
                   placeholder="Auditorium R. Soepomo / Moot Court"
-                  className="w-full px-3 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Narasumber / Pembicara Ahli
               </label>
               <input
@@ -403,12 +403,12 @@ export function AdminCreateModal({
                 value={eventSpeaker}
                 onChange={(e) => setEventSpeaker(e.target.value)}
                 placeholder="Nama lengkap dan gelar pemateri"
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Deskripsi Singkat Agenda
               </label>
               <textarea
@@ -416,7 +416,7 @@ export function AdminCreateModal({
                 value={eventDesc}
                 onChange={(e) => setEventDesc(e.target.value)}
                 placeholder="Pokok bahasan yang akan dikaji dalam forum ilmiah ini..."
-                className="w-full px-3.5 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
@@ -424,7 +424,7 @@ export function AdminCreateModal({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-[#800000] hover:bg-[#570000] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-3 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>
@@ -443,7 +443,7 @@ export function AdminCreateModal({
         {activeTab === "faculty" && (
           <form onSubmit={handleSubmitFaculty} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Nama Lengkap &amp; Gelar *
               </label>
               <input
@@ -452,13 +452,13 @@ export function AdminCreateModal({
                 value={facultyName}
                 onChange={(e) => setFacultyName(e.target.value)}
                 placeholder="Contoh: Prof. Dr. Lorem Ipsum, S.H., LL.M."
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   NIP / NIDN *
                 </label>
                 <input
@@ -467,12 +467,12 @@ export function AdminCreateModal({
                   value={facultyNip}
                   onChange={(e) => setFacultyNip(e.target.value)}
                   placeholder="Contoh: 198503142010121003"
-                  className="w-full px-3 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+                <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                   Jabatan Fungsional
                 </label>
                 <input
@@ -480,13 +480,13 @@ export function AdminCreateModal({
                   value={facultyTitles}
                   onChange={(e) => setFacultyTitles(e.target.value)}
                   placeholder="Lektor Kepala / Guru Besar"
-                  className="w-full px-3 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Spesialisasi Keilmuan *
               </label>
               <input
@@ -495,12 +495,12 @@ export function AdminCreateModal({
                 value={facultySpec}
                 onChange={(e) => setFacultySpec(e.target.value)}
                 placeholder="Contoh: Hukum Acara Pidana, Kriminologi Forensik"
-                className="w-full px-3.5 py-2.5 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#1C1B1B] mb-1">
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Kutipan Dedikasi Riset (Bio Quote)
               </label>
               <textarea
@@ -508,7 +508,7 @@ export function AdminCreateModal({
                 value={facultyQuote}
                 onChange={(e) => setFacultyQuote(e.target.value)}
                 placeholder="Amanat filosofis atau dedikasi pengajaran..."
-                className="w-full px-3.5 py-2 bg-[#F8F7F4] border border-[#EBE7E1] rounded-2xl text-xs text-[#1C1B1B] focus:border-[#800000] focus:outline-none"
+                className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
               />
             </div>
 
@@ -516,7 +516,7 @@ export function AdminCreateModal({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-[#800000] hover:bg-[#570000] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-3 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>

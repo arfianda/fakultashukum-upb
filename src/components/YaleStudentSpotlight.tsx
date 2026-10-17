@@ -43,7 +43,7 @@ export function YaleStudentSpotlight() {
       <div id="mahasiswa-spotlight" className="absolute -top-24 left-0 pointer-events-none" aria-hidden="true" />
 
       {/* Background container offset block (Direct match to Yale screenshot dark blue block) */}
-      <div className="absolute inset-y-0 left-0 w-full lg:w-4/5 bg-gradient-to-r from-[#3A0000] via-[#480000] to-[#570000] z-0" />
+      <div className="absolute inset-y-0 left-0 w-full lg:w-4/5 bg-gradient-to-r from-[#3A0000] via-[#480000] to-[#48060B] z-0" />
       <div className="absolute inset-0 dotted-matrix-bg opacity-15 pointer-events-none z-0" aria-hidden="true" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,21 +64,21 @@ export function YaleStudentSpotlight() {
               />
 
               {/* Dark Vignette Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20 group-hover:from-[#570000]/85 transition-colors" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20 group-hover:from-[#48060B]/85 transition-colors" />
 
               {/* Center Circular Play Button (Direct match to Yale screenshot) */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#800000]/90 border-2 border-white flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-[#C5A059] transition-all">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#710912]/90 border-2 border-white flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-[#C28D39] transition-all">
                   <Play className="w-6 h-6 fill-white translate-x-0.5" />
                 </div>
               </div>
 
               {/* Subtitle & Title at the bottom */}
               <div className="absolute inset-x-0 bottom-0 p-6">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#E8D8B0] block mb-1">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#EFE5D2] block mb-1">
                   VIDEO &bull; SUARA MAHASISWA
                 </span>
-                <h3 className="font-serif text-lg sm:text-xl font-normal text-white group-hover:text-[#E8D8B0] transition-colors leading-snug">
+                <h3 className="font-serif text-lg sm:text-xl font-normal text-white group-hover:text-[#EFE5D2] transition-colors leading-snug">
                   {story.title}
                 </h3>
               </div>
@@ -94,44 +94,44 @@ export function YaleStudentSpotlight() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs"
         >
-          <div className="bg-white max-w-xl w-full border border-[#E5E1DA] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white max-w-xl w-full border border-[#E2D9C8] shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setActiveStory(null)}
-              className="absolute top-6 right-6 p-2 text-[#5C5854] hover:text-[#1C1B1B] hover:bg-[#F8F7F4]"
+              className="absolute top-6 right-6 p-2 text-[#544942] hover:text-[#0D0D0D] hover:bg-[#FAF7F2]"
               aria-label="Tutup cerita mahasiswa"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <span className="text-[10px] uppercase tracking-widest text-[#800000] font-bold block mb-1">
+            <span className="text-[10px] uppercase tracking-widest text-[#710912] font-bold block mb-1">
               PROFIL ALUMNI &amp; MAHASISWA &bull; {activeStory.classYear}
             </span>
-            <h3 className="font-serif text-2xl text-[#1C1B1B] font-normal mb-1">
+            <h3 className="font-serif text-2xl text-[#0D0D0D] font-normal mb-1">
               {activeStory.name}, {activeStory.classYear}
             </h3>
-            <p className="text-xs text-[#C5A059] font-semibold mb-4">
+            <p className="text-xs text-[#C28D39] font-semibold mb-4">
               {activeStory.role}
             </p>
 
-            <div className="relative aspect-[16/9] w-full mb-6 border border-[#E5E1DA] overflow-hidden">
+            <div className="relative aspect-[16/9] w-full mb-6 border border-[#E2D9C8] overflow-hidden">
               <Image src={activeStory.image} alt={activeStory.name} fill className="object-cover" />
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <div className="w-14 h-14 rounded-full bg-[#800000] border-2 border-white flex items-center justify-center text-white">
+                <div className="w-14 h-14 rounded-full bg-[#710912] border-2 border-white flex items-center justify-center text-white">
                   <Play className="w-6 h-6 fill-white translate-x-0.5" />
                 </div>
               </div>
             </div>
 
-            <div className="p-4 bg-[#F8F7F4] border-l-4 border-[#800000] mb-6">
-              <Quote className="w-5 h-5 text-[#800000] mb-2 opacity-50" />
-              <p className="font-serif text-sm sm:text-base text-[#1C1B1B] italic leading-relaxed">
+            <div className="p-4 bg-[#FAF7F2] border-l-4 border-[#710912] mb-6">
+              <Quote className="w-5 h-5 text-[#710912] mb-2 opacity-50" />
+              <p className="font-serif text-sm sm:text-base text-[#0D0D0D] italic leading-relaxed">
                 &ldquo;{activeStory.quote}&rdquo;
               </p>
             </div>
 
             <button
               onClick={() => setActiveStory(null)}
-              className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#570000]"
+              className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B]"
             >
               Tutup Video
             </button>

@@ -44,32 +44,32 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAF7F2] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-bold text-[#800000] uppercase tracking-wider mb-6 hover:text-[#5A0000] transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-bold text-[#710912] uppercase tracking-wider mb-6 hover:text-[#48060B] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Kembali ke Portal Publik</span>
         </Link>
 
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-[#800000] text-white flex items-center justify-center">
-            <Scale className="w-7 h-7 text-[#E8D8B0]" />
+          <div className="w-12 h-12 bg-[#710912] text-white flex items-center justify-center">
+            <Scale className="w-7 h-7 text-[#EFE5D2]" />
           </div>
         </div>
 
-        <h2 className="text-center font-serif text-2xl font-bold text-[#1C1B1B] tracking-tight">
+        <h2 className="text-center font-serif text-2xl font-bold text-[#0D0D0D] tracking-tight">
           Portal CMS Sivitas Fakultas Hukum
         </h2>
-        <p className="mt-2 text-center text-xs text-[#5C5854] max-w-sm mx-auto">
+        <p className="mt-2 text-center text-xs text-[#544942] max-w-sm mx-auto">
           Universitas Pelita Bangsa &bull; Sistem Autentikasi Dewan Pengelola Konten &amp; Publikasi
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-6 shadow-sm border border-[#E5E1DA] sm:px-10">
+        <div className="bg-white py-8 px-6 shadow-sm border border-[#E2D9C8] sm:px-10">
           {errorMsg && (
             <div className="mb-5 p-3.5 bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-xs font-semibold text-[#1C1B1B] uppercase tracking-wider mb-1"
+                className="block text-xs font-semibold text-[#0D0D0D] uppercase tracking-wider mb-1"
               >
                 Nama Pengguna (Username)
               </label>
@@ -94,16 +94,16 @@ export default function AdminLoginPage() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="admin"
-                  className="w-full pl-3.5 pr-10 py-2.5 text-xs border border-[#E5E1DA] focus:border-[#800000] bg-[#FCF9F8]"
+                  className="w-full pl-3.5 pr-10 py-2.5 text-xs border border-[#E2D9C8] focus:border-[#710912] bg-[#FAF7F2]"
                 />
-                <User className="w-4 h-4 text-[#5C5854] absolute right-3 top-3" />
+                <User className="w-4 h-4 text-[#544942] absolute right-3 top-3" />
               </div>
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-xs font-semibold text-[#1C1B1B] uppercase tracking-wider mb-1"
+                className="block text-xs font-semibold text-[#0D0D0D] uppercase tracking-wider mb-1"
               >
                 Kata Sandi (Password)
               </label>
@@ -116,9 +116,9 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-3.5 pr-10 py-2.5 text-xs border border-[#E5E1DA] focus:border-[#800000] bg-[#FCF9F8]"
+                  className="w-full pl-3.5 pr-10 py-2.5 text-xs border border-[#E2D9C8] focus:border-[#710912] bg-[#FAF7F2]"
                 />
-                <Lock className="w-4 h-4 text-[#5C5854] absolute right-3 top-3" />
+                <Lock className="w-4 h-4 text-[#544942] absolute right-3 top-3" />
               </div>
             </div>
 
@@ -126,7 +126,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-[#800000] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#5A0000] transition-colors disabled:opacity-50"
+                className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] transition-colors disabled:opacity-50"
               >
                 {loading ? "Memverifikasi Kredensial..." : "Masuk ke Panel CMS"}
               </button>
@@ -134,10 +134,10 @@ export default function AdminLoginPage() {
           </form>
 
           {/* Quick Demo Credentials Info for Testing */}
-          <div className="mt-6 pt-5 border-t border-[#F0EDED] bg-[#FCF9F8] p-3 text-[11px] text-[#5C5854]">
-            <p className="font-semibold text-[#1C1B1B] mb-1">Kredensial Evaluasi &amp; Pengembangan:</p>
-            <p>Username: <code className="bg-white px-1.5 py-0.5 border text-[#800000] font-mono">admin</code></p>
-            <p className="mt-0.5">Password: <code className="bg-white px-1.5 py-0.5 border text-[#800000] font-mono">admin123</code></p>
+          <div className="mt-6 pt-5 border-t border-[#F4ECE1] bg-[#FAF7F2] p-3 text-[11px] text-[#544942]">
+            <p className="font-semibold text-[#0D0D0D] mb-1">Kredensial Evaluasi &amp; Pengembangan:</p>
+            <p>Username: <code className="bg-white px-1.5 py-0.5 border text-[#710912] font-mono">admin</code></p>
+            <p className="mt-0.5">Password: <code className="bg-white px-1.5 py-0.5 border text-[#710912] font-mono">admin123</code></p>
           </div>
         </div>
       </div>

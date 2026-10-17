@@ -13,7 +13,6 @@ import { FacultyDirectory } from "@/components/FacultyDirectory";
 import { AlumniSection } from "@/components/AlumniSection";
 import { AdmissionSection } from "@/components/AdmissionSection";
 import { YaleConnectWithUs } from "@/components/YaleConnectWithUs";
-import { YaleQuickBar } from "@/components/YaleQuickBar";
 import { PostItem, EventItem, FacultyItem } from "@/data/initialData";
 import { useAdmission } from "@/context/AdmissionContext";
 
@@ -63,11 +62,8 @@ export function HomeClient({
       {/* 11. Admission & Scholarships Section */}
       <AdmissionSection onOpenAdmission={openAdmission} />
 
-      {/* 12. Yale-style Connect With Us: 3 candid campus photos + 1 official Twitter/X card + follow bar */}
+      {/* 12. Connect With Us: Campus community & social spotlight */}
       <YaleConnectWithUs />
-
-      {/* 13. Yale-style Quick Action Bar: 4 solid action blocks directly above footer */}
-      <YaleQuickBar />
     </>
   );
 }

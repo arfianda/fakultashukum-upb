@@ -22,7 +22,7 @@ export default async function AgendaPage() {
         breadcrumbs={[{ label: "Agenda Akademik" }]}
       />
 
-      <Suspense fallback={<div className="max-w-7xl mx-auto p-12 text-center text-sm text-[#5C5854]">Memuat agenda akademik...</div>}>
+      <Suspense fallback={<div className="max-w-7xl mx-auto p-12 text-center text-sm text-[#544942]">Memuat agenda akademik...</div>}>
         <AgendaListingClient initialEvents={events} />
       </Suspense>
     </>
