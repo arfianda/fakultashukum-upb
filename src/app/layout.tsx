@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Inter } from "next/font/google";
 import "./globals.css";
 import { AdmissionProvider } from "@/context/AdmissionContext";
 import { RootShell } from "@/components/layout/RootShell";
 
-const playfair = Playfair_Display({
+const newsreader = Newsreader({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-newsreader",
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-inter",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
@@ -51,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${playfair.variable} ${plusJakarta.variable} scroll-smooth`}>
+    <html lang="id" className={`${newsreader.variable} ${inter.variable} scroll-smooth`}>
       <body className="min-h-screen flex flex-col font-sans bg-[#FAF7F2] text-[#0D0D0D] antialiased">
         <AdmissionProvider>
           <RootShell>{children}</RootShell>

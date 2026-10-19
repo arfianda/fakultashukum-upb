@@ -218,13 +218,15 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
                   </ul>
                 </div>
 
-                <button
-                  onClick={onOpenAdmission}
+                <a
+                  href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Informasi Pendaftaran Program</span>
                   <ChevronRight className="w-3.5 h-3.5 text-[#EFE5D2]" />
-                </button>
+                </a>
               </div>
             ))}
           </div>

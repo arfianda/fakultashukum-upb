@@ -10,8 +10,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
       sub: "PENERIMAAN & BEASISWA",
       desc: "Informasi penerimaan Sarjana Hukum (S.H.) kelas Reguler dan Karyawan, jadwal gelombang seleksi, serta beasiswa.",
       actionText: "Alur Penerimaan",
-      action: onOpenAdmission,
-      href: "#pendaftaran",
+      href: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
       icon: GraduationCap,
     },
     {
@@ -69,23 +68,15 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
                 </div>
 
                 <div className="pt-4 border-t border-[#F4ECE1]">
-                  {item.action ? (
-                    <button
-                      onClick={item.action}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#710912] hover:text-[#48060B] group"
-                    >
-                      <span>{item.actionText}</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#C28D39]" />
-                    </button>
-                  ) : (
-                    <a
-                      href={item.href}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#710912] hover:text-[#48060B] group"
-                    >
-                      <span>{item.actionText}</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#C28D39]" />
-                    </a>
-                  )}
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#710912] hover:text-[#48060B] group"
+                  >
+                    <span>{item.actionText}</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#C28D39]" />
+                  </a>
                 </div>
               </div>
             );

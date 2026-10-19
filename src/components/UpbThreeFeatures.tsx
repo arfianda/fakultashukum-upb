@@ -129,15 +129,15 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
                   <li><strong>Perpustakaan Riset Hukum:</strong> Ribuan koleksi yurisprudensi MA/MK dan akses jurnal internasional terindeks.</li>
                   <li><strong>Klinik Konsultasi Hukum:</strong> Ruang mediasi sengketa perdata dan advokasi masyarakat.</li>
                 </ul>
-                <button
-                  onClick={() => {
-                    setModalType(null);
-                    if (onOpenAdmission) onOpenAdmission();
-                  }}
-                  className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B]"
+                <a
+                  href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setModalType(null)}
+                  className="block text-center w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B]"
                 >
-                  Daftar Kunjungan Kampus
-                </button>
+                  Daftar Kunjungan Kampus &amp; PMB
+                </a>
               </div>
             ) : (
               <div>

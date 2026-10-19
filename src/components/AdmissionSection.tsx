@@ -62,13 +62,15 @@ export function AdmissionSection({ onOpenAdmission }: { onOpenAdmission?: () => 
             </h2>
           </div>
 
-          <button
-            onClick={onOpenAdmission}
+          <a
+            href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-4 md:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] transition-colors"
           >
             <span>Buka Formulir Pendaftaran</span>
             <ChevronRight className="w-4 h-4 text-[#EFE5D2]" />
-          </button>
+          </a>
         </div>
 
         {/* 4 Steps Timeline */}
@@ -134,12 +136,14 @@ export function AdmissionSection({ onOpenAdmission }: { onOpenAdmission?: () => 
             </div>
 
             <div className="pt-6">
-              <button
-                onClick={onOpenAdmission}
-                className="w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] transition-colors"
+              <a
+                href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center w-full py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] transition-colors"
               >
                 Konsultasi Biaya &amp; Skema Angsuran
-              </button>
+              </a>
             </div>
           </div>
 
@@ -179,12 +183,14 @@ export function AdmissionSection({ onOpenAdmission }: { onOpenAdmission?: () => 
 
             <div className="pt-4 border-t border-[#F4ECE1] flex items-center justify-between text-xs text-[#544942]">
               <span>Pendaftaran beasiswa diverifikasi secara bertahap.</span>
-              <button
-                onClick={onOpenAdmission}
+              <a
+                href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-[#710912] hover:text-[#48060B] hover:underline uppercase"
               >
                 Daftar Jalur Beasiswa &rarr;
-              </button>
+              </a>
             </div>
           </div>
         </div>

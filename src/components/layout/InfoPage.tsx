@@ -43,7 +43,7 @@ export function InfoPage({ data }: { data: InfoPageData }) {
                 className="bg-white border border-[#E2D9C8] rounded-2xl p-6 sm:p-8 shadow-xs scroll-mt-28"
               >
                 {section.kicker && (
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-1.5">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#710912] block mb-1.5">
                     {section.kicker}
                   </span>
                 )}
@@ -73,7 +73,7 @@ export function InfoPage({ data }: { data: InfoPageData }) {
                       >
                         <div>
                           {item.badge && (
-                            <span className="inline-block px-2 py-0.5 rounded-md bg-[#710912]/10 text-[#710912] text-[10px] font-bold uppercase tracking-wider mb-2">
+                            <span className="inline-block px-2 py-0.5 rounded-md bg-[#710912]/10 text-[#710912] text-[11px] font-semibold uppercase tracking-wider mb-2">
                               {item.badge}
                             </span>
                           )}
@@ -107,13 +107,25 @@ export function InfoPage({ data }: { data: InfoPageData }) {
 
                         {item.link && (
                           <div className="mt-4 pt-3 border-t border-[#E2D9C8]">
-                            <Link
-                              href={item.link.href}
-                              className="inline-flex items-center gap-1 text-xs font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
-                            >
-                              <span>{item.link.label}</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
+                            {item.link.href.startsWith("http") ? (
+                              <a
+                                href={item.link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
+                              >
+                                <span>{item.link.label}</span>
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            ) : (
+                              <Link
+                                href={item.link.href}
+                                className="inline-flex items-center gap-1 text-xs font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
+                              >
+                                <span>{item.link.label}</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            )}
                           </div>
                         )}
                       </div>
@@ -133,7 +145,7 @@ export function InfoPage({ data }: { data: InfoPageData }) {
 
                 {/* Callout Box */}
                 {section.callout && (
-                  <div className="mt-6 p-4 sm:p-5 rounded-xl bg-[#710912]/8 border-l-4 border-[#710912]">
+                  <div className="mt-6 p-4 sm:p-5 rounded-xl bg-[#710912]/5 border border-[#710912]/20">
                     <h4 className="font-serif text-sm font-bold text-[#710912] mb-1">
                       {section.callout.title}
                     </h4>
@@ -162,21 +174,44 @@ export function InfoPage({ data }: { data: InfoPageData }) {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <Link
-                    href={data.cta.buttonHref}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C28D39] text-[#48060B] text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors"
-                  >
-                    <span>{data.cta.buttonText}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  {data.cta.buttonHref.startsWith("http") ? (
+                    <a
+                      href={data.cta.buttonHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C28D39] text-[#48060B] text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors"
+                    >
+                      <span>{data.cta.buttonText}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : (
+                    <Link
+                      href={data.cta.buttonHref}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C28D39] text-[#48060B] text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors"
+                    >
+                      <span>{data.cta.buttonText}</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
 
                   {data.cta.secondaryText && data.cta.secondaryHref && (
-                    <Link
-                      href={data.cta.secondaryHref}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 text-white text-xs font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors"
-                    >
-                      <span>{data.cta.secondaryText}</span>
-                    </Link>
+                    data.cta.secondaryHref.startsWith("http") ? (
+                      <a
+                        href={data.cta.secondaryHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 text-white text-xs font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                      >
+                        <span>{data.cta.secondaryText}</span>
+                      </a>
+                    ) : (
+                      <Link
+                        href={data.cta.secondaryHref}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/40 text-white text-xs font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                      >
+                        <span>{data.cta.secondaryText}</span>
+                      </Link>
+                    )
                   )}
                 </div>
               </motion.div>

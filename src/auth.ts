@@ -36,12 +36,36 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // Fallback if MySQL database is not connected yet during local evaluation
         }
 
-        // Demo fallback admin credentials for development verification
-        if (username === "admin" && password === "admin123") {
+        // Demo fallback credentials across all 4 roles for development & evaluation
+        if ((username === "superadmin" || username === "admin") && password === "admin123") {
           return {
             id: "1",
-            name: "Super Administrator",
+            name: "Superadmin",
             role: "SUPERADMIN",
+          };
+        }
+
+        if ((username === "admin.hukum" || username === "adminhukum") && password === "hukum123") {
+          return {
+            id: "2",
+            name: "Admin Hukum",
+            role: "ADMIN_HUKUM",
+          };
+        }
+
+        if ((username === "0412088501" || username === "dosen") && password === "dosen123") {
+          return {
+            id: "3",
+            name: "Dosen",
+            role: "DOSEN",
+          };
+        }
+
+        if ((username === "312210045" || username === "mahasiswa") && password === "mahasiswa123") {
+          return {
+            id: "4",
+            name: "Mahasiswa",
+            role: "MAHASISWA",
           };
         }
 
@@ -50,7 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/admin/login",
+    signIn: "/login",
   },
   callbacks: {
     jwt({ token, user }) {

@@ -85,17 +85,17 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:text-[#EFE5D2] group transition-colors"
           >
             <span>Semua Konsentrasi</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#C28D39]" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#EFE5D2]" />
           </a>
         </div>
 
-        {/* 3 Large Photographic Cards with modern organic rounded shape matching the leaf reference */}
+        {/* 3 Large Photographic Cards with modern symmetric rounded shape and refined glass border */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {areas.map((area) => (
             <div
               key={area.id}
               onClick={() => setActiveArea(area)}
-              className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden group cursor-pointer border border-white/20 hover:border-[#C28D39] transition-all duration-500 shadow-xl hover:shadow-2xl hover:-translate-y-1.5 rounded-tr-[3.5rem] rounded-bl-[3.5rem] sm:rounded-tr-[4.5rem] sm:rounded-bl-[4.5rem] lg:rounded-tr-[5.5rem] lg:rounded-bl-[5.5rem] isolate"
+              className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden group cursor-pointer border border-white/15 hover:border-white/45 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1.5 rounded-2xl sm:rounded-3xl isolate"
             >
               {/* Image with zoom on hover */}
               <Image
@@ -117,11 +117,11 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
               </div>
 
               {/* Title anchored at bottom */}
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 pb-8 pl-8 flex flex-col justify-end">
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7 flex flex-col justify-end">
                 <h3 className="font-serif text-xl sm:text-2xl text-white font-normal leading-snug group-hover:text-[#EFE5D2] transition-colors mb-2">
                   {area.title}
                 </h3>
-                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#C28D39]">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EFE5D2] group-hover:text-white transition-colors">
                   <span>Lihat Mata Kuliah &amp; Karir</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
@@ -137,7 +137,7 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
             className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/70 hover:border-white text-white hover:bg-white/10 text-xs font-bold uppercase tracking-widest transition-all rounded-full"
           >
             <span>JELAJAHI KURIKULUM &amp; KONSENTRASI LENGKAP</span>
-            <ArrowRight className="w-4 h-4 text-[#C28D39]" />
+            <ArrowRight className="w-4 h-4 text-[#EFE5D2]" />
           </a>
         </div>
       </div>
@@ -188,15 +188,15 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
             </p>
 
             <div className="flex gap-3">
-              <button
-                onClick={() => {
-                  setActiveArea(null);
-                  if (onOpenAdmission) onOpenAdmission();
-                }}
-                className="flex-1 py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] rounded-full transition-colors shadow-xs"
+              <a
+                href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setActiveArea(null)}
+                className="flex-1 py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] rounded-full transition-colors shadow-xs text-center inline-flex items-center justify-center"
               >
                 Daftar Program Studi Ini
-              </button>
+              </a>
               <button
                 onClick={() => setActiveArea(null)}
                 className="px-6 py-3 border border-[#E2D9C8] text-xs font-bold uppercase tracking-wider hover:bg-[#FAF7F2] rounded-full transition-colors"

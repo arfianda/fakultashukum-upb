@@ -76,7 +76,7 @@ export default async function PeminatanDetailPage({
       title: `Tertarik Mendalami ${item.title}?`,
       description: "Konsultasikan pilihan peminatan studi Anda dengan tim admisi dekanat Fakultas Hukum UPB.",
       buttonText: "Daftar Mahasiswa Baru",
-      buttonHref: "/penerimaan/daftar",
+      buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
       secondaryText: "Lihat Seluruh Peminatan",
       secondaryHref: "/akademik/peminatan",
     },

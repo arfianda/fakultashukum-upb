@@ -85,7 +85,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
           {post.title}
         </h1>
 
-        <div className="p-4 sm:p-5 bg-[#FAF7F2] border-l-4 border-[#710912] rounded-r-xl text-xs sm:text-sm text-[#544942] leading-relaxed italic font-serif">
+        <div className="p-5 bg-white border border-[#E2D9C8] rounded-2xl text-xs sm:text-sm text-[#544942] leading-relaxed italic font-serif shadow-xs">
           {post.excerpt}
         </div>
       </div>
@@ -116,7 +116,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
               className="prose prose-sm sm:prose-base max-w-none text-[#0D0D0D] leading-relaxed
                 prose-headings:font-serif prose-headings:text-[#48060B] prose-headings:font-bold
                 prose-p:mb-5 prose-p:font-light prose-p:text-[#241E1C] prose-p:leading-relaxed
-                prose-blockquote:border-l-4 prose-blockquote:border-[#C28D39] prose-blockquote:bg-[#FAF7F2] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:italic prose-blockquote:my-6
+                prose-blockquote:border-l-2 prose-blockquote:border-[#710912]/40 prose-blockquote:bg-[#FAF7F2] prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:italic prose-blockquote:my-6
                 prose-blockquote:text-[#48060B] prose-blockquote:font-serif
                 prose-strong:font-semibold prose-strong:text-[#0D0D0D]"
               dangerouslySetInnerHTML={{ __html: post.content }}
@@ -128,7 +128,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
                 <User className="w-6 h-6" />
               </div>
               <div className="flex-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-0.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#710912] block mb-0.5">
                   Penulis / Sumber Rilis
                 </span>
                 <h4 className="font-serif text-base font-bold text-[#0D0D0D] leading-snug">
@@ -170,13 +170,13 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
                     href={`/berita/${rel.slug}`}
                     className="block group"
                   >
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-1">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-[#710912] block mb-1">
                       {rel.category}
                     </span>
                     <h4 className="text-xs font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors leading-snug line-clamp-2 mb-1">
                       {rel.title}
                     </h4>
-                    <span className="text-[10px] text-[#544942] block">
+                    <span className="text-xs text-[#544942] block">
                       {rel.publishedAt}
                     </span>
                   </Link>

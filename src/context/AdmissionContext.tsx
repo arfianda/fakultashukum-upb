@@ -17,7 +17,11 @@ const AdmissionContext = createContext<AdmissionContextType>({
 export function AdmissionProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openAdmission = () => setIsOpen(true);
+  const openAdmission = () => {
+    if (typeof window !== "undefined") {
+      window.open("https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi", "_blank", "noopener,noreferrer");
+    }
+  };
   const closeAdmission = () => setIsOpen(false);
 
   return (

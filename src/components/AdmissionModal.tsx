@@ -37,6 +37,9 @@ export function AdmissionModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (typeof window !== "undefined") {
+      window.open("https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi", "_blank", "noopener,noreferrer");
+    }
     setRegNumber(`FH-UPB-2026-${Math.floor(1000 + Math.random() * 9000)}`);
     setSubmitted(true);
   };
@@ -101,13 +104,15 @@ export function AdmissionModal({
               >
                 Selesai &amp; Kembali
               </button>
-              <Link
-                href="/penerimaan/daftar"
+              <a
+                href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={onClose}
                 className="text-xs text-[#710912] hover:underline"
               >
-                Lihat panduan lengkap pendaftaran mahasiswa baru &rarr;
-              </Link>
+                Buka Portal Seleksi SPMB UPB Langsung &rarr;
+              </a>
             </div>
           </div>
         ) : (
@@ -227,13 +232,15 @@ export function AdmissionModal({
               </div>
 
               <div className="text-center pt-1">
-                <Link
-                  href="/penerimaan/daftar"
+                <a
+                  href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={onClose}
                   className="text-xs text-[#710912] hover:text-[#48060B] font-medium underline underline-offset-4"
                 >
-                  Lihat panduan pendaftaran lengkap &rarr;
-                </Link>
+                  Buka Portal Seleksi SPMB UPB Langsung &rarr;
+                </a>
               </div>
 
               <p className="text-[11px] text-[#544942] text-center font-light">

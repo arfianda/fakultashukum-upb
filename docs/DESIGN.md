@@ -56,70 +56,82 @@ colors:
   accent-gold-light: '#E8D8B0'
 typography:
   display-lg:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 56px
     fontWeight: '600'
     lineHeight: 64px
     letterSpacing: -0.02em
   display-lg-mobile:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 38px
     fontWeight: '600'
     lineHeight: 46px
     letterSpacing: -0.01em
   headline-lg:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 40px
     fontWeight: '500'
     lineHeight: 48px
     letterSpacing: -0.01em
   headline-lg-mobile:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 30px
     fontWeight: '500'
     lineHeight: 38px
   headline-md:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 28px
     fontWeight: '500'
     lineHeight: 36px
   headline-sm:
-    fontFamily: Playfair Display
+    fontFamily: Newsreader
     fontSize: 22px
     fontWeight: '600'
     lineHeight: 30px
   title-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 18px
     fontWeight: '600'
     lineHeight: 26px
   body-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 18px
     fontWeight: '400'
     lineHeight: 30px
   body-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 15px
     fontWeight: '400'
     lineHeight: 24px
   body-sm:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 13px
     fontWeight: '400'
     lineHeight: 20px
   label-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 12px
     fontWeight: '600'
     lineHeight: 16px
     letterSpacing: 0.08em
   label-sm:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Inter
     fontSize: 11px
     fontWeight: '700'
     lineHeight: 14px
     letterSpacing: 0.1em
+  label-xs:
+    fontFamily: Inter
+    fontSize: 10px
+    fontWeight: '700'
+    lineHeight: 14px
+    letterSpacing: 0.05em
+  label-micro:
+    fontFamily: Inter
+    fontSize: 9px
+    fontWeight: '700'
+    lineHeight: 12px
+    letterSpacing: 0.05em
 spacing:
   gutter: 2rem
   gutter-mobile: 1rem

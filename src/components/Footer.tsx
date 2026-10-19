@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Scale } from "lucide-react";
 
 export function Footer() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export function Footer() {
 
   return (
     <footer
-      className="w-full bg-[#710912] text-white pt-20 pb-12 border-t-2 border-[#C28D39] font-sans"
+      className="w-full bg-[#710912] text-white pt-20 pb-12 border-t border-[#48060B] font-sans"
       aria-label="Footer Resmi Kampus"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,24 +36,35 @@ export function Footer() {
               <Link
                 href="/"
                 onClick={handleBrandClick}
-                className="inline-flex items-center gap-3 mb-4 group cursor-pointer"
+                className="inline-flex items-center gap-3.5 mb-4 group cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-[#C28D39] group-hover:bg-[#C28D39] group-hover:text-[#710912] transition-colors">
-                  <Scale className="w-5 h-5 stroke-[2]" />
+                <div className="w-11 h-11 rounded-full bg-white p-1.5 flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:scale-105">
+                  <Image
+                    src="/images/logo-upb.png"
+                    alt="Logo Resmi Universitas Pelita Bangsa"
+                    width={44}
+                    height={44}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div>
                   <span className="font-serif text-2xl font-bold tracking-tight text-white block leading-none">
                     Fakultas Hukum
                   </span>
-                  <span className="text-[11px] font-sans tracking-widest uppercase font-medium text-[#EFE5D2] mt-1 block">
+                  <span className="text-[11px] font-sans tracking-widest uppercase font-medium text-[#EFE5D2] mt-1.5 block">
                     Universitas Pelita Bangsa
                   </span>
                 </div>
               </Link>
 
-              <p className="text-sm text-[#EFE5D2]/85 leading-relaxed max-w-sm mb-8 font-light">
+              <p className="text-sm text-[#EFE5D2]/85 leading-relaxed max-w-sm mb-4 font-light">
                 Mendidik calon yuris yang berintegritas moral luhur, menguasai kemahiran litigasi ruang sidang, serta berdaya saing global demi tegaknya keadilan dan supremasi hukum.
               </p>
+
+              <div className="text-xs text-[#EFE5D2]/70 space-y-1 mb-8 font-light border-l border-white/15 pl-3">
+                <p>Jl. Inspeksi Kalimalang No.9, Cikarang Pusat, Kab. Bekasi</p>
+                <p>Surel: hukum@pelitabangsa.ac.id</p>
+              </div>
             </div>
 
             {/* Social Icons row (Matching reference: Instagram, X, YouTube, Telegram) */}
@@ -141,8 +152,8 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin" className="text-[#C28D39] hover:text-[#EFE5D2] transition-colors duration-150 font-medium">
-                    Portal Admin
+                  <Link href="/admin" className="hover:text-white transition-colors duration-150">
+                    Portal Admin Dekanat
                   </Link>
                 </li>
               </ul>

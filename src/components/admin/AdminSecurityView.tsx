@@ -21,7 +21,7 @@ export function AdminSecurityView() {
       sanitizer: "isomorphic-dompurify",
       status: "Lolos Uji Keamanan",
       time: "Hari ini, 11:24 WIB",
-      user: "Dr. Hendra (Admin)",
+      user: "Superadmin",
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ export function AdminSecurityView() {
       sanitizer: "Input Validation (Zod-ready)",
       status: "Berhasil Diperbarui",
       time: "Hari ini, 09:15 WIB",
-      user: "Dr. Hendra (Admin)",
+      user: "Admin Hukum",
     },
     {
       id: 3,

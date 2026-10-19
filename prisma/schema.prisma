@@ -9,6 +9,9 @@ datasource db {
 
 enum Role {
   SUPERADMIN
+  ADMIN_HUKUM
+  DOSEN
+  MAHASISWA
   CONTENT_WRITER
 }
 

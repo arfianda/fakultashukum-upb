@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 import {
   Plus,
   MoreHorizontal,
@@ -34,6 +35,9 @@ export function AdminOverviewView({
   onOpenCreateModal,
   onNavigateToTab,
 }: AdminOverviewViewProps) {
+  const { data: session } = useSession();
+  const displayName = session?.user?.name || "Superadmin";
+
   // Greeting based on current time
   const currentHour = new Date().getHours();
   const greeting =
@@ -115,7 +119,7 @@ export function AdminOverviewView({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#0D0D0D] tracking-tight">
-            {greeting}, Dr. Hendra
+            {greeting}, {displayName}
           </h1>
           <p className="text-xs text-[#73655D] mt-0.5">
             Berikut ringkasan operasional akademik &amp; publikasi hukum hari ini
@@ -170,7 +174,7 @@ export function AdminOverviewView({
                 </div>
                 <div className="text-right">
                   <div className="text-[11px] font-semibold text-[#EFE5D2]">Kajian Konstitusi</div>
-                  <div className="text-[10px] text-white/70">Pukul 13.30 WIB</div>
+                  <div className="text-xs text-white/70">Pukul 13.30 WIB</div>
                 </div>
               </div>
             </div>
@@ -228,7 +232,7 @@ export function AdminOverviewView({
                       />
                     </div>
                     <span
-                      className={`text-[10px] font-semibold ${
+                      className={`text-xs font-semibold ${
                         item.active ? "text-[#710912] font-bold" : "text-[#73655D]"
                       }`}
                     >
@@ -285,7 +289,7 @@ export function AdminOverviewView({
                         : "hover:bg-[#FAF7F2]"
                     }`}
                   >
-                    <span className="text-[10px] text-[#73655D]">{w.day}</span>
+                    <span className="text-xs text-[#73655D]">{w.day}</span>
                     <span
                       className={`text-xs font-bold mt-0.5 ${
                         isSelected ? "text-[#0D0D0D]" : "text-[#544942]"
@@ -302,29 +306,23 @@ export function AdminOverviewView({
             <div className="space-y-3 mt-2">
               {/* Event 1 */}
               <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E2D9C8] transition-all hover:bg-[#FAF7F2]">
-                <div className="text-[10px] text-[#73655D] font-medium mb-1.5 flex items-center justify-between">
+                <div className="text-xs text-[#73655D] font-medium mb-1.5 flex items-center justify-between">
                   <span>Kamis, 17 Oktober • 09.30 - 11.30 WIB</span>
-                  <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-bold rounded-md">
+                  <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[11px] font-bold rounded-md">
                     Terkonfirmasi
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden border border-[#C28D39]/40 bg-[#710912] shrink-0">
-                      <Image
-                        src="/images/prof-hendra.jpg"
-                        alt="Dr. Alexander Callman"
-                        width={40}
-                        height={40}
-                        className="object-cover w-full h-full"
-                      />
+                    <div className="w-10 h-10 rounded-full border border-[#C28D39]/40 bg-[#710912] text-[#EFE5D2] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                      <span>DP</span>
                     </div>
                     <div>
                       <h4 className="font-serif font-bold text-xs text-[#0D0D0D]">
                         Sidang Semu: Peradilan Niaga
                       </h4>
                       <p className="text-[11px] text-[#73655D]">
-                        Dr. Alexander Callman, S.H., LL.M.
+                        Dosen Pengampu Peradilan
                       </p>
                     </div>
                   </div>
@@ -341,29 +339,23 @@ export function AdminOverviewView({
 
               {/* Event 2 */}
               <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E2D9C8] transition-all hover:bg-[#FAF7F2]">
-                <div className="text-[10px] text-[#73655D] font-medium mb-1.5 flex items-center justify-between">
+                <div className="text-xs text-[#73655D] font-medium mb-1.5 flex items-center justify-between">
                   <span>Kamis, 17 Oktober • 13.30 - 15.00 WIB</span>
-                  <span className="px-1.5 py-0.5 bg-[#EFE5D2] text-[#710912] text-[9px] font-bold rounded-md border border-[#EFE5D2]">
+                  <span className="px-1.5 py-0.5 bg-[#EFE5D2] text-[#710912] text-[11px] font-bold rounded-md border border-[#EFE5D2]">
                     Kuliah Pakar
                   </span>
                 </div>
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden border border-[#C28D39]/40 bg-[#710912] shrink-0">
-                      <Image
-                        src="/images/prof-amaliah.jpg"
-                        alt="Prof. Anna Nowak"
-                        width={40}
-                        height={40}
-                        className="object-cover w-full h-full"
-                      />
+                    <div className="w-10 h-10 rounded-full border border-[#C28D39]/40 bg-[#48060B] text-[#EFE5D2] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                      <span>PT</span>
                     </div>
                     <div>
                       <h4 className="font-serif font-bold text-xs text-[#0D0D0D]">
                         Hukum Siber &amp; Otomasi AI
                       </h4>
                       <p className="text-[11px] text-[#73655D]">
-                        Prof. Dr. Anna Nowak, S.H., M.H.
+                        Dosen Tamu / Pakar Hukum Siber
                       </p>
                     </div>
                   </div>
@@ -496,7 +488,7 @@ export function AdminOverviewView({
                 </div>
                 <div>
                   <div className="font-serif font-bold text-xs text-[#0D0D0D]">Briefing NMCC</div>
-                  <div className="text-[10px] text-emerald-700 font-semibold flex items-center gap-1">
+                  <div className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" />
                     <span>Selesai</span>
                   </div>
@@ -516,7 +508,7 @@ export function AdminOverviewView({
                     <div className="font-serif font-bold text-xs text-[#710912]">
                       Kajian Peradilan Niaga
                     </div>
-                    <div className="text-[10px] font-semibold text-[#710912]">
+                    <div className="text-xs font-semibold text-[#710912]">
                       Sedang Berlangsung
                     </div>
                   </div>
@@ -533,7 +525,7 @@ export function AdminOverviewView({
                 </div>
                 <div>
                   <div className="font-serif font-bold text-xs text-[#0D0D0D]">Kuliah Arbitrase</div>
-                  <div className="text-[10px] text-[#73655D] font-medium">dalam 2 jam</div>
+                  <div className="text-xs text-[#73655D] font-medium">dalam 2 jam</div>
                 </div>
               </div>
 
@@ -547,7 +539,7 @@ export function AdminOverviewView({
                 </div>
                 <div>
                   <div className="font-serif font-bold text-xs text-[#0D0D0D]">Rapat Pleno Senat</div>
-                  <div className="text-[10px] text-[#73655D] font-medium">dalam 5 jam</div>
+                  <div className="text-xs text-[#73655D] font-medium">dalam 5 jam</div>
                 </div>
               </div>
             </div>
@@ -560,7 +552,7 @@ export function AdminOverviewView({
                 style={{ left: "40%" }}
               >
                 <div className="w-3 h-3 rounded-full bg-[#710912] ring-4 ring-[#710912]/20" />
-                <span className="text-[10px] font-bold text-[#710912] mt-1">11:00</span>
+                <span className="text-xs font-bold text-[#710912] mt-1">11:00</span>
               </div>
 
               <div className="flex justify-between text-[11px] font-mono text-[#9C8F85]">

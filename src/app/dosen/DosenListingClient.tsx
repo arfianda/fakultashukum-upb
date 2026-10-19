@@ -144,7 +144,7 @@ export function DosenListingClient({
                       </div>
 
                       <div className="flex-1">
-                        <span className="text-[10px] uppercase font-bold tracking-widest text-[#710912] block mb-1">
+                        <span className="text-[11px] uppercase font-semibold tracking-wider text-[#710912] block mb-1">
                           {f.titles.includes("Guru Besar") ? "DEWAN GURU BESAR" : "TENAGA PENGAJAR"}
                         </span>
                         <h2 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] mb-1 leading-snug">
@@ -161,7 +161,7 @@ export function DosenListingClient({
                     </div>
 
                     {f.bioQuote && (
-                      <blockquote className="mt-4 p-3.5 rounded-xl bg-[#FAF7F2] border-l-2 border-[#C28D39] text-xs text-[#544942] italic font-light">
+                      <blockquote className="mt-4 p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8] text-xs text-[#544942] italic font-light">
                         &ldquo;{f.bioQuote}&rdquo;
                       </blockquote>
                     )}

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 import {
   Search,
   Bell,
@@ -22,8 +23,21 @@ interface AdminHeaderProps {
 }
 
 export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps) {
+  const { data: session } = useSession();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  const userName = session?.user?.name || "Superadmin";
+  const userHandle = `@${(session?.user?.name || "superadmin").toLowerCase().replace(/\s+/g, ".")}`;
+  const userRole = (session?.user as { role?: string })?.role;
+  const roleSubtitle =
+    userRole === "ADMIN_HUKUM"
+      ? "Pengelola Konten & Portal"
+      : userRole === "DOSEN"
+      ? "Tenaga Pendidik FH UPB"
+      : userRole === "MAHASISWA"
+      ? "Sivitas Akademika"
+      : "Hak Akses Penuh Sistem";
 
   const notifications = [
     {
@@ -155,21 +169,15 @@ export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps
               onClick={() => setShowProfileMenu(!showProfileMenu)}
               className="flex items-center gap-2.5 pl-1.5 pr-3 py-1 bg-[#FAF7F2] hover:bg-[#FAF7F2] border border-[#E2D9C8] rounded-full transition-colors cursor-pointer"
             >
-              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#C28D39]/40 bg-[#710912]">
-                <Image
-                  src="/images/prof-hendra.jpg"
-                  alt="Admin Avatar"
-                  width={32}
-                  height={32}
-                  className="object-cover w-full h-full"
-                />
+              <div className="relative w-8 h-8 rounded-full overflow-hidden bg-[#710912] text-[#EFE5D2] flex items-center justify-center font-bold text-xs shadow-xs">
+                <User className="w-4 h-4 text-[#EFE5D2]" />
               </div>
 
               <div className="hidden sm:block text-left">
                 <div className="font-semibold text-xs text-[#0D0D0D] leading-tight">
-                  Dr. Hendra, S.H.
+                  {userName}
                 </div>
-                <div className="text-[10px] text-[#73655D] leading-tight">@admin_dekanat</div>
+                <div className="text-[11px] text-[#73655D] leading-tight">{userHandle}</div>
               </div>
 
               <ChevronDown className="w-3.5 h-3.5 text-[#73655D]" />
@@ -179,8 +187,8 @@ export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps
             {showProfileMenu && (
               <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl border border-[#E2D9C8] shadow-[0_12px_32px_rgba(28,27,27,0.12)] p-2 z-50 animate-dropdown">
                 <div className="px-3 py-2 border-b border-[#FAF7F2] mb-1">
-                  <p className="font-serif font-bold text-xs text-[#0D0D0D]">Dr. Hendra Arfianda, S.H.</p>
-                  <p className="text-[10px] text-[#73655D]">Biro Komunikasi &amp; Akademik</p>
+                  <p className="font-serif font-bold text-xs text-[#0D0D0D]">{userName}</p>
+                  <p className="text-[11px] text-[#73655D]">{roleSubtitle}</p>
                 </div>
 
                 <Link
@@ -197,13 +205,14 @@ export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps
                   <span>Sesi Aman (DOMPurify)</span>
                 </div>
 
-                <Link
-                  href="/admin/login"
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors mt-1"
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors mt-1 cursor-pointer text-left"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Keluar</span>
-                </Link>
+                </button>
               </div>
             )}
           </div>

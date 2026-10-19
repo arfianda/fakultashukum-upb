@@ -3,6 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { SessionProvider } from "next-auth/react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AdmissionModal } from "@/components/AdmissionModal";
@@ -12,15 +13,18 @@ import { useAdmission } from "@/context/AdmissionContext";
 
 export function RootShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/admin");
+  const isStandaloneRoute =
+    pathname?.startsWith("/admin") ||
+    pathname === "/login" ||
+    pathname?.startsWith("/login");
   const { isOpen, openAdmission, closeAdmission } = useAdmission();
 
-  if (isAdmin) {
-    return <>{children}</>;
+  if (isStandaloneRoute) {
+    return <SessionProvider>{children}</SessionProvider>;
   }
 
   return (
-    <>
+    <SessionProvider>
       <SkipToContent />
       <ScrollToTop />
       <Navbar onOpenAdmission={openAdmission} />
@@ -37,6 +41,6 @@ export function RootShell({ children }: { children: React.ReactNode }) {
       </main>
       <Footer />
       <AdmissionModal isOpen={isOpen} onClose={closeAdmission} />
-    </>
+    </SessionProvider>
   );
 }

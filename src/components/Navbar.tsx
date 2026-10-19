@@ -22,8 +22,10 @@ import {
   Calendar,
   Info,
   Phone,
+  LogIn,
 } from "lucide-react";
 import { AudiencePortalModal, AudienceType } from "@/components/AudiencePortalModal";
+import { LoginPortalModal } from "@/components/LoginPortalModal";
 
 export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const pathname = usePathname();
@@ -35,6 +37,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [audienceModalOpen, setAudienceModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [audienceTab, setAudienceTab] = useState<AudienceType>("mahasiswa");
   const [expandedMobileAccordion, setExpandedMobileAccordion] = useState<string | null>(null);
 
@@ -271,7 +274,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         title: "Penerimaan & Bantuan Biaya",
         desc: "Investasi pendidikan hukum berintegritas tanpa pungutan liar.",
         linkText: "DAFTAR SEKARANG",
-        href: "/penerimaan",
+        href: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
       },
       columns: [
         {
@@ -287,7 +290,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           links: [
             { label: "Rincian Biaya & Angsuran Bulanan", href: "/penerimaan/biaya" },
             { label: "Skema Beasiswa Prestasi & KIP-K", href: "/penerimaan/beasiswa" },
-            { label: "Panduan Pendaftaran Mahasiswa Baru", href: "/penerimaan/daftar" },
+            { label: "Pendaftaran Online (Portal SPMB)", href: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi", external: true },
           ],
         },
         {
@@ -403,10 +406,10 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
       <div
         onMouseEnter={clearTimer}
         onMouseLeave={handleScheduleClose}
-        className={`w-full pointer-events-auto transition-all duration-250 ease-out rounded-2xl border relative ${
+        className={`w-full pointer-events-auto transition-all duration-250 ease-out rounded-full border relative ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-[14px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-[#E2D9C8] py-2 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
-            : "bg-white/90 backdrop-blur-[14px] shadow-[0_2px_16px_rgba(0,0,0,0.08)] border-white/70 py-2.5 pl-3.5 sm:pl-5 pr-3.5 sm:pr-5"
+            ? "bg-white/95 backdrop-blur-[14px] shadow-[0_4px_24px_rgba(0,0,0,0.12)] border-[#E2D9C8] py-2 pl-4 sm:pl-6 pr-3 sm:pr-5 xl:pr-6"
+            : "bg-white/90 backdrop-blur-[14px] shadow-[0_2px_16px_rgba(0,0,0,0.08)] border-white/70 py-2.5 pl-4 sm:pl-6 pr-3 sm:pr-5 xl:pr-6"
         }`}
       >
         <div className="flex items-center justify-between gap-2 lg:gap-3">
@@ -414,7 +417,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           <Link
             href="/"
             onClick={handleBrandClick}
-            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] rounded-xl shrink-0 cursor-pointer"
+            className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] rounded-full shrink-0 cursor-pointer"
             aria-label="Kembali ke Beranda Fakultas Hukum UPB"
           >
             <div
@@ -671,17 +674,16 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
               <Search className="w-4 h-4 stroke-[2]" />
             </button>
 
-            {/* 3. Solid Maroon CTA Button */}
-            <button
-              type="button"
-              onClick={() => {
-                handleCloseMenuImmediate();
-                if (onOpenAdmission) onOpenAdmission();
-              }}
-              className="inline-flex items-center justify-center px-3.5 xl:px-4 py-1.5 bg-[#710912] hover:bg-[#48060B] text-white text-[12px] xl:text-[12.5px] font-semibold tracking-[0.02em] rounded-full transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer shrink-0"
+            {/* 3. Solid Maroon Login CTA Button */}
+            <Link
+              href="/login"
+              onClick={handleCloseMenuImmediate}
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 xl:px-4 py-1.5 bg-[#710912] hover:bg-[#48060B] text-white text-[12px] xl:text-[12.5px] font-semibold tracking-[0.02em] rounded-full transition-all duration-200 shadow-xs hover:shadow-md active:scale-[0.98] whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#710912] cursor-pointer shrink-0"
+              aria-label="Buka portal login terpadu sivitas akademika"
             >
-              <span>Pendaftaran PMB</span>
-            </button>
+              <LogIn className="w-3.5 h-3.5" />
+              <span>Login</span>
+            </Link>
           </div>
 
           {/* ===================== MOBILE ACTION BUTTONS (< 1024px) ===================== */}
@@ -751,19 +753,32 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                       </p>
                     </div>
                     <div className="pt-3 border-t border-[#E2D9C8] mt-3">
-                      <Link
-                        href={megaMenuData[activeMenu].featured.href}
-                        onClick={() =>
-                          handleLinkClick(
-                            megaMenuData[activeMenu].featured.href,
-                            megaMenuData[activeMenu].featured.isAction
-                          )
-                        }
-                        className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
-                      >
-                        <span>{megaMenuData[activeMenu].featured.linkText}</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
+                      {megaMenuData[activeMenu].featured.href.startsWith("http") ? (
+                        <a
+                          href={megaMenuData[activeMenu].featured.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={handleCloseMenuImmediate}
+                          className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
+                        >
+                          <span>{megaMenuData[activeMenu].featured.linkText}</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      ) : (
+                        <Link
+                          href={megaMenuData[activeMenu].featured.href}
+                          onClick={() =>
+                            handleLinkClick(
+                              megaMenuData[activeMenu].featured.href,
+                              megaMenuData[activeMenu].featured.isAction
+                            )
+                          }
+                          className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
+                        >
+                          <span>{megaMenuData[activeMenu].featured.linkText}</span>
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      )}
                     </div>
                   </div>
 
@@ -1029,16 +1044,14 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
               {/* Mobile CTA */}
               <div className="pt-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    if (onOpenAdmission) onOpenAdmission();
-                  }}
-                  className="w-full py-2.5 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center"
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-2.5 bg-[#710912] hover:bg-[#48060B] text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Pendaftaran PMB 2026/2027
-                </button>
+                  <LogIn className="w-4 h-4" />
+                  <span>Login Portal Sivitas</span>
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -1050,6 +1063,11 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         isOpen={audienceModalOpen}
         onClose={() => setAudienceModalOpen(false)}
         initialTab={audienceTab}
+      />
+
+      <LoginPortalModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
       />
     </header>
   );

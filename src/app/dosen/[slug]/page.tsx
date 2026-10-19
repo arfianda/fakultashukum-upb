@@ -121,7 +121,7 @@ export default async function DosenDetailPage({
           <div className="lg:col-span-8 space-y-8">
             {/* Specialization Section */}
             <section className="bg-white border border-[#E2D9C8] rounded-2xl p-6 sm:p-8 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#710912] block mb-1">
                 KEPAKARAN &amp; BIDANG KEAHLIAN
               </span>
               <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">
@@ -134,7 +134,7 @@ export default async function DosenDetailPage({
               </p>
 
               {faculty.bioQuote && (
-                <blockquote className="p-4 rounded-xl bg-[#FAF7F2] border-l-4 border-[#710912] text-xs sm:text-sm text-[#544942] italic font-light">
+                <blockquote className="p-4 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8] text-xs sm:text-sm text-[#544942] italic font-light">
                   &ldquo;{faculty.bioQuote}&rdquo;
                 </blockquote>
               )}
@@ -142,7 +142,7 @@ export default async function DosenDetailPage({
 
             {/* Teaching & Academic Activities */}
             <section className="bg-white border border-[#E2D9C8] rounded-2xl p-6 sm:p-8 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912] block mb-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[#710912] block mb-1">
                 AKTIVITAS AKADEMIK
               </span>
               <h3 className="font-serif text-xl font-bold text-[#0D0D0D] mb-3">

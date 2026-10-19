@@ -110,7 +110,7 @@ export function AdminSidebar({
                     <span className="font-serif font-bold text-base tracking-tight text-[#0D0D0D]">
                       Lintas Hukum
                     </span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#EFE5D2] text-[#710912] border border-[#EFE5D2]/60 shrink-0">
+                    <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-[#EFE5D2] text-[#710912] border border-[#EFE5D2]/60 shrink-0">
                       FH UPB
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export function AdminSidebar({
 
             {/* Navigation Menu */}
             <nav className="mt-6 space-y-1.5">
-              <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#9C8F85] uppercase">
+              <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-[#9C8F85] uppercase">
                 Menu Utama
               </div>
               {navItems.map((item) => {
@@ -152,7 +152,7 @@ export function AdminSidebar({
 
                     {item.badge && (
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
                           isActive
                             ? "bg-white/20 text-white"
                             : "bg-[#F5EDE0] text-[#544942]"
@@ -169,7 +169,7 @@ export function AdminSidebar({
 
           {/* Bottom Section */}
           <div className="pt-6 border-t border-[#FAF7F2] space-y-1">
-            <div className="px-3 pb-2 text-[10px] font-bold tracking-wider text-[#9C8F85] uppercase">
+            <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-[#9C8F85] uppercase">
               Sistem
             </div>
 
