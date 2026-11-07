@@ -7,7 +7,16 @@ export async function GET() {
   try {
     const posts = await prisma.post.findMany({
       orderBy: { createdAt: "desc" },
-      include: { author: true },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
     });
     return NextResponse.json({ success: true, data: posts });
   } catch {
@@ -41,16 +50,17 @@ export async function POST(request: Request) {
         Date.now();
 
     try {
-      // Find or create default author
-      let author = await prisma.user.findFirst();
+      const author = await prisma.user.findFirst({
+        select: { id: true },
+      });
       if (!author) {
-        author = await prisma.user.create({
-          data: {
-            username: "admin",
-            passwordHash: "$2a$10$wT8K48qX9uPz/DkmvjD3mO6PqNKn7wH.Qk3L.j6Fm3o3Bw1Z3N8Q6", // admin123
-            role: "SUPER_ADMIN",
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Akun penulis belum tersedia di database. Jalankan npm run db:seed terlebih dahulu.",
           },
-        });
+          { status: 400 }
+        );
       }
 
       const post = await prisma.post.create({

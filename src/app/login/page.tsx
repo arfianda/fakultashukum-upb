@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { loginAction } from "@/lib/actions/auth";
 import {
   ArrowLeft,
   Lock,
@@ -40,13 +40,17 @@ export default function UniversalLoginPage() {
     const trimmed = identifier.trim().toLowerCase();
     if (!trimmed) return "unknown";
 
-    if (trimmed === "superadmin") {
+    if (trimmed.includes("superadmin") || trimmed.startsWith("sa-")) {
       return "superadmin";
     }
-    if (trimmed.includes("admin") || trimmed.includes("dekanat") || trimmed.includes("hukum")) {
+    if (trimmed.includes("admin") || trimmed.includes("dekan") || trimmed.includes("staff")) {
       return "admin";
     }
-    if (trimmed.includes("dosen") || (trimmed.startsWith("04") && /^\d+$/.test(trimmed)) || (trimmed.startsWith("00") && /^\d+$/.test(trimmed))) {
+    if (
+      trimmed.includes("dosen") ||
+      (trimmed.startsWith("04") && /^\d+$/.test(trimmed)) ||
+      (trimmed.startsWith("00") && /^\d+$/.test(trimmed))
+    ) {
       return "dosen";
     }
     if (trimmed.includes("mahasiswa") || /^\d+$/.test(trimmed)) {
@@ -55,67 +59,25 @@ export default function UniversalLoginPage() {
     return "unknown";
   }, [identifier]);
 
-  // Handle Quick Demo Fill
-  const handleQuickFill = (role: "superadmin" | "admin" | "dosen" | "mahasiswa") => {
-    setErrorMessage("");
-    if (role === "superadmin") {
-      setIdentifier("superadmin");
-      setPassword("admin123");
-    } else if (role === "admin") {
-      setIdentifier("admin.hukum");
-      setPassword("hukum123");
-    } else if (role === "dosen") {
-      setIdentifier("dosen");
-      setPassword("dosen123");
-    } else if (role === "mahasiswa") {
-      setIdentifier("mahasiswa");
-      setPassword("mahasiswa123");
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
     setIsLoading(true);
 
-    const cleanId = identifier.trim();
-
     try {
-      const res = await signIn("credentials", {
-        username: cleanId,
+      const result = await loginAction({
+        identifier: identifier.trim(),
         password,
-        redirect: false,
       });
 
-      if (res?.error) {
-        setErrorMessage("Identitas akun atau kata sandi tidak cocok. Silakan periksa kembali.");
+      if (!result.success) {
+        setErrorMessage(result.error || "Identitas atau kata sandi salah");
       } else {
-        // Redirection based on role detection
-        if (cleanId === "superadmin" || cleanId === "admin" || cleanId.includes("admin")) {
-          router.push("/admin");
-        } else if (cleanId === "0412088501" || cleanId.includes("dosen")) {
-          router.push("/dosen");
-        } else if (cleanId === "312210045" || cleanId.includes("mahasiswa")) {
-          router.push("/kehidupan-mahasiswa");
-        } else {
-          router.push("/admin");
-        }
+        router.push(result.redirectTo || "/dashboard");
         router.refresh();
       }
     } catch {
-      // Local fallback handler
-      if (
-        ((cleanId === "superadmin" || cleanId === "admin") && password === "admin123") ||
-        (cleanId === "admin.hukum" && (password === "hukum123" || password === "admin123"))
-      ) {
-        router.push("/admin");
-      } else if ((cleanId === "0412088501" || cleanId === "dosen") && password === "dosen123") {
-        router.push("/dosen");
-      } else if ((cleanId === "312210045" || cleanId === "mahasiswa") && password === "mahasiswa123") {
-        router.push("/kehidupan-mahasiswa");
-      } else {
-        setErrorMessage("Kredensial tidak valid. Silakan coba kredensial demo di bawah.");
-      }
+      setErrorMessage("Identitas atau kata sandi salah");
     } finally {
       setIsLoading(false);
     }
@@ -232,13 +194,16 @@ export default function UniversalLoginPage() {
               Pintu Masuk Terpadu
             </h2>
             <p className="text-xs sm:text-sm text-[#544942] leading-relaxed">
-              Autentikasi resmi untuk <strong>Mahasiswa</strong>, <strong>Dosen</strong>, <strong>Admin Hukum</strong>, dan <strong>Superadmin</strong>. Sistem otomatis menyesuaikan akses portal berdasarkan kredensial Anda.
+              Autentikasi resmi untuk <strong>Mahasiswa</strong>, <strong>Dosen</strong>, <strong>Staf</strong>, <strong>Pimpinan</strong>, dan <strong>Administrator</strong> Fakultas Hukum UPB.
             </p>
           </div>
 
           {/* Error Alert Box */}
           {errorMessage && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-3">
+            <div
+              role="alert"
+              className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-start gap-3"
+            >
               <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
               <div className="flex-1">
                 <span className="font-semibold block mb-0.5">Autentikasi Gagal</span>
@@ -249,14 +214,14 @@ export default function UniversalLoginPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Identifier Field (NIM / NIDN / Username) */}
+            {/* Identifier Field (Email / NIM / NIDN / NIP) */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="identifier"
                   className="block text-xs font-semibold text-[#0D0D0D] uppercase tracking-wider"
                 >
-                  Nomor Induk / Nama Pengguna
+                  Email / Nomor Induk (NIM / NIDN / NIP)
                 </label>
 
                 {/* Smart Role Detection Badge */}
@@ -278,7 +243,7 @@ export default function UniversalLoginPage() {
                     {detectedRole === "mahasiswa" && <GraduationCap className="w-3 h-3" />}
                     <span>
                       {detectedRole === "superadmin" && "Superadmin"}
-                      {detectedRole === "admin" && "Admin Dekanat"}
+                      {detectedRole === "admin" && "Admin / Dekanat"}
                       {detectedRole === "dosen" && "Dosen (NIDN)"}
                       {detectedRole === "mahasiswa" && "Mahasiswa (NIM)"}
                     </span>
@@ -295,13 +260,13 @@ export default function UniversalLoginPage() {
                   autoComplete="username"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  placeholder="NIM mahasiswa, NIDN dosen, atau username"
+                  placeholder="Email institusi, NIM, NIDN, atau NIP"
                   className="w-full pl-10 pr-4 py-3 text-sm bg-white border border-[#E2D9C8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#710912] focus:border-transparent transition-all placeholder:text-[#9C8F85]"
                 />
                 <User className="w-4 h-4 text-[#73655D] absolute left-3.5 top-3.5" />
               </div>
               <p className="mt-1.5 text-[11px] text-[#73655D]">
-                Format: 9 digit NIM untuk Mahasiswa &bull; 10 digit NIDN untuk Dosen &bull; Username untuk Admin
+                Masukkan alamat email terdaftar atau nomor induk sivitas (NIM / NIDN / NIP).
               </p>
             </div>
 
@@ -377,83 +342,16 @@ export default function UniversalLoginPage() {
             </button>
           </form>
 
-          {/* Quick Demo Credentials Panel for Development / Review */}
-          <div className="mt-8 pt-6 border-t border-[#E2D9C8]">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-[#73655D]">
-                Akses Demo Cepat (Klik untuk Mengisi):
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <button
-                type="button"
-                onClick={() => handleQuickFill("superadmin")}
-                className="p-2.5 rounded-lg bg-white border border-[#E2D9C8] hover:border-[#710912] text-left transition-colors flex items-center justify-between group"
-              >
-                <div>
-                  <span className="font-semibold block text-[#0D0D0D] group-hover:text-[#710912]">
-                    Superadmin
-                  </span>
-                  <span className="text-[11px] text-[#73655D]">IT &amp; Hak Akses</span>
-                </div>
-                <ShieldCheck className="w-4 h-4 text-[#710912]" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickFill("admin")}
-                className="p-2.5 rounded-lg bg-white border border-[#E2D9C8] hover:border-[#710912] text-left transition-colors flex items-center justify-between group"
-              >
-                <div>
-                  <span className="font-semibold block text-[#0D0D0D] group-hover:text-[#710912]">
-                    Admin Hukum
-                  </span>
-                  <span className="text-[11px] text-[#73655D]">CMS &amp; Warta</span>
-                </div>
-                <Building2 className="w-4 h-4 text-[#710912]" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickFill("dosen")}
-                className="p-2.5 rounded-lg bg-white border border-[#E2D9C8] hover:border-[#710912] text-left transition-colors flex items-center justify-between group"
-              >
-                <div>
-                  <span className="font-semibold block text-[#0D0D0D] group-hover:text-[#710912]">
-                    Dosen
-                  </span>
-                  <span className="text-[11px] text-[#73655D]">Akun Dosen</span>
-                </div>
-                <BookOpen className="w-4 h-4 text-[#710912]" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickFill("mahasiswa")}
-                className="p-2.5 rounded-lg bg-white border border-[#E2D9C8] hover:border-[#710912] text-left transition-colors flex items-center justify-between group"
-              >
-                <div>
-                  <span className="font-semibold block text-[#0D0D0D] group-hover:text-[#710912]">
-                    Mahasiswa
-                  </span>
-                  <span className="text-[11px] text-[#73655D]">Akun Mahasiswa</span>
-                </div>
-                <GraduationCap className="w-4 h-4 text-[#710912]" />
-              </button>
-            </div>
-          </div>
-
           {/* Footer note for prospective students */}
-          <div className="mt-8 text-center text-xs text-[#544942]">
-            <span>Belum memiliki akun sivitas? </span>
+          <div className="mt-8 pt-6 border-t border-[#E2D9C8] text-center text-xs text-[#544942]">
+            <span>Belum memiliki akun sivitas? Akun sivitas dibuat oleh Administrator Fakultas. Calon mahasiswa baru dapat menuju </span>
             <a
               href="https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-[#710912] hover:underline inline-flex items-center gap-1"
             >
-              <span>Daftar Seleksi PMB Online</span>
+              <span>Portal Seleksi PMB Online</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
@@ -480,12 +378,12 @@ export default function UniversalLoginPage() {
             <div className="space-y-4 text-xs text-[#544942] leading-relaxed">
               <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8]">
                 <strong className="block text-[#0D0D0D] mb-1">Mahasiswa Aktif (NIM):</strong>
-                <span>Untuk reset kata sandi akun perkuliahan dan KRS, hubungi Biro Administrasi Akademik &amp; Kemahasiswaan (BAAK) UPB atau gunakan fitur lupa sandi di SIAKAD.</span>
+                <span>Untuk reset kata sandi akun perkuliahan dan KRS, hubungi Biro Administrasi Akademik &amp; Kemahasiswaan (BAAK) UPB atau Administrator Fakultas Hukum.</span>
               </div>
 
               <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8]">
                 <strong className="block text-[#0D0D0D] mb-1">Dosen &amp; Tenaga Pengajar (NIDN):</strong>
-                <span>Sinkronisasi akun SINTA dan BKD dikoordinasikan langsung melalui unit Lembaga Penjaminan Mutu &amp; SDM UPB.</span>
+                <span>Sinkronisasi akun portal dosen dan BKD dikoordinasikan langsung melalui Administrator Fakultas Hukum UPB.</span>
               </div>
 
               <div className="p-3 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8]">

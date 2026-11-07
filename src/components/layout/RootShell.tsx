@@ -15,6 +15,7 @@ export function RootShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isStandaloneRoute =
     pathname?.startsWith("/admin") ||
+    pathname?.startsWith("/dashboard") ||
     pathname === "/login" ||
     pathname?.startsWith("/login");
   const { isOpen, openAdmission, closeAdmission } = useAdmission();

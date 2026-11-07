@@ -101,17 +101,46 @@ enum EventStatus {
   PUBLISHED
 }
 
+model Lab {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model User {
-  id           Int      @id @default(autoincrement())
-  username     String   @unique
-  email        String?  @unique
-  name         String?
-  passwordHash String
-  role         Role     @default(STAFF)
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  posts        Post[]
+  id                 Int        @id @default(autoincrement())
+  name               String
+  email              String     @unique
+  identifier         String?    @unique
+  passwordHash       String
+  role               Role       @default(MAHASISWA)
+  isActive           Boolean    @default(true)
+  mustChangePassword Boolean    @default(true)
+  labId              Int?
+  lab                Lab?       @relation(fields: [labId], references: [id], onDelete: SetNull)
+  lastLoginAt        DateTime?
+  failedLoginCount   Int        @default(0)
+  lockedUntil        DateTime?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+  posts              Post[]
+  auditLogs          AuditLog[]
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  actorId   Int?
+  actor     User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String?
+  meta      Json?
+  ip        String?
+  createdAt DateTime @default(now())
 }
 
 model Post {

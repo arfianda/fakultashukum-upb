@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { logoutAction } from "@/lib/actions/auth";
 import {
   Search,
   Bell,
@@ -208,14 +209,15 @@ export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps
                   <span>Sesi Aman (DOMPurify)</span>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => signOut({ callbackUrl: "/login" })}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors mt-1 cursor-pointer text-left"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Keluar</span>
-                </button>
+                <form action={logoutAction} className="mt-1">
+                  <button
+                    type="submit"
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer text-left"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Keluar</span>
+                  </button>
+                </form>
               </div>
             )}
           </div>

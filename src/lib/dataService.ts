@@ -13,7 +13,16 @@ export async function getPublishedPosts(): Promise<PostItem[]> {
     const posts = await prisma.post.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { publishedAt: "desc" },
-      include: { author: true },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
     });
 
     if (posts && posts.length > 0) {
@@ -24,7 +33,7 @@ export async function getPublishedPosts(): Promise<PostItem[]> {
         excerpt: p.content.replace(/<[^>]+>/g, "").slice(0, 160) + "...",
         content: p.content,
         category: "Kajian Yuridis",
-        author: p.author?.username || "Sivitas Akademika FH",
+        author: p.author?.name || "Sivitas Akademika FH",
         authorRole: "Dosen Fakultas Hukum",
         publishedAt: p.publishedAt
           ? new Date(p.publishedAt).toLocaleDateString("id-ID", {
@@ -113,7 +122,16 @@ export async function getPostBySlug(slug: string): Promise<PostItem | null> {
   try {
     const post = await prisma.post.findUnique({
       where: { slug },
-      include: { author: true },
+      include: {
+        author: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+          },
+        },
+      },
     });
 
     if (post && post.status === "PUBLISHED") {
@@ -124,7 +142,7 @@ export async function getPostBySlug(slug: string): Promise<PostItem | null> {
         excerpt: post.content.replace(/<[^>]+>/g, "").slice(0, 160) + "...",
         content: post.content,
         category: "Kajian Yuridis",
-        author: post.author?.username || "Sivitas Akademika FH",
+        author: post.author?.name || "Sivitas Akademika FH",
         authorRole: "Dosen Fakultas Hukum",
         publishedAt: post.publishedAt
           ? new Date(post.publishedAt).toLocaleDateString("id-ID", {

@@ -8,6 +8,8 @@ export interface AuthenticatedUser {
   name?: string | null;
   email?: string | null;
   role: RoleType;
+  labId: number | null;
+  mustChangePassword: boolean;
 }
 
 /**
@@ -25,7 +27,9 @@ export async function getServerSession() {
       id: session.user.id || "",
       name: session.user.name,
       email: session.user.email,
-      role: ((session.user as { role?: string }).role as RoleType) || "STAFF",
+      role: session.user.role || "MAHASISWA",
+      labId: session.user.labId ?? null,
+      mustChangePassword: Boolean(session.user.mustChangePassword),
     },
   };
 }

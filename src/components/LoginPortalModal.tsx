@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { loginAction } from "@/lib/actions/auth";
 import {
   GraduationCap,
   BookOpen,
@@ -10,10 +12,12 @@ import {
   ExternalLink,
   ArrowRight,
   X,
-  Building2,
-  FileText,
   Lock,
   Sparkles,
+  User,
+  Eye,
+  EyeOff,
+  AlertCircle,
 } from "lucide-react";
 
 interface LoginPortalModalProps {
@@ -22,6 +26,13 @@ interface LoginPortalModalProps {
 }
 
 export function LoginPortalModal({ isOpen, onClose }: LoginPortalModalProps) {
+  const router = useRouter();
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Accessibility: Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -44,6 +55,31 @@ export function LoginPortalModal({ isOpen, onClose }: LoginPortalModalProps) {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage("");
+    setIsLoading(true);
+
+    try {
+      const result = await loginAction({
+        identifier: identifier.trim(),
+        password,
+      });
+
+      if (!result.success) {
+        setErrorMessage(result.error || "Identitas atau kata sandi salah");
+      } else {
+        onClose();
+        router.push(result.redirectTo || "/dashboard");
+        router.refresh();
+      }
+    } catch {
+      setErrorMessage("Identitas atau kata sandi salah");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const portals = [
     {
@@ -94,8 +130,8 @@ export function LoginPortalModal({ isOpen, onClose }: LoginPortalModalProps) {
       description:
         "Panel kontrol administrator untuk mengelola berita fakultas, agenda kegiatan hukum, data dosen, verifikasi konsultasi KLBH, dan persuratan dinas.",
       primaryAction: {
-        label: "Masuk Panel Admin CMS",
-        href: "/admin/login",
+        label: "Halaman Login Penuh",
+        href: "/login",
         isExternal: false,
       },
       secondaryLinks: [
@@ -130,7 +166,7 @@ export function LoginPortalModal({ isOpen, onClose }: LoginPortalModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 8 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-4xl bg-white rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.28)] border border-[#E2D9C8] overflow-hidden my-auto z-10"
+            className="relative w-full max-w-4xl bg-white rounded-3xl shadow-[0_24px_60px_rgba(0,0,0,0.28)] border border-[#E2D9C8] overflow-hidden my-auto z-10 max-h-[92vh] overflow-y-auto"
           >
             {/* Header with UPB Editorial Styling */}
             <div className="relative bg-[#FAF7F2] border-b border-[#E2D9C8] px-6 sm:px-8 pt-7 pb-6">
@@ -155,9 +191,106 @@ export function LoginPortalModal({ isOpen, onClose }: LoginPortalModalProps) {
                   Pintu Masuk Sivitas Akademika
                 </h2>
                 <p className="text-xs sm:text-sm text-[#544942] font-light mt-1.5 leading-relaxed">
-                  Pilih portal layanan resmi sesuai peran Anda di lingkungan Fakultas Hukum Universitas Pelita Bangsa.
+                  Masuk langsung dengan akun sivitas Fakultas Hukum atau pilih portal eksternal universitas.
                 </p>
               </div>
+            </div>
+
+            {/* Direct Server-Action Login Form */}
+            <div className="px-6 sm:px-8 pt-6 pb-2 bg-white">
+              <form
+                onSubmit={handleLoginSubmit}
+                className="rounded-2xl border border-[#E2D9C8] bg-[#FAF7F2]/70 p-4 sm:p-5"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#710912]">
+                    Autentikasi Langsung Portal FH UPB
+                  </span>
+                  <Link
+                    href="/login"
+                    onClick={onClose}
+                    className="text-[11px] font-semibold text-[#544942] hover:text-[#710912] hover:underline"
+                  >
+                    Buka Halaman Login Penuh &rarr;
+                  </Link>
+                </div>
+
+                {errorMessage && (
+                  <div
+                    role="alert"
+                    className="mb-3 p-3 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2.5"
+                  >
+                    <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                  <div className="sm:col-span-5 relative">
+                    <label htmlFor="modal-identifier" className="sr-only">
+                      Email atau Nomor Induk
+                    </label>
+                    <input
+                      id="modal-identifier"
+                      name="identifier"
+                      type="text"
+                      required
+                      autoComplete="username"
+                      value={identifier}
+                      onChange={(e) => setIdentifier(e.target.value)}
+                      placeholder="Email atau NIM / NIDN / NIP"
+                      className="w-full pl-9 pr-3 py-2.5 text-xs sm:text-sm bg-white border border-[#E2D9C8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#710912] focus:border-transparent"
+                    />
+                    <User className="w-4 h-4 text-[#73655D] absolute left-3 top-3" />
+                  </div>
+
+                  <div className="sm:col-span-4 relative">
+                    <label htmlFor="modal-password" className="sr-only">
+                      Kata Sandi
+                    </label>
+                    <input
+                      id="modal-password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      required
+                      autoComplete="current-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Kata sandi"
+                      className="w-full pl-9 pr-9 py-2.5 text-xs sm:text-sm bg-white border border-[#E2D9C8] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#710912] focus:border-transparent"
+                    />
+                    <Lock className="w-4 h-4 text-[#73655D] absolute left-3 top-3" />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2.5 top-2.5 text-[#73655D] hover:text-[#0D0D0D] p-0.5"
+                      aria-label={showPassword ? "Sembunyikan sandi" : "Tampilkan sandi"}
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
+
+                  <div className="sm:col-span-3">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full h-full py-2.5 px-4 rounded-xl bg-[#710912] hover:bg-[#48060B] text-white text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <span>Memproses...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Masuk</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
 
             {/* Portals Grid (3 Columns) */}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { logoutAction } from "@/lib/actions/auth";
 import {
   LayoutDashboard,
   FileText,
@@ -205,13 +206,15 @@ export function AdminSidebar({
               <span>Bantuan &amp; Kontak</span>
             </a>
 
-            <Link
-              href="/admin/login"
-              className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors mt-2"
-            >
-              <LogOut className="w-4 h-4 text-rose-600" />
-              <span>Keluar Sesi</span>
-            </Link>
+            <form action={logoutAction} className="mt-2">
+              <button
+                type="submit"
+                className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-700 hover:bg-rose-50 transition-colors cursor-pointer text-left"
+              >
+                <LogOut className="w-4 h-4 text-rose-600" />
+                <span>Keluar Sesi</span>
+              </button>
+            </form>
           </div>
         </div>
       </aside>
