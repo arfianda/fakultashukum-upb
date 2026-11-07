@@ -30,14 +30,17 @@ export function AdminHeader({ onOpenSearch, onOpenMobileMenu }: AdminHeaderProps
   const userName = session?.user?.name || "Superadmin";
   const userHandle = `@${(session?.user?.name || "superadmin").toLowerCase().replace(/\s+/g, ".")}`;
   const userRole = (session?.user as { role?: string })?.role;
-  const roleSubtitle =
-    userRole === "ADMIN_HUKUM"
-      ? "Pengelola Konten & Portal"
-      : userRole === "DOSEN"
-      ? "Tenaga Pendidik FH UPB"
-      : userRole === "MAHASISWA"
-      ? "Sivitas Akademika"
-      : "Hak Akses Penuh Sistem";
+  const roleSubtitleMap: Record<string, string> = {
+    SUPER_ADMIN: "Hak Akses Penuh Sistem",
+    ADMIN: "Administrator Portal & CMS",
+    KEPALA_LAB: "Kepala Laboratorium Hukum",
+    DEKAN: "Dekan Fakultas Hukum",
+    WADEK: "Wakil Dekan FH UPB",
+    DOSEN: "Tenaga Pendidik FH UPB",
+    STAFF: "Tenaga Kependidikan",
+    MAHASISWA: "Sivitas Akademika",
+  };
+  const roleSubtitle = (userRole && roleSubtitleMap[userRole]) || "Hak Akses Sistem";
 
   const notifications = [
     {

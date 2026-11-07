@@ -48,7 +48,7 @@ export async function POST(request: Request) {
           data: {
             username: "admin",
             passwordHash: "$2a$10$wT8K48qX9uPz/DkmvjD3mO6PqNKn7wH.Qk3L.j6Fm3o3Bw1Z3N8Q6", // admin123
-            role: "SUPERADMIN",
+            role: "SUPER_ADMIN",
           },
         });
       }

@@ -1,32 +1,73 @@
-# AI Vibecoding Blueprint: Website Utama Fakultas Hukum Universitas Pelita Bangsa
+# Aturan & Pedoman Pengembangan: Website Fakultas Hukum Universitas Pelita Bangsa
 
-## 1. Project Context & Objective
-You are an expert Fullstack Developer specializing in Next.js, TypeScript, and modern UI/UX design. Your task is to build a prestigious, international-standard landing page and CMS for "Fakultas Hukum Universitas Pelita Bangsa" (Website 1).
-The lead developer overseeing this project operates on a Linux environment (EndeavourOS), so ensure all terminal commands, script executions, and file pathing are strictly POSIX/Linux-compliant.
+Dokumen ini adalah acuan utama (single source of truth) untuk seluruh proses rekayasa perangkat lunak pada proyek Website Fakultas Hukum Universitas Pelita Bangsa (FH UPB).
 
-## 2. Tech Stack
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript (Strict Mode)
-- **Styling:** Tailwind CSS
-- **Database ORM:** Prisma
-- **Authentication:** NextAuth.js (Auth.js) for CMS Admin
-- **Security:** DOMPurify (Server-side HTML sanitization for XSS mitigation)
-- **Icons:** Lucide React
+---
 
-## 3. Design System & UI/UX Guidelines
-The visual architecture is inspired by prestigious academic editorial design (Fakultas Hukum UPB).
-- **Primary Color:** Deep Burgundy (`#710912`), Antique Gold (`#C28D39`), Dark Espresso (`#362822`).
-- **Backgrounds:** Crisp White (`#FFFFFF`) and Light Gray (`#F9FAFB`).
-- **Borders:** Thin, precise 1px borders for grids and cards to maximize whitespace.
-- **Typography:**
-  - Headings (H1-H4): Serif fonts (e.g., `Playfair Display`, `Baskerville`).
-  - Body & UI Text: Clean Sans-Serif (e.g., `Inter`, `Roboto`).
-- **Components Structure:**
-  - Sticky transparent navbar transitioning to solid Dark Maroon on scroll.
-  - Generous whitespace and asymmetrical editorial grid layouts for news/events.
+## 1. Konteks Proyek & Arsitektur Inti
 
-## 4. Prisma Database Schema
-Use the following schema for the CMS backend. Place this in `prisma/schema.prisma`.
+- **Platform:** Website Utama & Sistem Administrasi Fakultas Hukum Universitas Pelita Bangsa.
+- **Tech Stack:**
+  - **Framework:** Next.js 16 (App Router)
+  - **Runtime & UI Library:** React 19, TypeScript (Strict Mode)
+  - **Styling:** Tailwind CSS v4
+  - **Database & ORM:** MySQL & Prisma 6
+  - **Authentication:** `next-auth` v5 (Auth.js beta)
+  - **Keamanan Kredensial:** `bcryptjs` (salt hashing 10–12 rounds)
+  - **Validasi Data:** `zod`
+  - **Sanitasi Konten:** `isomorphic-dompurify` (sanitasi server-side untuk mitigasi XSS)
+  - **Icons:** `lucide-react`
+- **Status Transisi:** Website publik saat ini telah selesai secara visual dan fungsional statis. Login yang sebelumnya menggunakan dummy/mock credentials sedang dialihkan secara bertahap menuju autentikasi nyata berbasis database dan dashboard admin terlindungi.
+
+---
+
+## 2. Aturan Wajib (Non-Negotiable Rules)
+
+Setiap pengembang maupun AI Agent wajib mematuhi ketentuan berikut:
+
+1. **Konsistensi Desain Publik:**
+   - Wajib membaca `docs/DESIGN.md`, `docs/PRD.md`, dan `docs/RULES.md` sebelum melakukan perubahan UI.
+   - **Dilarang keras mengubah desain publik yang sudah ada.** Identitas visual publik adalah:
+     - Warna primer: Maroon (`#570000` / `#710912` / Deep Burgundy), Antique Gold (`#C28D39` / `#C5A059`), Dark Espresso (`#362822` / `#1A1A1A`).
+     - Tipografi: **Playfair Display** (Heading / Editorial Serif) + **Plus Jakarta Sans** / **Inter** (Body / UI Sans).
+     - Geometri: Sharp architectural edges (`rounded-none` / zero-radius untuk elemen editorial institusi).
+
+2. **Daftar Role Resmi:**
+   Sistem mengenal 8 tingkatan peran (RBAC) eksklusif:
+   - `SUPER_ADMIN` (Akses penuh seluruh sistem, manajemen akun admin & konfigurasi tingkat tinggi)
+   - `ADMIN` (Pengelola CMS warta, artikel, agenda, direktori, dan data akademik)
+   - `KEPALA_LAB` (Pengelola Laboratorium Peradilan Semu dan fasilitas riset praktik)
+   - `DEKAN` (Pimpinan fakultas: pengawasan eksekutif, persetujuan warta & pengumuman resmi)
+   - `WADEK` (Wakil dekan bidang akademik, kemahasiswaan, dan kerja sama)
+   - `DOSEN` (Tenaga pendidik: profil kepakaran, publikasi, dan materi ajar)
+   - `STAFF` (Tenaga kependidikan / operasional administratif)
+   - `MAHASISWA` (Akses portal sivitas akademika mahasiswa)
+
+3. **Tanpa Pendaftaran Publik (No Public Registration):**
+   - Tidak ada fitur pendaftaran mandiri (self-registration / sign-up publik) untuk akun sistem.
+   - Semua akun pengguna **hanya dapat dibuat oleh Admin / Super Admin** melalui dashboard pengelolaan internal.
+
+4. **Keamanan Berlapis di Sisi Server (Defense in Depth):**
+   - Semua otorisasi wajib dicek di sisi server:
+     - **Server Component Layouts** (melindungi segment tree halaman).
+     - **Server Actions** (memverifikasi session dan role pemanggil sebelum mutasi).
+     - **Route Handlers / API** (validasi token dan hak akses sebelum mengembalikan response).
+   - `proxy.ts` (Next.js middleware/proxy) hanya berfungsi sebagai gerbang pertama (first line of defense), bukan satu-satunya pengaman.
+
+5. **Validasi Input & Perlindungan Data Sensitif:**
+   - Semua payload dan input pengguna wajib divalidasi dengan skema **Zod**.
+   - **Dilarang keras mengembalikan `passwordHash` ke sisi client.** Selalu gunakan projection atau eliminasi properti (e.g. `exclude(user, ['passwordHash'])` / DTO).
+   - **Dilarang keras menuliskan password, secret, atau token ke dalam log console / file.**
+
+6. **Workflow Eksekusi Bertahap (Phased Execution):**
+   - Setiap modifikasi dikerjakan secara bertahap per fase.
+   - Setelah setiap fase selesai dikerjakan, jalankan `npm run lint` dan `npm run build` untuk memverifikasi integritas build.
+   - Laporkan ringkasan berkas yang diubah kepada pengguna.
+   - **Dilarang melanjutkan ke fase berikutnya tanpa persetujuan eksplisit dari pengguna.**
+
+---
+
+## 3. Spesifikasi Skema Database Prisma (`prisma/schema.prisma`)
 
 ```prisma
 generator client {
@@ -39,8 +80,14 @@ datasource db {
 }
 
 enum Role {
-  SUPERADMIN
-  CONTENT_WRITER
+  SUPER_ADMIN
+  ADMIN
+  KEPALA_LAB
+  DEKAN
+  WADEK
+  DOSEN
+  STAFF
+  MAHASISWA
 }
 
 enum PostStatus {
@@ -57,9 +104,13 @@ enum EventStatus {
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique
+  email        String?  @unique
+  name         String?
   passwordHash String
-  role         Role     @default(CONTENT_WRITER)
+  role         Role     @default(STAFF)
+  isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   posts        Post[]
 }
 
@@ -79,7 +130,7 @@ model Post {
 
 model Event {
   id          Int         @id @default(autoincrement())
-  title       String
+  title       String      @unique
   slug        String      @unique
   description String      @db.Text
   eventDate   DateTime
@@ -104,3 +155,80 @@ model Faculty {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
+```
+
+---
+
+## 4. Rencana Kerja Bertahap (Phased Roadmap)
+
+1. **Fase 1: Fondasi Skema, Validasi & Dependensi**
+   - Pembaruan `docs/RULES.md` dengan instruksi dan standar kepatuhan terbaru.
+   - Pemasangan dan konfigurasi `zod` untuk validasi schema.
+   - Penyelarasan enum `Role` pada `prisma/schema.prisma` (`SUPER_ADMIN`, `ADMIN`, `KEPALA_LAB`, `DEKAN`, `WADEK`, `DOSEN`, `STAFF`, `MAHASISWA`).
+   - Pembuatan modul skema Zod (`src/lib/validations/auth.ts`, `user.ts`) untuk login dan otentikasi.
+   - Regenerasi Prisma Client (`npx prisma generate`).
+
+2. **Fase 2: Konfigurasi Auth.js / NextAuth v5 & Server Gateways**
+   - Pembaruan `src/auth.ts` dengan penanganan otentikasi riil via Prisma + `bcryptjs`, dukungan 8 roles, session callback, dan pencegahan ekspos data sensitif.
+   - Implementasi gerbang `proxy.ts` / middleware untuk perlindungan rute awal (redirection non-authenticated users).
+   - Pembuatan helper server-side auth guard (`requireAuth`, `requireRole`) untuk Server Components dan Server Actions.
+
+3. **Fase 3: Transisi Halaman Login ke Autentikasi Nyata**
+   - Penghapusan ketergantungan dummy fallback credentials pada `src/app/login/page.tsx`.
+   - Validasi input form client & server menggunakan Zod.
+   - Penyesuaian antarmuka login (pemilihan role / smart detection) sesuai 8 roles resmi tanpa merusak estetika desain yang ada.
+   - Error handling yang aman (pesan kesalahan informatif tanpa membocorkan eksistensi user secara spesifik untuk mencegah enumeration).
+
+4. **Fase 4: Perlindungan Dashboard & Server-Side Otorisasi**
+   - Implementasi server-side session & role verification di `src/app/admin/layout.tsx`.
+   - Menjamin bahwa pengguna dengan role tidak berwenang (misal `MAHASISWA`) ditolak dari panel administratif di level server sebelum komponen dirender.
+   - Otorisasi berlapis pada seluruh Route Handlers (`src/app/api/admin/*`) dan Server Actions.
+
+5. **Fase 5: Manajemen Akun Pengguna oleh Admin**
+   - Pembuatan fitur pembuatan dan pengelolaan akun pengguna internal oleh Admin / Super Admin.
+   - Form pembuatan user terisolasi dengan validasi Zod dan hashing kata sandi (`bcryptjs`).
+   - Tidak ada endpoint registrasi publik.
+
+6. **Fase 6: Audit Keamanan, Pembersihan & Verifikasi Final**
+   - Pengecekan menyeluruh terhadap kebocoran `passwordHash` atau token dalam response API/Action.
+   - Uji coba linting (`npm run lint`) dan build (`npm run build`).
+   - Dokumentasi laporan akhir.
+
+```
+
+---
+
+## 4. Rencana Kerja Bertahap (Phased Roadmap)
+
+1. **Fase 1: Fondasi Skema, Validasi & Dependensi**
+   - Pembaruan `docs/RULES.md` dengan instruksi dan standar kepatuhan terbaru.
+   - Pemasangan dan konfigurasi `zod` untuk validasi schema.
+   - Penyelarasan enum `Role` pada `prisma/schema.prisma` (`SUPER_ADMIN`, `ADMIN`, `KEPALA_LAB`, `DEKAN`, `WADEK`, `DOSEN`, `STAFF`, `MAHASISWA`).
+   - Pembuatan modul skema Zod (`src/lib/validations/auth.ts`, `user.ts`) untuk login dan otentikasi.
+   - Regenerasi Prisma Client (`npx prisma generate`).
+
+2. **Fase 2: Konfigurasi Auth.js / NextAuth v5 & Server Gateways**
+   - Pembaruan `src/auth.ts` dengan penanganan otentikasi riil via Prisma + `bcryptjs`, dukungan 8 roles, session callback, dan pencegahan ekspos data sensitif.
+   - Implementasi gerbang `proxy.ts` / middleware untuk perlindungan rute awal (redirection non-authenticated users).
+   - Pembuatan helper server-side auth guard (`requireAuth`, `requireRole`) untuk Server Components dan Server Actions.
+
+3. **Fase 3: Transisi Halaman Login ke Autentikasi Nyata**
+   - Penghapusan ketergantungan dummy fallback credentials pada `src/app/login/page.tsx`.
+   - Validasi input form client & server menggunakan Zod.
+   - Penyesuaian antarmuka login (pemilihan role / smart detection) sesuai 8 roles resmi tanpa merusak estetika desain yang ada.
+   - Error handling yang aman (pesan kesalahan informatif tanpa membocorkan eksistensi user secara spesifik untuk mencegah enumeration).
+
+4. **Fase 4: Perlindungan Dashboard & Server-Side Otorisasi**
+   - Implementasi server-side session & role verification di `src/app/admin/layout.tsx`.
+   - Menjamin bahwa pengguna dengan role tidak berwenang (misal `MAHASISWA`) ditolak dari panel administratif di level server sebelum komponen dirender.
+   - Otorisasi berlapis pada seluruh Route Handlers (`src/app/api/admin/*`) dan Server Actions.
+
+5. **Fase 5: Manajemen Akun Pengguna oleh Admin**
+   - Pembuatan fitur pembuatan dan pengelolaan akun pengguna internal oleh Admin / Super Admin.
+   - Form pembuatan user terisolasi dengan validasi Zod dan hashing kata sandi (`bcryptjs`).
+   - Tidak ada endpoint registrasi publik.
+
+6. **Fase 6: Audit Keamanan, Pembersihan & Verifikasi Final**
+   - Pengecekan menyeluruh terhadap kebocoran `passwordHash` atau token dalam response API/Action.
+   - Uji coba linting (`npm run lint`) dan build (`npm run build`).
+   - Dokumentasi laporan akhir.

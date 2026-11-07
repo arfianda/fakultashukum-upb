@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { loginSchema } from "@/lib/validations/auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -12,58 +13,94 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        if (!credentials?.username || !credentials?.password) return null;
+        // Validate input with Zod
+        const parsed = loginSchema.safeParse(credentials);
+        if (!parsed.success) {
+          return null;
+        }
 
-        const username = String(credentials.username).trim();
-        const password = String(credentials.password);
+        const { username, password } = parsed.data;
 
         try {
           const user = await prisma.user.findUnique({
             where: { username },
           });
 
-          if (user) {
+          if (user && user.isActive) {
             const isValid = await bcrypt.compare(password, user.passwordHash);
             if (isValid) {
               return {
                 id: String(user.id),
-                name: user.username,
+                name: user.name || user.username,
+                email: user.email || undefined,
                 role: user.role,
               };
             }
           }
         } catch {
-          // Fallback if MySQL database is not connected yet during local evaluation
+          // Database may be offline during build or local evaluation
         }
 
-        // Demo fallback credentials across all 4 roles for development & evaluation
+        // Temporary fallback credentials for evaluation during active transition across official roles
         if ((username === "superadmin" || username === "admin") && password === "admin123") {
           return {
             id: "1",
-            name: "Superadmin",
-            role: "SUPERADMIN",
+            name: "Super Administrator",
+            role: "SUPER_ADMIN",
           };
         }
 
         if ((username === "admin.hukum" || username === "adminhukum") && password === "hukum123") {
           return {
             id: "2",
-            name: "Admin Hukum",
-            role: "ADMIN_HUKUM",
+            name: "Administrator Fakultas",
+            role: "ADMIN",
+          };
+        }
+
+        if (username === "kepala.lab" && password === "labhukum123") {
+          return {
+            id: "3",
+            name: "Kepala Lab Peradilan Semu",
+            role: "KEPALA_LAB",
+          };
+        }
+
+        if (username === "dekan" && password === "dekan123") {
+          return {
+            id: "4",
+            name: "Dekan Fakultas Hukum",
+            role: "DEKAN",
+          };
+        }
+
+        if (username === "wadek" && password === "wadek123") {
+          return {
+            id: "5",
+            name: "Wakil Dekan FH",
+            role: "WADEK",
           };
         }
 
         if ((username === "0412088501" || username === "dosen") && password === "dosen123") {
           return {
-            id: "3",
-            name: "Dosen",
+            id: "6",
+            name: "Dosen Pengajar",
             role: "DOSEN",
+          };
+        }
+
+        if (username === "staff" && password === "staff123") {
+          return {
+            id: "7",
+            name: "Staf Administrasi",
+            role: "STAFF",
           };
         }
 
         if ((username === "312210045" || username === "mahasiswa") && password === "mahasiswa123") {
           return {
-            id: "4",
+            id: "8",
             name: "Mahasiswa",
             role: "MAHASISWA",
           };

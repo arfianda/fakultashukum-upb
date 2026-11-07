@@ -8,11 +8,14 @@ datasource db {
 }
 
 enum Role {
-  SUPERADMIN
-  ADMIN_HUKUM
+  SUPER_ADMIN
+  ADMIN
+  KEPALA_LAB
+  DEKAN
+  WADEK
   DOSEN
+  STAFF
   MAHASISWA
-  CONTENT_WRITER
 }
 
 enum PostStatus {
@@ -29,9 +32,13 @@ enum EventStatus {
 model User {
   id           Int      @id @default(autoincrement())
   username     String   @unique
+  email        String?  @unique
+  name         String?
   passwordHash String
-  role         Role     @default(CONTENT_WRITER)
+  role         Role     @default(STAFF)
+  isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
   posts        Post[]
 }
 
@@ -51,7 +58,7 @@ model Post {
 
 model Event {
   id          Int         @id @default(autoincrement())
-  title       String
+  title       String      @unique
   slug        String      @unique
   description String      @db.Text
   eventDate   DateTime
