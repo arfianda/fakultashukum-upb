@@ -1,9 +1,24 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { initialPosts } from "@/data/initialData";
+import { authorizePermission } from "@/lib/rbac";
+
+const createPostSchema = z.object({
+  title: z.string().trim().min(3, "Judul minimal 3 karakter").max(255),
+  slug: z.string().trim().optional(),
+  content: z.string().trim().min(10, "Konten minimal 10 karakter"),
+  coverImage: z.string().trim().optional(),
+  status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).optional().default("PUBLISHED"),
+});
 
 export async function GET() {
+  const authResult = await authorizePermission("content:read");
+  if (!authResult.authorized) {
+    return authResult.response;
+  }
+
   try {
     const posts = await prisma.post.findMany({
       orderBy: { createdAt: "desc" },
@@ -20,24 +35,35 @@ export async function GET() {
     });
     return NextResponse.json({ success: true, data: posts });
   } catch {
-    // If DB is offline, return initial mock posts
-    return NextResponse.json({ success: true, data: initialPosts, isFallback: true });
+    return NextResponse.json({
+      success: true,
+      data: initialPosts,
+      isFallback: true,
+    });
   }
 }
 
 export async function POST(request: Request) {
+  const authResult = await authorizePermission("content:write");
+  if (!authResult.authorized) {
+    return authResult.response;
+  }
+
   try {
     const body = await request.json();
-    const { title, slug, content, coverImage, status } = body;
+    const parsed = createPostSchema.safeParse(body);
 
-    if (!title || !content) {
+    if (!parsed.success) {
       return NextResponse.json(
-        { success: false, error: "Judul dan konten wajib diisi." },
+        {
+          success: false,
+          error: parsed.error.issues[0]?.message || "Judul dan konten wajib diisi.",
+        },
         { status: 400 }
       );
     }
 
-    // MANDATORY XSS SANITIZATION via isomorphic-dompurify as per PRD & RULES
+    const { title, slug, content, coverImage, status } = parsed.data;
     const cleanContent = sanitizeHtml(content);
 
     const generatedSlug =
@@ -49,49 +75,19 @@ export async function POST(request: Request) {
         "-" +
         Date.now();
 
-    try {
-      const author = await prisma.user.findFirst({
-        select: { id: true },
-      });
-      if (!author) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: "Akun penulis belum tersedia di database. Jalankan npm run db:seed terlebih dahulu.",
-          },
-          { status: 400 }
-        );
-      }
+    const post = await prisma.post.create({
+      data: {
+        title,
+        slug: generatedSlug,
+        content: cleanContent,
+        coverImage: coverImage || "/images/hero-library.jpg",
+        status,
+        publishedAt: new Date(),
+        authorId: authResult.user.id,
+      },
+    });
 
-      const post = await prisma.post.create({
-        data: {
-          title,
-          slug: generatedSlug,
-          content: cleanContent,
-          coverImage: coverImage || "/images/hero-library.jpg",
-          status: status || "PUBLISHED",
-          publishedAt: new Date(),
-          authorId: author.id,
-        },
-      });
-
-      return NextResponse.json({ success: true, data: post });
-    } catch {
-      // If DB is offline, return synthesized success object
-      return NextResponse.json({
-        success: true,
-        data: {
-          id: Date.now(),
-          title,
-          slug: generatedSlug,
-          content: cleanContent,
-          coverImage: coverImage || "/images/hero-library.jpg",
-          status: status || "PUBLISHED",
-          publishedAt: new Date(),
-        },
-        message: "Disimpan secara virtual (Database lokal offline).",
-      });
-    }
+    return NextResponse.json({ success: true, data: post });
   } catch (error: unknown) {
     return NextResponse.json(
       { success: false, error: (error as Error).message },

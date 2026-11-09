@@ -92,6 +92,32 @@ export const updateUserSchema = z.object({
 
 export type UpdateUserInput = z.infer<typeof updateUserSchema>;
 
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z
+      .string()
+      .min(1, "Kata sandi saat ini wajib diisi")
+      .max(100, "Kata sandi terlalu panjang"),
+    newPassword: z
+      .string()
+      .min(10, "Kata sandi baru wajib minimal 10 karakter")
+      .max(100, "Kata sandi baru maksimal 100 karakter"),
+    confirmPassword: z
+      .string()
+      .min(10, "Konfirmasi kata sandi minimal 10 karakter")
+      .max(100, "Konfirmasi kata sandi maksimal 100 karakter"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Konfirmasi kata sandi baru tidak cocok",
+    path: ["confirmPassword"],
+  })
+  .refine((data) => data.newPassword !== data.currentPassword, {
+    message: "Kata sandi baru harus berbeda dari kata sandi saat ini",
+    path: ["newPassword"],
+  });
+
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+
 /**
  * Sanitizes user record by omitting sensitive passwordHash.
  * Guarantees passwordHash is never leaked to client or logs.

@@ -2,15 +2,16 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { logoutAction } from "@/lib/actions/auth";
 import {
   LayoutDashboard,
   FileText,
   CalendarDays,
   Users,
+  UserCog,
   Scale,
-  ShieldCheck,
-  Settings,
+  History,
   HelpCircle,
   LogOut,
   ChevronRight,
@@ -20,62 +21,86 @@ import {
 export type AdminViewType = "overview" | "articles" | "agenda" | "faculty" | "klbh" | "security";
 
 interface AdminSidebarProps {
-  activeView: AdminViewType;
-  setActiveView: (view: AdminViewType) => void;
+  activeView?: AdminViewType;
+  setActiveView?: (view: AdminViewType) => void;
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
-  postCount: number;
-  eventCount: number;
-  facultyCount: number;
+  postCount?: number;
+  eventCount?: number;
+  facultyCount?: number;
+  userRole?: string;
 }
 
 export function AdminSidebar({
-  activeView,
+  activeView = "overview",
   setActiveView,
   mobileOpen,
   setMobileOpen,
-  postCount,
-  eventCount,
-  facultyCount,
+  postCount = 0,
+  eventCount = 0,
+  facultyCount = 0,
+  userRole = "SUPER_ADMIN",
 }: AdminSidebarProps) {
-  const navItems = [
+  const pathname = usePathname();
+  const router = useRouter();
+  const isRootAdmin = pathname === "/admin";
+
+  const allNavItems = [
     {
       id: "overview" as AdminViewType,
       label: "Dashboard",
       icon: LayoutDashboard,
       badge: null,
+      roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
       id: "articles" as AdminViewType,
-      label: "Artikel & Riset",
+      label: "Artikel & Berita",
       icon: FileText,
       badge: postCount > 0 ? postCount : null,
+      roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
       id: "agenda" as AdminViewType,
       label: "Agenda & Jadwal",
       icon: CalendarDays,
       badge: eventCount > 0 ? eventCount : null,
+      roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
       id: "faculty" as AdminViewType,
       label: "Dewan Dosen",
       icon: Users,
       badge: facultyCount > 0 ? facultyCount : null,
+      roles: ["SUPER_ADMIN", "ADMIN"],
     },
     {
       id: "klbh" as AdminViewType,
       label: "Konsultasi KLBH",
       icon: Scale,
       badge: "3",
-    },
-    {
-      id: "security" as AdminViewType,
-      label: "Log Keamanan",
-      icon: ShieldCheck,
-      badge: null,
+      roles: ["SUPER_ADMIN", "ADMIN"],
     },
   ];
+
+  const navItems = allNavItems.filter((item) =>
+    item.roles.includes(userRole)
+  );
+
+  const routeLinks = [
+    {
+      href: "/admin/users",
+      label: "Manajemen Pengguna",
+      icon: UserCog,
+      roles: ["SUPER_ADMIN", "ADMIN"],
+    },
+    {
+      href: "/admin/audit",
+      label: "Log Audit Sistem",
+      icon: History,
+      roles: ["SUPER_ADMIN"],
+    },
+  ].filter((item) => item.roles.includes(userRole));
 
   return (
     <>
@@ -127,16 +152,20 @@ export function AdminSidebar({
               </div>
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = activeView === item.id;
+                const isActive = isRootAdmin && activeView === item.id;
 
                 return (
                   <button
                     key={item.id}
                     onClick={() => {
-                      setActiveView(item.id);
+                      if (isRootAdmin && setActiveView) {
+                        setActiveView(item.id);
+                      } else {
+                        router.push("/admin");
+                      }
                       setMobileOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
                       isActive
                         ? "bg-[#710912] text-white shadow-sm shadow-[#710912]/20"
                         : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
@@ -165,6 +194,36 @@ export function AdminSidebar({
                   </button>
                 );
               })}
+
+              <div className="px-3 pt-4 pb-1 text-[11px] font-semibold tracking-wider text-[#9C8F85] uppercase">
+                Keamanan &amp; Akun
+              </div>
+              {routeLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = pathname.startsWith(link.href);
+
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#710912] text-white shadow-sm shadow-[#710912]/20"
+                        : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Icon
+                        className={`w-4 h-4 transition-colors ${
+                          isActive ? "text-[#EFE5D2]" : "text-[#73655D]"
+                        }`}
+                      />
+                      <span>{link.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
@@ -186,25 +245,13 @@ export function AdminSidebar({
               <ChevronRight className="w-3.5 h-3.5 text-[#9C8F85]" />
             </Link>
 
-            <button
-              onClick={() => setActiveView("security")}
-              className={`w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium transition-colors ${
-                activeView === "security"
-                  ? "bg-[#FAF7F2] text-[#710912] font-semibold"
-                  : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
-              }`}
-            >
-              <Settings className="w-4 h-4 text-[#73655D]" />
-              <span>Pengaturan &amp; Audit</span>
-            </button>
-
-            <a
-              href="mailto:hukum@pelitabangsa.ac.id"
-              className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D] transition-colors"
+            <Link
+              href="/dashboard/ganti-password"
+              className="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#710912] transition-colors"
             >
               <HelpCircle className="w-4 h-4 text-[#73655D]" />
-              <span>Bantuan &amp; Kontak</span>
-            </a>
+              <span>Ganti Kata Sandi</span>
+            </Link>
 
             <form action={logoutAction} className="mt-2">
               <button
