@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   initialPosts,
   initialEvents,
@@ -26,6 +27,7 @@ import {
   FileText,
   CalendarDays,
   ShieldCheck,
+  ArrowUpRight,
 } from "lucide-react";
 
 interface AdminDashboardClientProps {
@@ -125,6 +127,7 @@ export function AdminDashboardClient({
         <AdminHeader
           onOpenSearch={() => setIsSearchModalOpen(true)}
           onOpenMobileMenu={() => setMobileSidebarOpen(true)}
+          onNavigateToView={(view) => setActiveView(view)}
         />
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto space-y-6">
@@ -134,56 +137,73 @@ export function AdminDashboardClient({
               aria-label="Ringkasan Sistem"
               className="grid grid-cols-1 sm:grid-cols-3 gap-4"
             >
-              <div className="bg-white rounded-2xl border border-[#E2D9C8] p-5 flex items-center justify-between shadow-xs">
+              <Link
+                href="/admin/users"
+                className="group relative overflow-hidden bg-white rounded-2xl border border-[#E2D9C8] hover:border-[#710912]/45 p-5 flex items-center justify-between shadow-xs hover:shadow-[0_12px_28px_rgba(113,9,18,0.08)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+              >
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#710912] via-[#C28D39] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] block mb-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] group-hover:text-[#710912] transition-colors block mb-1">
                     Jumlah Pengguna (User)
                   </span>
                   <span className="font-serif text-3xl font-bold text-[#0D0D0D]">
                     {stats.userCount}
                   </span>
-                  <span className="text-[11px] text-[#544942] block mt-1">
-                    Akun terdaftar di database
+                  <span className="text-[11px] text-[#544942] group-hover:text-[#710912] font-medium flex items-center gap-1 mt-1 transition-colors">
+                    <span>Akun terdaftar &bull; Kelola</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </span>
                 </div>
-                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 border border-[#710912]/20 flex items-center justify-center text-[#710912]">
+                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 group-hover:bg-[#710912] border border-[#710912]/20 group-hover:border-[#710912] flex items-center justify-center text-[#710912] group-hover:text-[#EFE5D2] group-hover:scale-105 transition-all duration-200 shadow-2xs">
                   <Users className="w-5 h-5" />
                 </div>
-              </div>
+              </Link>
 
-              <div className="bg-white rounded-2xl border border-[#E2D9C8] p-5 flex items-center justify-between shadow-xs">
+              <button
+                type="button"
+                onClick={() => setActiveView("articles")}
+                className="group relative overflow-hidden bg-white rounded-2xl border border-[#E2D9C8] hover:border-[#710912]/45 p-5 flex items-center justify-between shadow-xs hover:shadow-[0_12px_28px_rgba(113,9,18,0.08)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer text-left"
+              >
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#710912] via-[#C28D39] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] block mb-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] group-hover:text-[#710912] transition-colors block mb-1">
                     Jumlah Berita &amp; Artikel
                   </span>
                   <span className="font-serif text-3xl font-bold text-[#0D0D0D]">
                     {totalBerita}
                   </span>
-                  <span className="text-[11px] text-[#544942] block mt-1">
-                    Warta &amp; publikasi hukum
+                  <span className="text-[11px] text-[#544942] group-hover:text-[#710912] font-medium flex items-center gap-1 mt-1 transition-colors">
+                    <span>Warta &amp; publikasi &bull; Buka</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </span>
                 </div>
-                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 border border-[#710912]/20 flex items-center justify-center text-[#710912]">
+                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 group-hover:bg-[#710912] border border-[#710912]/20 group-hover:border-[#710912] flex items-center justify-center text-[#710912] group-hover:text-[#EFE5D2] group-hover:scale-105 transition-all duration-200 shadow-2xs">
                   <FileText className="w-5 h-5" />
                 </div>
-              </div>
+              </button>
 
-              <div className="bg-white rounded-2xl border border-[#E2D9C8] p-5 flex items-center justify-between shadow-xs">
+              <button
+                type="button"
+                onClick={() => setActiveView("agenda")}
+                className="group relative overflow-hidden bg-white rounded-2xl border border-[#E2D9C8] hover:border-[#710912]/45 p-5 flex items-center justify-between shadow-xs hover:shadow-[0_12px_28px_rgba(113,9,18,0.08)] hover:-translate-y-0.5 transition-all duration-200 cursor-pointer text-left"
+              >
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#710912] via-[#C28D39] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] block mb-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#73655D] group-hover:text-[#710912] transition-colors block mb-1">
                     Jumlah Agenda Akademik
                   </span>
                   <span className="font-serif text-3xl font-bold text-[#0D0D0D]">
                     {totalAgenda}
                   </span>
-                  <span className="text-[11px] text-[#544942] block mt-1">
-                    Seminar &amp; jadwal fakultas
+                  <span className="text-[11px] text-[#544942] group-hover:text-[#710912] font-medium flex items-center gap-1 mt-1 transition-colors">
+                    <span>Seminar &amp; jadwal &bull; Buka</span>
+                    <ArrowUpRight className="w-3 h-3 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </span>
                 </div>
-                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 border border-[#710912]/20 flex items-center justify-center text-[#710912]">
+                <div className="w-11 h-11 rounded-2xl bg-[#710912]/10 group-hover:bg-[#710912] border border-[#710912]/20 group-hover:border-[#710912] flex items-center justify-center text-[#710912] group-hover:text-[#EFE5D2] group-hover:scale-105 transition-all duration-200 shadow-2xs">
                   <CalendarDays className="w-5 h-5" />
                 </div>
-              </div>
+              </button>
             </section>
           )}
 

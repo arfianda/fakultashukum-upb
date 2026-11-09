@@ -306,34 +306,17 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     faculty: {
       featured: {
         image: "/images/feature-faculty.jpg",
-        title: "Pakar & Tenaga Pengajar",
-        desc: "Belajar langsung dari Guru Besar, praktisi litigasi, dan akademisi hukum terkemuka.",
-        linkText: "DIREKTORI DOSEN",
+        title: "Sivitas Fakultas Hukum",
+        desc: "Direktori dosen pengajar dan staf administrasi Fakultas Hukum UPB.",
+        linkText: "SEMUA SIVITAS HUKUM",
         href: "/dosen",
       },
       columns: [
         {
-          heading: "DIREKTORI PENGAJAR",
+          heading: "DIREKTORI FAKULTAS HUKUM",
           links: [
-            { label: "Seluruh Tenaga Pengajar Tetap", href: "/dosen" },
-            { label: "Pakar Hukum Bisnis & Korporasi", href: "/dosen/bidang/hukum-bisnis-korporasi" },
-            { label: "Pakar Hukum Tata Negara", href: "/dosen/bidang/hukum-tata-negara" },
-          ],
-        },
-        {
-          heading: "PUBLIKASI & KARYA",
-          links: [
-            { label: "Publikasi Ilmiah SINTA Kemdikbud", href: "https://sinta.kemdikbud.go.id", external: true },
-            { label: "Buku Ajar & Monograf", href: "/dosen/publikasi" },
-            { label: "Keterangan Ahli di Pengadilan", href: "/dosen/keterangan-ahli" },
-          ],
-        },
-        {
-          heading: "KELEMBAGAAN",
-          links: [
-            { label: "Senat Akademik Fakultas", href: "/tentang/senat-akademik" },
-            { label: "Pusat Kajian Hukum UPB", href: "/pusat-studi" },
-            { label: "Hubungi Dewan Pengajar", href: "/kontak" },
+            { label: "Dosen Fakultas Hukum", href: "/dosen?kategori=dosen" },
+            { label: "Staf Fakultas Hukum", href: "/dosen?kategori=staf" },
           ],
         },
       ],
@@ -490,6 +473,82 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                       }`}
                     />
                   </button>
+
+                  {/* Compact Popover khusus "Tenaga Pengajar" (Dosen & Staf di Hukum) */}
+                  {item.key === "faculty" && (
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-80 z-50 pointer-events-auto"
+                          onMouseEnter={clearTimer}
+                          onMouseLeave={handleScheduleClose}
+                        >
+                          <div className="bg-white rounded-2xl shadow-[0_14px_38px_rgba(0,0,0,0.13),0_2px_8px_rgba(0,0,0,0.04)] border border-[#E2D9C8] p-2.5">
+                            <div className="px-3 py-1.5 border-b border-[#F4ECE1] mb-1.5 flex items-center justify-between">
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#710912]">
+                                Direktori Fakultas Hukum
+                              </span>
+                              <Link
+                                href="/dosen"
+                                onClick={handleCloseMenuImmediate}
+                                className="text-[10px] font-semibold text-[#544942] hover:text-[#710912] transition-colors"
+                              >
+                                Lihat Semua &rarr;
+                              </Link>
+                            </div>
+
+                            <div className="space-y-1">
+                              <Link
+                                href="/dosen?kategori=dosen"
+                                onClick={handleCloseMenuImmediate}
+                                className="w-full text-left p-3 rounded-xl hover:bg-[#FAF7F2] border border-transparent hover:border-[#E2D9C8] group transition-all flex items-start gap-3 cursor-pointer"
+                              >
+                                <div className="w-9 h-9 rounded-xl bg-[#710912]/10 text-[#710912] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#710912] group-hover:text-white transition-colors">
+                                  <GraduationCap className="w-4 h-4" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[13px] font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
+                                      Dosen Fakultas Hukum
+                                    </span>
+                                    <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  </div>
+                                  <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
+                                    Dewan Guru Besar, dosen tetap, dan pengajar akademik Ilmu Hukum
+                                  </p>
+                                </div>
+                              </Link>
+
+                              <Link
+                                href="/dosen?kategori=staf"
+                                onClick={handleCloseMenuImmediate}
+                                className="w-full text-left p-3 rounded-xl hover:bg-[#FAF7F2] border border-transparent hover:border-[#E2D9C8] group transition-all flex items-start gap-3 cursor-pointer"
+                              >
+                                <div className="w-9 h-9 rounded-xl bg-[#710912]/10 text-[#710912] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#710912] group-hover:text-white transition-colors">
+                                  <Building2 className="w-4 h-4" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[13px] font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
+                                      Staf Fakultas Hukum
+                                    </span>
+                                    <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  </div>
+                                  <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
+                                    Sekretariat dekanat, administrasi akademik, dan tenaga kependidikan
+                                  </p>
+                                </div>
+                              </Link>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
                 </div>
               );
             })}
@@ -717,7 +776,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
         {/* ===================== DESKTOP MEGA-MENU PANEL ===================== */}
         <AnimatePresence>
-          {activeMenu && ["study", "admissions", "faculty", "studentlife"].includes(activeMenu) && megaMenuData[activeMenu] && (
+          {activeMenu && ["study", "admissions", "studentlife"].includes(activeMenu) && megaMenuData[activeMenu] && (
             <motion.div
               key={activeMenu}
               initial={{ opacity: 0, y: -8, scale: 0.98 }}

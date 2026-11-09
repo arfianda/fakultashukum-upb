@@ -95,18 +95,29 @@ export async function getActiveFaculty(): Promise<FacultyItem[]> {
     });
 
     if (faculty && faculty.length > 0) {
-      return faculty.map((f) => ({
-        id: f.id,
-        name: f.name,
-        titles: f.titles,
-        nip: f.nip,
-        specialization: f.specialization,
-        bioQuote: f.bioQuote,
-        profileImage: f.profileImage || "/images/prof-hendra.jpg",
-        researchLink: f.researchLink || undefined,
-        displayOrder: f.displayOrder,
-        isActive: f.isActive,
-      }));
+      return faculty.map((f) => {
+        const lowerTitle = f.titles.toLowerCase();
+        const isStaf =
+          lowerTitle.includes("staf") ||
+          lowerTitle.includes("staff") ||
+          lowerTitle.includes("sekretariat") ||
+          lowerTitle.includes("administrasi") ||
+          lowerTitle.includes("tenaga kependidikan");
+
+        return {
+          id: f.id,
+          name: f.name,
+          titles: f.titles,
+          nip: f.nip,
+          specialization: f.specialization,
+          bioQuote: f.bioQuote,
+          profileImage: f.profileImage || "/images/prof-hendra.jpg",
+          researchLink: f.researchLink || undefined,
+          displayOrder: f.displayOrder,
+          isActive: f.isActive,
+          category: isStaf ? ("staf" as const) : ("dosen" as const),
+        };
+      });
     }
   } catch {
     // Database connection fallback

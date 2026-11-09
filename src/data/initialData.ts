@@ -38,6 +38,7 @@ export interface FacultyItem {
   researchLink?: string;
   displayOrder: number;
   isActive: boolean;
+  category?: "dosen" | "staf";
 }
 
 export const initialPosts: PostItem[] = [
@@ -262,6 +263,7 @@ export const initialFaculty: FacultyItem[] = [
     researchLink: "https://sinta.kemdikbud.go.id",
     displayOrder: 1,
     isActive: true,
+    category: "dosen",
   },
   {
     id: 2,
@@ -274,5 +276,43 @@ export const initialFaculty: FacultyItem[] = [
     researchLink: "https://sinta.kemdikbud.go.id",
     displayOrder: 2,
     isActive: true,
+    category: "dosen",
+  },
+  {
+    id: 3,
+    name: "Arifin, S.H., M.H.",
+    titles: "Dosen Tetap Hukum Ketenagakerjaan & Praktisi Litigasi",
+    nip: "198504112012121003",
+    specialization: "Hukum Ketenagakerjaan, Hubungan Industrial, Kepailitan & Kurator",
+    bioQuote: "Perlindungan hukum yang kokoh bagi pekerja dan kepastian usaha adalah dua pilar yang saling menguatkan dalam ketahanan ekonomi nasional.",
+    profileImage: "/images/prof-hendra.jpg",
+    researchLink: "https://sinta.kemdikbud.go.id",
+    displayOrder: 3,
+    isActive: true,
+    category: "dosen",
+  },
+  {
+    id: 4,
+    name: "Siti Rahmawati, S.H., M.M.",
+    titles: "Kepala Sekretariat & Administrasi Akademik Fakultas Hukum",
+    nip: "199002142016012001",
+    specialization: "Layanan Administrasi Akademik, Persuratan Dekanat, Tata Usaha & Yudisium",
+    bioQuote: "Pelayanan administrasi akademik yang tertib, responsif, dan transparan adalah fondasi kelancaran studi setiap mahasiswa Fakultas Hukum.",
+    profileImage: "/images/prof-amaliah.jpg",
+    displayOrder: 4,
+    isActive: true,
+    category: "staf",
+  },
+  {
+    id: 5,
+    name: "Rizky Pratama, S.Kom.",
+    titles: "Staf Operasional Laboratorium Hukum & Sistem Informasi",
+    nip: "199311082019031002",
+    specialization: "Administrasi Laboratorium Peradilan Semu, Penjadwalan Sidang & Dukungan SIAKAD",
+    bioQuote: "Memastikan kesiapan sarana ruang sidang semu dan infrastruktur digital fakultas agar kegiatan praktikum litigasi berjalan optimal.",
+    profileImage: "/images/prof-hendra.jpg",
+    displayOrder: 5,
+    isActive: true,
+    category: "staf",
   },
 ];
