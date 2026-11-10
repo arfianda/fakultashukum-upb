@@ -10,7 +10,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 export async function generateStaticParams() {
   const allFaculty = await getFacultyData();
   return allFaculty.map((f) => ({
-    slug: createFacultySlug(f.name),
+    slug: createFacultySlug(f.name, f.titles),
   }));
 }
 
@@ -23,8 +23,13 @@ export async function generateMetadata({
   const faculty = await getFacultyBySlug(slug);
   if (!faculty) return { title: "Tenaga Pengajar | Fakultas Hukum UPB" };
 
+  const displayTitle =
+    faculty.name && faculty.name.trim().length > 0
+      ? faculty.name
+      : faculty.titles;
+
   return {
-    title: `${faculty.name} | Fakultas Hukum UPB`,
+    title: `${displayTitle} | Fakultas Hukum UPB`,
     description: `${faculty.titles} - Bidang Keahlian: ${faculty.specialization}`,
   };
 }
@@ -41,15 +46,28 @@ export default async function DosenDetailPage({
     notFound();
   }
 
+  const hasName = Boolean(faculty.name && faculty.name.trim().length > 0);
+  const displayHeading = hasName ? faculty.name : faculty.titles;
+  const displaySub = hasName
+    ? faculty.titles
+    : "Fakultas Hukum Universitas Pelita Bangsa";
+
   return (
     <div>
       <PageHeader
-        kicker={faculty.titles.includes("Guru Besar") ? "DEWAN GURU BESAR" : "TENAGA PENGAJAR"}
-        title={faculty.name}
-        description={faculty.titles}
+        kicker={
+          faculty.titles.includes("Dekan") ||
+          faculty.titles.includes("Ketua Program Studi")
+            ? "JAJARAN PIMPINAN FAKULTAS"
+            : faculty.titles.includes("Guru Besar")
+            ? "DEWAN GURU BESAR"
+            : "TENAGA PENGAJAR"
+        }
+        title={displayHeading}
+        description={displaySub}
         breadcrumbs={[
           { label: "Tenaga Pengajar", href: "/dosen" },
-          { label: faculty.name },
+          { label: displayHeading },
         ]}
       />
 
@@ -70,8 +88,8 @@ export default async function DosenDetailPage({
             <div className="bg-white border border-[#E2D9C8] rounded-2xl p-6 shadow-xs text-center sticky top-28">
               <div className="relative w-48 h-60 mx-auto rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E2D9C8] mb-4">
                 <Image
-                  src={faculty.profileImage || "/images/prof-hendra.jpg"}
-                  alt={faculty.name}
+                  src={faculty.profileImage || "/images/jajaran/dekan.jpg"}
+                  alt={displayHeading}
                   fill
                   sizes="240px"
                   className="object-cover object-top"
@@ -80,10 +98,10 @@ export default async function DosenDetailPage({
               </div>
 
               <h2 className="font-serif text-lg font-bold text-[#0D0D0D] mb-1">
-                {faculty.name}
+                {displayHeading}
               </h2>
               <p className="text-xs text-[#710912] font-medium mb-4">
-                {faculty.titles}
+                {displaySub}
               </p>
 
               <div className="pt-4 border-t border-[#E2D9C8] space-y-2 text-xs text-left text-[#544942]">

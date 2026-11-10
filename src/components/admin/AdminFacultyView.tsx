@@ -35,6 +35,7 @@ export function AdminFacultyView({
       (filterActive === "INACTIVE" && !f.isActive);
     const matchesSearch =
       f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      f.titles.toLowerCase().includes(searchQuery.toLowerCase()) ||
       f.specialization.toLowerCase().includes(searchQuery.toLowerCase()) ||
       f.nip.includes(searchQuery);
     return matchesFilter && matchesSearch;
@@ -146,19 +147,21 @@ export function AdminFacultyView({
                 <div className="flex items-center gap-3.5">
                   <div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-[#C28D39]/40 bg-[#710912] shrink-0">
                     <Image
-                      src={item.profileImage || "/images/prof-hendra.jpg"}
-                      alt={item.name}
+                      src={item.profileImage || "/images/jajaran/dekan.jpg"}
+                      alt={item.name || item.titles}
                       width={56}
                       height={56}
-                      className="object-cover w-full h-full"
+                      className="object-cover object-top w-full h-full"
                     />
                   </div>
 
                   <div>
                     <h4 className="font-serif font-bold text-sm text-[#0D0D0D]">
-                      {item.name}
+                      {item.name || item.titles}
                     </h4>
-                    <p className="text-xs text-[#710912] font-medium">{item.titles}</p>
+                    <p className="text-xs text-[#710912] font-medium">
+                      {item.name ? item.titles : "Nama belum diisi"}
+                    </p>
                     <p className="text-[11px] font-mono text-[#73655D] mt-0.5">
                       NIP: {item.nip}
                     </p>

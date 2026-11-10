@@ -17,10 +17,10 @@ export function DeanCreed() {
 
         <div className="inline-flex flex-col items-center border-t-2 border-[#C28D39] pt-4">
           <p className="font-serif text-base sm:text-lg font-bold text-[#710912]">
-            Prof. Dr. Lorem Ipsum, S.H., LL.M.
+            Dekan Fakultas Hukum
           </p>
           <p className="text-xs uppercase tracking-widest text-[#544942] mt-1 font-medium">
-            Dekan Fakultas Hukum Universitas Pelita Bangsa
+            Universitas Pelita Bangsa
           </p>
         </div>
       </div>

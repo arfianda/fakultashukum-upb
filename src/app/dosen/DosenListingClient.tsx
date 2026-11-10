@@ -211,9 +211,19 @@ function DosenListingInner({
         {filteredFaculty.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {filteredFaculty.map((f, idx) => {
-              const facultySlug = createFacultySlug(f.name);
+              const facultySlug = createFacultySlug(f.name, f.titles);
               const itemCat = getItemCategory(f);
-              const badgeLabel = f.titles.includes("Guru Besar")
+              const hasName = Boolean(f.name && f.name.trim().length > 0);
+              const displayHeading = hasName ? f.name : f.titles;
+              const displaySub = hasName
+                ? f.titles
+                : "Fakultas Hukum Universitas Pelita Bangsa";
+              const isLeadership =
+                f.titles.includes("Dekan") ||
+                f.titles.includes("Ketua Program Studi");
+              const badgeLabel = isLeadership
+                ? "JAJARAN PIMPINAN FAKULTAS"
+                : f.titles.includes("Guru Besar")
                 ? "DEWAN GURU BESAR"
                 : itemCat === "staf"
                 ? "STAF & TENAGA KEPENDIDIKAN"
@@ -237,8 +247,8 @@ function DosenListingInner({
                     <div className="flex flex-col sm:flex-row gap-5 items-start">
                       <div className="relative w-24 h-28 sm:w-28 sm:h-36 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E2D9C8] shrink-0">
                         <Image
-                          src={f.profileImage || "/images/prof-hendra.jpg"}
-                          alt={f.name}
+                          src={f.profileImage || "/images/jajaran/dekan.jpg"}
+                          alt={displayHeading}
                           fill
                           sizes="(max-width: 640px) 100px, 120px"
                           className="object-cover object-top"
@@ -255,16 +265,16 @@ function DosenListingInner({
                           <span>{badgeLabel}</span>
                         </span>
                         <h2 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] mb-1 leading-snug">
-                          {f.name}
+                          {displayHeading}
                         </h2>
                         <p className="text-xs font-medium text-[#710912] mb-3">
-                          {f.titles}
+                          {displaySub}
                         </p>
                         <div className="text-xs text-[#544942] leading-relaxed font-light mb-3">
                           <strong className="font-semibold text-[#0D0D0D]">
                             {itemCat === "staf"
                               ? "Bidang Layanan: "
-                              : "Keahlian: "}
+                              : "Bidang & Tugas: "}
                           </strong>
                           {f.specialization}
                         </div>

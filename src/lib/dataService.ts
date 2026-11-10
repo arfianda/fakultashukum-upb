@@ -208,8 +208,9 @@ export async function getEventBySlug(slug: string): Promise<EventItem | null> {
   return fallback || null;
 }
 
-export function createFacultySlug(name: string): string {
-  return name
+export function createFacultySlug(name: string, fallbackTitle?: string): string {
+  const source = name && name.trim().length > 0 ? name.trim() : fallbackTitle || "jajaran-fakultas-hukum";
+  return source
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
@@ -220,8 +221,9 @@ export async function getFacultyBySlug(slug: string): Promise<(FacultyItem & { s
   const normalizedQuery = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
 
   const found = allFaculty.find((f) => {
-    const fullSlug = createFacultySlug(f.name);
-    const normalizedName = f.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const label = f.name && f.name.trim().length > 0 ? f.name : f.titles;
+    const fullSlug = createFacultySlug(f.name, f.titles);
+    const normalizedName = label.toLowerCase().replace(/[^a-z0-9]/g, "");
     return (
       fullSlug === slug ||
       normalizedName.includes(normalizedQuery) ||
@@ -233,7 +235,7 @@ export async function getFacultyBySlug(slug: string): Promise<(FacultyItem & { s
 
   return {
     ...found,
-    slug: createFacultySlug(found.name),
+    slug: createFacultySlug(found.name, found.titles),
   };
 }
 

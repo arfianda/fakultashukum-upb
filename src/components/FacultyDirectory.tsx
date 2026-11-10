@@ -29,68 +29,79 @@ export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        {facultyList.map((f) => (
-          <div
-            key={f.id}
-            className="bg-white border border-[#E2D9C8] hover:border-[#710912] transition-colors p-6 sm:p-8 flex flex-col sm:flex-row gap-6 group"
-          >
-            {/* Formal Faculty Portrait */}
-            <div className="relative w-full sm:w-44 h-60 sm:h-auto shrink-0 bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden">
-              <Image
-                src={f.profileImage}
-                alt={f.name}
-                fill
-                sizes="(max-width: 640px) 100vw, 200px"
-                className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
-              />
-            </div>
+        {facultyList.map((f) => {
+          const hasName = Boolean(f.name && f.name.trim().length > 0);
+          const displayHeading = hasName ? f.name : f.titles;
+          const displaySub = hasName
+            ? f.titles
+            : "Jajaran Pimpinan Fakultas Hukum UPB";
 
-            {/* Scholar Metadata */}
-            <div className="flex flex-col justify-between flex-1">
-              <div>
-                <span className="inline-block text-[10px] font-bold text-[#C28D39] uppercase tracking-wider mb-1">
-                  NIP. {f.nip}
-                </span>
-
-                <h3 className="font-serif text-lg sm:text-xl font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors mb-1 leading-snug">
-                  {f.name}
-                </h3>
-
-                <p className="text-xs font-semibold text-[#710912] mb-3 leading-snug">
-                  {f.titles}
-                </p>
-
-                <p className="text-xs text-[#544942] mb-3 leading-relaxed">
-                  <strong className="text-[#0D0D0D]">Fokus Keahlian:</strong> {f.specialization}
-                </p>
-
-                <blockquote className="text-xs text-[#544942] italic border-l-2 border-[#C28D39] pl-3 py-1 mb-4 bg-[#FAF7F2]">
-                  &ldquo;{f.bioQuote}&rdquo;
-                </blockquote>
+          return (
+            <div
+              key={f.id}
+              className="bg-white border border-[#E2D9C8] hover:border-[#710912] transition-colors p-6 sm:p-8 flex flex-col sm:flex-row gap-6 group"
+            >
+              {/* Formal Faculty Portrait */}
+              <div className="relative w-full sm:w-44 h-60 sm:h-auto shrink-0 bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden">
+                <Image
+                  src={f.profileImage}
+                  alt={displayHeading}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 200px"
+                  className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
+                />
               </div>
 
-              <div className="pt-3 border-t border-[#F4ECE1] flex items-center justify-between">
-                <button
-                  onClick={() => setActiveDossier(f)}
-                  className="text-xs font-bold text-[#710912] hover:text-[#48060B] uppercase tracking-wider"
-                >
-                  Profil Akademik Lengkap
-                </button>
-                {f.researchLink && (
-                  <a
-                    href={f.researchLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] text-[#544942] hover:text-[#710912]"
+              {/* Scholar Metadata */}
+              <div className="flex flex-col justify-between flex-1">
+                <div>
+                  <span className="inline-block text-[10px] font-bold text-[#C28D39] uppercase tracking-wider mb-1">
+                    {f.nip && f.nip !== "-"
+                      ? `NIP. ${f.nip}`
+                      : "JAJARAN FAKULTAS HUKUM"}
+                  </span>
+
+                  <h3 className="font-serif text-lg sm:text-xl font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors mb-1 leading-snug">
+                    {displayHeading}
+                  </h3>
+
+                  <p className="text-xs font-semibold text-[#710912] mb-3 leading-snug">
+                    {displaySub}
+                  </p>
+
+                  <p className="text-xs text-[#544942] mb-3 leading-relaxed">
+                    <strong className="text-[#0D0D0D]">Fokus Bidang:</strong>{" "}
+                    {f.specialization}
+                  </p>
+
+                  <blockquote className="text-xs text-[#544942] italic border-l-2 border-[#C28D39] pl-3 py-1 mb-4 bg-[#FAF7F2]">
+                    &ldquo;{f.bioQuote}&rdquo;
+                  </blockquote>
+                </div>
+
+                <div className="pt-3 border-t border-[#F4ECE1] flex items-center justify-between">
+                  <button
+                    onClick={() => setActiveDossier(f)}
+                    className="text-xs font-bold text-[#710912] hover:text-[#48060B] uppercase tracking-wider cursor-pointer"
                   >
-                    <span>SINTA Profil</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
+                    Profil Akademik Lengkap
+                  </button>
+                  {f.researchLink && (
+                    <a
+                      href={f.researchLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] text-[#544942] hover:text-[#710912]"
+                    >
+                      <span>SINTA Profil</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Dossier Modal View */}
@@ -113,20 +124,28 @@ export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }
               <div className="relative w-16 h-20 shrink-0 border border-[#E2D9C8]">
                 <Image
                   src={activeDossier.profileImage}
-                  alt={activeDossier.name}
+                  alt={activeDossier.name || activeDossier.titles}
                   fill
                   className="object-cover object-top"
                 />
               </div>
               <div>
                 <span className="text-[10px] text-[#C28D39] font-bold uppercase tracking-widest block">
-                  Dossier Dewan Pakar
+                  Dossier Jajaran &amp; Pakar
                 </span>
                 <h3 className="font-serif text-lg font-bold text-[#0D0D0D]">
-                  {activeDossier.name}
+                  {activeDossier.name || activeDossier.titles}
                 </h3>
-                <p className="text-xs text-[#710912]">{activeDossier.titles}</p>
-                <p className="text-[11px] text-[#544942]">NIP: {activeDossier.nip}</p>
+                <p className="text-xs text-[#710912]">
+                  {activeDossier.name
+                    ? activeDossier.titles
+                    : "Fakultas Hukum Universitas Pelita Bangsa"}
+                </p>
+                {activeDossier.nip && activeDossier.nip !== "-" && (
+                  <p className="text-[11px] text-[#544942]">
+                    NIP: {activeDossier.nip}
+                  </p>
+                )}
               </div>
             </div>
 
