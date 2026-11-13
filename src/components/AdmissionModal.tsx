@@ -186,8 +186,9 @@ export function AdmissionModal({
                     onChange={(e) => setFormData({ ...formData, program: e.target.value })}
                     className="w-full px-3.5 py-2.5 text-xs border border-[#E2D9C8] focus:border-[#710912] bg-[#FAF7F2]"
                   >
-                    <option>Sarjana Hukum (S.H.) - Reguler Pagi</option>
-                    <option>Sarjana Hukum (S.H.) - Kelas Eksekutif/Karyawan</option>
+                    <option>Sarjana Hukum (S.H.) - Reguler Pagi (Kelas Pagi)</option>
+                    <option>Sarjana Hukum (S.H.) - Reguler Malam</option>
+                    <option>Sarjana Hukum (S.H.) - Reguler Weekend (Jumat, Sabtu, Minggu)</option>
                     <option>Pendidikan Khusus Profesi Advokat (PKPA)</option>
                   </select>
                 </div>

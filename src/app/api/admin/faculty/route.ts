@@ -75,7 +75,7 @@ export async function POST(request: Request) {
         nip,
         specialization,
         bioQuote,
-        profileImage: profileImage || "/images/prof-hendra.jpg",
+        profileImage: profileImage || "/images/jajaran/dekan.jpg",
         researchLink: researchLink || null,
         displayOrder:
           typeof displayOrder === "number"

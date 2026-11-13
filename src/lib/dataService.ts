@@ -111,7 +111,7 @@ export async function getActiveFaculty(): Promise<FacultyItem[]> {
           nip: f.nip,
           specialization: f.specialization,
           bioQuote: f.bioQuote,
-          profileImage: f.profileImage || "/images/prof-hendra.jpg",
+          profileImage: f.profileImage || "/images/jajaran/dekan.jpg",
           researchLink: f.researchLink || undefined,
           displayOrder: f.displayOrder,
           isActive: f.isActive,

@@ -8,7 +8,7 @@ export function QuickAccess({ onOpenAdmission }: { onOpenAdmission?: () => void 
     {
       title: "Pendaftaran & Beasiswa",
       sub: "PENERIMAAN & BEASISWA",
-      desc: "Informasi penerimaan Sarjana Hukum (S.H.) kelas Reguler dan Karyawan, jadwal gelombang seleksi, serta beasiswa.",
+      desc: "Informasi penerimaan Sarjana Hukum (S.H.) Kelas Reguler Pagi, Reguler Malam, dan Reguler Weekend, jadwal seleksi, serta beasiswa.",
       actionText: "Alur Penerimaan",
       href: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
       icon: GraduationCap,

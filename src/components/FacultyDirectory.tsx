@@ -16,88 +16,83 @@ export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }
           <div className="relative inline-flex items-center mb-2">
             <div className="absolute inset-0 -m-1 border border-[#E2D9C8] dotted-matrix-bg opacity-45 pointer-events-none" />
             <span className="relative text-[10px] uppercase tracking-widest text-[#710912] font-bold bg-white px-2 py-0.5">
-              TENAGA PENGAJAR &bull; DEWAN GURU BESAR
+              JAJARAN PIMPINAN &bull; FAKULTAS HUKUM
             </span>
           </div>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#0D0D0D] font-normal">
-            Pakar Hukum &amp; Akademisi Terkemuka
+            Jajaran Pimpinan &amp; Pengajar
           </h2>
         </div>
         <p className="text-xs sm:text-sm text-[#544942] max-w-md mt-4 md:mt-0 leading-relaxed font-light">
-          Dididik langsung oleh para pakar hukum berkualifikasi Doktor dan Guru Besar yang aktif sebagai saksi ahli peradilan, perancang regulasi nasional, dan arbiter komersial.
+          Jajaran Pimpinan dan Program Studi Ilmu Hukum Fakultas Hukum Universitas Pelita Bangsa.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         {facultyList.map((f) => {
           const hasName = Boolean(f.name && f.name.trim().length > 0);
           const displayHeading = hasName ? f.name : f.titles;
           const displaySub = hasName
             ? f.titles
-            : "Jajaran Pimpinan Fakultas Hukum UPB";
+            : "Fakultas Hukum Universitas Pelita Bangsa";
 
           return (
             <div
               key={f.id}
-              className="bg-white border border-[#E2D9C8] hover:border-[#710912] transition-colors p-6 sm:p-8 flex flex-col sm:flex-row gap-6 group"
+              className="bg-white border border-[#E2D9C8] hover:border-[#710912] transition-colors p-6 flex flex-col justify-between group"
             >
-              {/* Formal Faculty Portrait */}
-              <div className="relative w-full sm:w-44 h-60 sm:h-auto shrink-0 bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden">
-                <Image
-                  src={f.profileImage}
-                  alt={displayHeading}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 200px"
-                  className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
-                />
-              </div>
+              <div>
+                {/* Formal Faculty Portrait */}
+                <div className="relative w-full aspect-[3/4] bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden mb-5">
+                  <Image
+                    src={f.profileImage}
+                    alt={displayHeading}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
+                  />
+                </div>
 
-              {/* Scholar Metadata */}
-              <div className="flex flex-col justify-between flex-1">
-                <div>
-                  <span className="inline-block text-[10px] font-bold text-[#C28D39] uppercase tracking-wider mb-1">
-                    {f.nip && f.nip !== "-"
-                      ? `NIP. ${f.nip}`
-                      : "JAJARAN FAKULTAS HUKUM"}
-                  </span>
+                {/* Scholar Metadata */}
+                <span className="inline-block text-[10px] font-bold text-[#C28D39] uppercase tracking-wider mb-1">
+                  {f.nip && f.nip !== "-"
+                    ? `NIP. ${f.nip}`
+                    : "JAJARAN FAKULTAS HUKUM"}
+                </span>
 
-                  <h3 className="font-serif text-lg sm:text-xl font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors mb-1 leading-snug">
-                    {displayHeading}
-                  </h3>
+                <h3 className="font-serif text-lg sm:text-xl font-semibold text-[#0D0D0D] group-hover:text-[#710912] transition-colors mb-1 leading-snug">
+                  {displayHeading}
+                </h3>
 
-                  <p className="text-xs font-semibold text-[#710912] mb-3 leading-snug">
-                    {displaySub}
-                  </p>
+                <p className="text-xs font-semibold text-[#710912] mb-3 leading-snug">
+                  {displaySub}
+                </p>
 
-                  <p className="text-xs text-[#544942] mb-3 leading-relaxed">
-                    <strong className="text-[#0D0D0D]">Fokus Bidang:</strong>{" "}
-                    {f.specialization}
-                  </p>
-
+                {f.bioQuote && (
                   <blockquote className="text-xs text-[#544942] italic border-l-2 border-[#C28D39] pl-3 py-1 mb-4 bg-[#FAF7F2]">
                     &ldquo;{f.bioQuote}&rdquo;
                   </blockquote>
-                </div>
+                )}
+              </div>
 
-                <div className="pt-3 border-t border-[#F4ECE1] flex items-center justify-between">
-                  <button
-                    onClick={() => setActiveDossier(f)}
-                    className="text-xs font-bold text-[#710912] hover:text-[#48060B] uppercase tracking-wider cursor-pointer"
+              <div className="pt-3 border-t border-[#F4ECE1] flex items-center justify-between mt-2">
+                <button
+                  onClick={() => setActiveDossier(f)}
+                  className="text-xs font-bold text-[#710912] hover:text-[#48060B] uppercase tracking-wider cursor-pointer"
+                >
+                  Lihat Detail
+                </button>
+                {f.researchLink && (
+                  <a
+                    href={f.researchLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] text-[#544942] hover:text-[#710912]"
                   >
-                    Profil Akademik Lengkap
-                  </button>
-                  {f.researchLink && (
-                    <a
-                      href={f.researchLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] text-[#544942] hover:text-[#710912]"
-                    >
-                      <span>SINTA Profil</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
+                    <span>SINTA Profil</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
               </div>
             </div>
           );
@@ -151,24 +146,16 @@ export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }
 
             <div className="space-y-4 text-xs text-[#0D0D0D] leading-relaxed mb-6">
               <div className="p-3 bg-[#FAF7F2] border border-[#E2D9C8]">
-                <p className="font-bold text-[#710912] mb-1">Fokus Riset &amp; Pengabdian Yuridis:</p>
+                <p className="font-bold text-[#710912] mb-1">Jabatan &amp; Tugas:</p>
                 <p className="text-[#544942]">{activeDossier.specialization}</p>
               </div>
 
-              <div>
-                <p className="font-bold text-[#0D0D0D] mb-1">Mata Kuliah Utama Diampu:</p>
-                <ul className="list-disc list-inside text-[#544942] space-y-1">
-                  <li>Hukum Tata Negara &amp; Teori Konstitusi Progresif</li>
-                  <li>Perancangan Kontrak Bisnis &amp; Mitigasi Arbitrase</li>
-                  <li>Metodologi Penelitian Hukum &amp; Penulisan Yurisprudensi</li>
-                  <li>Hukum Acara Peradilan Konstitusi &amp; Pengujian Undang-Undang</li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-bold text-[#0D0D0D] mb-1">Prinsip Integritas Keilmuan:</p>
-                <p className="italic text-[#544942]">&ldquo;{activeDossier.bioQuote}&rdquo;</p>
-              </div>
+              {activeDossier.bioQuote && (
+                <div>
+                  <p className="font-bold text-[#0D0D0D] mb-1">Prinsip Keilmuan:</p>
+                  <p className="italic text-[#544942]">&ldquo;{activeDossier.bioQuote}&rdquo;</p>
+                </div>
+              )}
             </div>
 
             <div className="pt-4 border-t border-[#E2D9C8] flex justify-end">

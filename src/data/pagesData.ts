@@ -60,8 +60,9 @@ export const academicSiblings: SidebarSiblingLink[] = [
 
 export const admissionSiblings: SidebarSiblingLink[] = [
   { label: "Ikhtisar Penerimaan & Biaya", href: "/penerimaan" },
-  { label: "Jalur Sarjana Reguler Pagi", href: "/penerimaan/reguler" },
-  { label: "Sarjana Kelas Karyawan", href: "/penerimaan/kelas-karyawan" },
+  { label: "Reguler Pagi (Kelas Pagi)", href: "/penerimaan/reguler-pagi" },
+  { label: "Reguler Malam", href: "/penerimaan/reguler-malam" },
+  { label: "Reguler Weekend (Jumat, Sabtu, Minggu)", href: "/penerimaan/reguler-weekend" },
   { label: "Persyaratan & Jadwal Gelombang", href: "/penerimaan/jadwal" },
   { label: "Rincian Biaya & Angsuran Bulanan", href: "/penerimaan/biaya" },
   { label: "Skema Beasiswa Prestasi & KIP-K", href: "/penerimaan/beasiswa" },
@@ -127,7 +128,7 @@ export const pagesData: Record<string, InfoPageData> = {
         items: [
           {
             title: "Program Sarjana Hukum (S.H.)",
-            subtitle: "Kelas Reguler & Kelas Karyawan",
+            subtitle: "Reguler Pagi, Reguler Malam & Reguler Weekend",
             description: "Pendidikan sarjana 144 SKS dengan kurikulum terpadu berbasis kemahiran litigasi dan hukum korporasi.",
             badge: "Gelar S.H.",
             link: { label: "Pelajari Program Sarjana", href: "/akademik/program-sarjana-hukum" },
@@ -204,22 +205,28 @@ export const pagesData: Record<string, InfoPageData> = {
         ],
       },
       {
-        title: "Jalur Penyelenggaraan Pendidikan",
+        title: "Jalur Kelas Perkuliahan",
         content: [
-          "Fakultas Hukum UPB menyediakan dua jalur perkuliahan yang setara secara kurikulum dan akreditasi:",
+          "Universitas Pelita Bangsa menyediakan 3 pilihan kelas perkuliahan Sarjana Hukum (S.H.) yang setara secara kurikulum (144 SKS) dan status akreditasi:",
         ],
         items: [
           {
-            title: "Kelas Reguler Pagi",
-            subtitle: "Senin s.d. Jumat (08.00 - 16.30 WIB)",
-            description: "Dikhususkan bagi lulusan SMA/SMK/MA sederajat untuk pendalaman akademik penuh waktu.",
-            link: { label: "Informasi Jalur Reguler", href: "/penerimaan/reguler" },
+            title: "1. Reguler Pagi (Kelas Pagi)",
+            subtitle: "Perkuliahan Pagi – Siang (Senin s.d. Jumat)",
+            description: "Dikhususkan bagi lulusan SMA/SMK/MA sederajat untuk pendalaman akademik dan praktikum peradilan semu.",
+            link: { label: "Informasi Reguler Pagi", href: "/penerimaan/reguler-pagi" },
           },
           {
-            title: "Kelas Karyawan / Eksekutif",
-            subtitle: "Jumat Malam & Sabtu Penuh",
-            description: "Didesain bagi profesional, staf legal industri, wiraswasta, dan aparat yang menempuh pendidikan hukum tanpa mengganggu jam kerja.",
-            link: { label: "Informasi Kelas Karyawan", href: "/penerimaan/kelas-karyawan" },
+            title: "2. Reguler Malam",
+            subtitle: "Perkuliahan Malam Hari (Senin s.d. Jumat)",
+            description: "Dirancang bagi mahasiswa yang bekerja di siang hari agar tetap dapat mengikuti perkuliahan tatap muka pada malam hari.",
+            link: { label: "Informasi Reguler Malam", href: "/penerimaan/reguler-malam" },
+          },
+          {
+            title: "3. Reguler Weekend (Jumat, Sabtu, Minggu)",
+            subtitle: "Perkuliahan Akhir Pekan (Jumat, Sabtu, Minggu)",
+            description: "Didesain fleksibel bagi karyawan, praktisi industri, dan profesional yang menempuh studi di akhir pekan.",
+            link: { label: "Informasi Reguler Weekend", href: "/penerimaan/reguler-weekend" },
           },
         ],
       },
@@ -538,32 +545,32 @@ export const pagesData: Record<string, InfoPageData> = {
 
   "penerimaan-reguler": {
     slug: "penerimaan/reguler",
-    title: "Sarjana Hukum (S.H.) Kelas Reguler",
-    kicker: "JALUR PERKULIAHAN PENUH WAKTU",
+    title: "Sarjana Hukum (S.H.) Reguler Pagi (Kelas Pagi)",
+    kicker: "JALUR PERKULIAHAN PAGI HARI",
     description:
-      "Perkuliahan tatap muka penuh bagi lulusan SMA/SMK/MA dengan pendalaman praktikum peradilan semu intensif dan organisasi kemahasiswaan.",
+      "Perkuliahan tatap muka penuh waktu di pagi hari bagi lulusan SMA/SMK/MA sederajat dengan pendalaman praktikum peradilan semu intensif dan organisasi kemahasiswaan.",
     breadcrumbs: [
       { label: "Penerimaan", href: "/penerimaan" },
-      { label: "Kelas Reguler" },
+      { label: "Reguler Pagi" },
     ],
     parentSectionTitle: "Penerimaan & Biaya",
     siblings: admissionSiblings,
     sections: [
       {
-        title: "Karakteristik Program Kelas Reguler",
+        title: "Karakteristik Program Reguler Pagi (Kelas Pagi)",
         content: [
-          "Program Kelas Reguler dirancang khusus bagi calon sarjana yang mendedikasikan waktu penuh untuk studi akademik dan pembentukan karakter kepemimpinan hukum di kampus.",
-          "Mahasiswa reguler mendapatkan akses intensif ke laboratorium peradilan semu, delegasi kompetisi debat nasional, serta magang di instansi penegak hukum mitra.",
+          "Program Reguler Pagi (Kelas Pagi) dirancang khusus bagi calon sarjana yang mendedikasikan waktu penuh untuk studi akademik dan pembentukan karakter kepemimpinan hukum di kampus.",
+          "Mahasiswa reguler pagi mendapatkan akses intensif ke laboratorium peradilan semu, delegasi kompetisi debat nasional, serta magang di instansi penegak hukum mitra.",
         ],
         items: [
           {
-            title: "Jadwal Perkuliahan Hari Kerja",
-            description: "Senin sampai Jumat, pukul 08.00 hingga 16.30 WIB di Kampus Utama UPB.",
-            badge: "Jadwal",
+            title: "Jadwal Kuliah Pagi Hari",
+            description: "Senin sampai Jumat, sesi pagi hingga siang hari di Kampus Utama Universitas Pelita Bangsa.",
+            badge: "Kelas Pagi",
           },
           {
             title: "Praktikum Peradilan Semu Wajib",
-            description: "Simulasi persidangan perkara pidana, perdata, dan tata usaha negara di laboratorium Moot Court.",
+            description: "Simulasi persidangan perkara pidana, perdata, dan tata usaha negara di laboratorium Moot Court standar pengadilan.",
             badge: "Praktikum",
           },
           {
@@ -575,22 +582,168 @@ export const pagesData: Record<string, InfoPageData> = {
       },
     ],
     cta: {
-      title: "Daftar Jalur Reguler 2026/2027",
-      description: "Amankan kuota kursi kelas reguler Anda pada gelombang pendaftaran yang sedang berjalan.",
+      title: "Daftar Reguler Pagi 2026/2027",
+      description: "Amankan kuota kursi kelas reguler pagi Anda pada gelombang pendaftaran yang sedang berjalan.",
       buttonText: "Daftar Mahasiswa Baru",
       buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
+      secondaryText: "WhatsApp Layanan PMB",
+      secondaryHref: "https://wa.me/6281290008801",
+    },
+  },
+
+  "penerimaan-reguler-pagi": {
+    slug: "penerimaan/reguler-pagi",
+    title: "Sarjana Hukum (S.H.) Reguler Pagi (Kelas Pagi)",
+    kicker: "JALUR PERKULIAHAN PAGI HARI",
+    description:
+      "Perkuliahan tatap muka penuh waktu di pagi hari bagi lulusan SMA/SMK/MA sederajat dengan pendalaman praktikum peradilan semu intensif dan organisasi kemahasiswaan.",
+    breadcrumbs: [
+      { label: "Penerimaan", href: "/penerimaan" },
+      { label: "Reguler Pagi" },
+    ],
+    parentSectionTitle: "Penerimaan & Biaya",
+    siblings: admissionSiblings,
+    sections: [
+      {
+        title: "Karakteristik Program Reguler Pagi (Kelas Pagi)",
+        content: [
+          "Program Reguler Pagi (Kelas Pagi) dirancang khusus bagi calon sarjana yang mendedikasikan waktu penuh untuk studi akademik dan pembentukan karakter kepemimpinan hukum di kampus.",
+          "Mahasiswa reguler pagi mendapatkan akses intensif ke laboratorium peradilan semu, delegasi kompetisi debat nasional, serta magang di instansi penegak hukum mitra.",
+        ],
+        items: [
+          {
+            title: "Jadwal Kuliah Pagi Hari",
+            description: "Senin sampai Jumat, sesi pagi hingga siang hari di Kampus Utama Universitas Pelita Bangsa.",
+            badge: "Kelas Pagi",
+          },
+          {
+            title: "Praktikum Peradilan Semu Wajib",
+            description: "Simulasi persidangan perkara pidana, perdata, dan tata usaha negara di laboratorium Moot Court standar pengadilan.",
+            badge: "Praktikum",
+          },
+          {
+            title: "Magang Terstruktur Mitra Resmi",
+            description: "Penempatan magang kerja di Pengadilan Negeri, Kejaksaan, kantor advokat, dan divisi legal korporasi.",
+            badge: "Karir",
+          },
+        ],
+      },
+    ],
+    cta: {
+      title: "Daftar Reguler Pagi 2026/2027",
+      description: "Amankan kuota kursi kelas reguler pagi Anda pada gelombang pendaftaran yang sedang berjalan.",
+      buttonText: "Daftar Mahasiswa Baru",
+      buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
+      secondaryText: "WhatsApp Layanan PMB",
+      secondaryHref: "https://wa.me/6281290008801",
+    },
+  },
+
+  "penerimaan-reguler-malam": {
+    slug: "penerimaan/reguler-malam",
+    title: "Sarjana Hukum (S.H.) Reguler Malam",
+    kicker: "JALUR PERKULIAHAN MALAM HARI",
+    description:
+      "Perkuliahan tatap muka malam hari bagi mahasiswa yang beraktivitas atau bekerja di siang hari di koridor industri Cikarang-Bekasi.",
+    breadcrumbs: [
+      { label: "Penerimaan", href: "/penerimaan" },
+      { label: "Reguler Malam" },
+    ],
+    parentSectionTitle: "Penerimaan & Biaya",
+    siblings: admissionSiblings,
+    sections: [
+      {
+        title: "Karakteristik Program Reguler Malam",
+        content: [
+          "Program Reguler Malam Universitas Pelita Bangsa dirancang khusus untuk memfasilitasi mahasiswa yang bekerja pada pagi/siang hari namun tetap ingin mengikuti perkuliahan tatap muka secara intensif setiap hari kerja.",
+          "Kurikulum berbobot 144 SKS, gelar Sarjana Hukum (S.H.), dan akreditasi setara penuh dengan kelas pagi, dibimbing oleh akademisi dan praktisi hukum berpengalaman.",
+        ],
+        items: [
+          {
+            title: "Jadwal Perkuliahan Malam Hari",
+            description: "Senin sampai Jumat pada malam hari setelah jam kerja operasional (mulai pukul 18.30 WIB).",
+            badge: "Kelas Malam",
+          },
+          {
+            title: "Fokus Studi Hukum Terapan",
+            description: "Membahas hukum ketenagakerjaan, hukum bisnis industri, penyusunan kontrak, dan hukum perdata.",
+            badge: "Relevansi Kerja",
+          },
+          {
+            title: "Akses Fasilitas & Laboratorium Lengkap",
+            description: "Mahasiswa kelas malam tetap memiliki akses penuh terhadap perpustakaan hukum, peradilan semu, dan klinik bantuan hukum.",
+            badge: "Fasilitas Penuh",
+          },
+        ],
+      },
+    ],
+    cta: {
+      title: "Kuliah Malam Sembari Tetap Bekerja",
+      description: "Tingkatkan jenjang karir Anda dengan gelar Sarjana Hukum melalui Program Reguler Malam UPB.",
+      buttonText: "Daftar Reguler Malam",
+      buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
+      secondaryText: "WhatsApp Tim Admisi",
+      secondaryHref: "https://wa.me/6281290008801",
+    },
+  },
+
+  "penerimaan-reguler-weekend": {
+    slug: "penerimaan/reguler-weekend",
+    title: "Sarjana Hukum (S.H.) Reguler Weekend (Jumat, Sabtu, Minggu)",
+    kicker: "JALUR PERKULIAHAN AKHIR PEKAN",
+    description:
+      "Perkuliahan fleksibel di akhir pekan (Jumat malam, Sabtu, dan Minggu) yang dirancang bagi karyawan, profesional, dan wirausahawan.",
+    breadcrumbs: [
+      { label: "Penerimaan", href: "/penerimaan" },
+      { label: "Reguler Weekend" },
+    ],
+    parentSectionTitle: "Penerimaan & Biaya",
+    siblings: admissionSiblings,
+    sections: [
+      {
+        title: "Karakteristik Program Reguler Weekend",
+        content: [
+          "Program Reguler Weekend (Jumat, Sabtu, Minggu) diselenggarakan untuk memberikan kenyamanan waktu belajar optimal bagi para pekerja sistem shift, profesional kawasan industri, maupun praktisi bisnis tanpa mengganggu jadwal kerja di hari biasa.",
+          "Memiliki bobot 144 SKS, kurikulum terstandar nasional, dan gelar Sarjana Hukum (S.H.) resmi yang diakui penuh oleh Kemdikbudristek.",
+        ],
+        items: [
+          {
+            title: "Jadwal Perkuliahan Jumat, Sabtu, Minggu",
+            description: "Sesi kuliah dilaksanakan pada Jumat malam, Sabtu, dan Minggu dengan kombinasi tatap muka dan pembelajaran terarah.",
+            badge: "Jumat, Sabtu, Minggu",
+          },
+          {
+            title: "Studi Kasus Hukum Industri & Korporasi",
+            description: "Mengkaji permasalahan hukum nyata seputar hubungan industrial, merger akuisisi, kepailitan, dan regulasi perizinan.",
+            badge: "Praktisi & Kasus",
+          },
+          {
+            title: "Jejaring Profesional Lintas Industri",
+            description: "Membangun relasi strategis bersama rekan mahasiswa dari puluhan perusahaan multinasional di koridor Cikarang.",
+            badge: "Networking",
+          },
+        ],
+      },
+    ],
+    cta: {
+      title: "Raih Sarjana Hukum di Akhir Pekan",
+      description: "Konsultasikan penyesuaian jadwal shift kerja Anda bersama tim sekretariat admisi UPB.",
+      buttonText: "Daftar Reguler Weekend",
+      buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
+      secondaryText: "WhatsApp Tim Admisi",
+      secondaryHref: "https://wa.me/6281290008801",
     },
   },
 
   "penerimaan-karyawan": {
     slug: "penerimaan/kelas-karyawan",
-    title: "Sarjana Hukum (S.H.) Kelas Karyawan",
-    kicker: "JALUR PROFESIONAL & EKSEKUTIF",
+    title: "Sarjana Hukum (S.H.) Reguler Weekend (Jumat, Sabtu, Minggu)",
+    kicker: "JALUR PERKULIAHAN AKHIR PEKAN",
     description:
-      "Jadwal kuliah fleksibel malam hari dan akhir pekan, dirancang bagi staf legal kawasan industri, profesional, dan wirausahawan.",
+      "Perkuliahan fleksibel akhir pekan (Jumat, Sabtu, Minggu) bagi profesional, karyawan industri, dan praktisi di koridor industri Cikarang-Bekasi.",
     breadcrumbs: [
       { label: "Penerimaan", href: "/penerimaan" },
-      { label: "Kelas Karyawan" },
+      { label: "Reguler Weekend" },
     ],
     parentSectionTitle: "Penerimaan & Biaya",
     siblings: admissionSiblings,
@@ -598,14 +751,14 @@ export const pagesData: Record<string, InfoPageData> = {
       {
         title: "Fleksibilitas Tanpa Kompromi Mutu",
         content: [
-          "Kelas Karyawan Fakultas Hukum UPB memiliki bobot 144 SKS, gelar Sarjana Hukum (S.H.), dan kurikulum yang setara penuh dengan kelas reguler.",
+          "Kelas Reguler Weekend (Jumat, Sabtu, Minggu) Fakultas Hukum UPB memiliki bobot 144 SKS, gelar Sarjana Hukum (S.H.), dan kurikulum yang setara penuh dengan kelas reguler pagi.",
           "Dosen pengajar terdiri atas akademisi senior dan praktisi hukum aktif yang memahami dinamika hukum industri di koridor Cikarang-Bekasi.",
         ],
         items: [
           {
-            title: "Jadwal Kuliah Akhir Pekan",
-            description: "Perkuliahan tatap muka dan blended learning pada hari Jumat malam dan Sabtu penuh.",
-            badge: "Waktu Fleksibel",
+            title: "Jadwal Perkuliahan Jumat, Sabtu, Minggu",
+            description: "Perkuliahan tatap muka dan blended learning pada hari Jumat malam, Sabtu, dan Minggu.",
+            badge: "Jumat, Sabtu, Minggu",
           },
           {
             title: "Studi Kasus Hukum Industri Riil",
@@ -623,7 +776,7 @@ export const pagesData: Record<string, InfoPageData> = {
     cta: {
       title: "Raih Gelar S.H. Sembari Tetap Berkarir",
       description: "Konsultasikan kesesuaian waktu kerja Anda bersama tim admisi dekanat.",
-      buttonText: "Daftar Kelas Karyawan",
+      buttonText: "Daftar Reguler Weekend",
       buttonHref: "https://pelitabangsa.siakadcloud.com/spmbfront/jalur-seleksi",
       secondaryText: "WhatsApp Tim Admisi",
       secondaryHref: "https://wa.me/6281290008801",
@@ -724,16 +877,16 @@ export const pagesData: Record<string, InfoPageData> = {
             badge: "Registrasi",
           },
           {
-            title: "SPP Bulanan Kelas Reguler",
+            title: "SPP Bulanan Reguler Pagi & Malam",
             subtitle: "Mulai dari Rp 650.000 / bulan",
             description: "Termasuk biaya perkuliahan tatap muka, ujian semester (UTS & UAS), dan akses e-library.",
-            badge: "Reguler",
+            badge: "Pagi & Malam",
           },
           {
-            title: "SPP Bulanan Kelas Karyawan",
+            title: "SPP Bulanan Reguler Weekend",
             subtitle: "Mulai dari Rp 750.000 / bulan",
-            description: "Termasuk fasilitas pembelajaran hybrid, ruang kelas akhir pekan, dan materi digital.",
-            badge: "Karyawan",
+            description: "Termasuk fasilitas pembelajaran akhir pekan (Jumat, Sabtu, Minggu) dan materi digital.",
+            badge: "Weekend",
           },
           {
             title: "Uang Gedung / Pembangunan",
@@ -829,7 +982,7 @@ export const pagesData: Record<string, InfoPageData> = {
           },
           {
             title: "2. Pilih Jalur Kelas",
-            description: "Tentukan pilihan antara Kelas Reguler Pagi atau Kelas Karyawan Eksekutif.",
+            description: "Tentukan pilihan antara Reguler Pagi (Kelas Pagi), Reguler Malam, atau Reguler Weekend (Jumat, Sabtu, Minggu).",
             badge: "Pilihan",
           },
           {
@@ -912,8 +1065,8 @@ export const pagesData: Record<string, InfoPageData> = {
         ],
         items: [
           {
-            title: "Apakah ijazah Kelas Karyawan sama dengan Kelas Reguler?",
-            description: "Sama persis. Ijazah, gelar (S.H.), dan status akreditasi keduanya sama tanpa ada pembedaan status kelas pada ijazah.",
+            title: "Apakah ijazah Kelas Reguler Malam & Weekend sama dengan Reguler Pagi?",
+            description: "Sama persis. Ijazah, gelar (S.H.), hak akademik, dan status akreditasi ketiganya sama tanpa ada pembedaan status kelas pada ijazah.",
             badge: "Ijazah & Gelar",
           },
           {
@@ -1463,8 +1616,8 @@ export const pagesData: Record<string, InfoPageData> = {
           "Fakultas Hukum UPB berdiri di jantung koridor industri terbesar Asia Tenggara dengan komitmen mendidik para calon yuris yang tidak hanya cerdas mengurai teks perundang-undangan, melainkan teguh memegang sumpah profesi dan integritas moral.",
         ],
         callout: {
-          title: "Prof. Dr. Lorem Ipsum, S.H., LL.M.",
-          text: "Dekan Fakultas Hukum Universitas Pelita Bangsa",
+          title: "Dekan Fakultas Hukum",
+          text: "Fakultas Hukum Universitas Pelita Bangsa",
         },
       },
       {

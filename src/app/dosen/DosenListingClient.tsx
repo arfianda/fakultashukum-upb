@@ -209,7 +209,7 @@ function DosenListingInner({
 
         {/* Faculty & Staff Grid or Empty State */}
         {filteredFaculty.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredFaculty.map((f, idx) => {
               const facultySlug = createFacultySlug(f.name, f.titles);
               const itemCat = getItemCategory(f);
@@ -238,57 +238,47 @@ function DosenListingInner({
                   whileHover={{ y: -3, transition: { duration: 0.18 } }}
                   transition={{
                     duration: 0.4,
-                    delay: (idx % 2) * 0.1,
+                    delay: (idx % 3) * 0.08,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="bg-white border border-[#E2D9C8] rounded-2xl overflow-hidden shadow-xs hover:border-[#710912]/40 hover:shadow-[0_12px_28px_rgba(113,9,18,0.07)] transition-all flex flex-col justify-between"
+                  className="bg-white border border-[#E2D9C8] rounded-2xl overflow-hidden shadow-xs hover:border-[#710912]/40 hover:shadow-[0_12px_28px_rgba(113,9,18,0.07)] transition-all flex flex-col justify-between group"
                 >
-                  <div className="p-6 sm:p-8">
-                    <div className="flex flex-col sm:flex-row gap-5 items-start">
-                      <div className="relative w-24 h-28 sm:w-28 sm:h-36 rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#E2D9C8] shrink-0">
-                        <Image
-                          src={f.profileImage || "/images/jajaran/dekan.jpg"}
-                          alt={displayHeading}
-                          fill
-                          sizes="(max-width: 640px) 100px, 120px"
-                          className="object-cover object-top"
-                        />
-                      </div>
-
-                      <div className="flex-1">
-                        <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E2D9C8] text-[#710912] mb-2">
-                          {itemCat === "staf" ? (
-                            <Building2 className="w-3 h-3" />
-                          ) : (
-                            <GraduationCap className="w-3 h-3" />
-                          )}
-                          <span>{badgeLabel}</span>
-                        </span>
-                        <h2 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] mb-1 leading-snug">
-                          {displayHeading}
-                        </h2>
-                        <p className="text-xs font-medium text-[#710912] mb-3">
-                          {displaySub}
-                        </p>
-                        <div className="text-xs text-[#544942] leading-relaxed font-light mb-3">
-                          <strong className="font-semibold text-[#0D0D0D]">
-                            {itemCat === "staf"
-                              ? "Bidang Layanan: "
-                              : "Bidang & Tugas: "}
-                          </strong>
-                          {f.specialization}
-                        </div>
-                      </div>
+                  <div>
+                    <div className="relative w-full aspect-[3/4] bg-[#FAF7F2] border-b border-[#E2D9C8] overflow-hidden">
+                      <Image
+                        src={f.profileImage || "/images/jajaran/dekan.jpg"}
+                        alt={displayHeading}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover object-top group-hover:scale-102 transition-transform duration-500"
+                      />
                     </div>
 
-                    {f.bioQuote && (
-                      <blockquote className="mt-4 p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8] text-xs text-[#544942] italic font-light">
-                        &ldquo;{f.bioQuote}&rdquo;
-                      </blockquote>
-                    )}
+                    <div className="p-6">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E2D9C8] text-[#710912] mb-2.5">
+                        {itemCat === "staf" ? (
+                          <Building2 className="w-3 h-3" />
+                        ) : (
+                          <GraduationCap className="w-3 h-3" />
+                        )}
+                        <span>{badgeLabel}</span>
+                      </span>
+                      <h2 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] mb-1 leading-snug">
+                        {displayHeading}
+                      </h2>
+                      <p className="text-xs font-medium text-[#710912]">
+                        {displaySub}
+                      </p>
+
+                      {f.bioQuote && (
+                        <blockquote className="mt-4 p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8] text-xs text-[#544942] italic font-light">
+                          &ldquo;{f.bioQuote}&rdquo;
+                        </blockquote>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="px-6 sm:px-8 py-4 bg-[#FAF7F2] border-t border-[#E2D9C8] flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <div className="px-6 py-4 bg-[#FAF7F2] border-t border-[#E2D9C8] flex flex-wrap items-center justify-between gap-3 text-xs">
                     <Link
                       href={`/dosen/${facultySlug}`}
                       className="inline-flex items-center gap-1 font-semibold text-[#710912] hover:text-[#48060B] transition-colors"
@@ -317,11 +307,14 @@ function DosenListingInner({
           <div className="p-10 rounded-2xl bg-white border border-dashed border-[#E2D9C8] text-center max-w-xl mx-auto">
             <UserCheck className="w-10 h-10 text-[#710912] mx-auto mb-3 opacity-60" />
             <h3 className="font-serif text-lg font-bold text-[#0D0D0D] mb-2">
-              Data Tidak Ditemukan
+              {activeCategory === "staf" && !searchQuery.trim()
+                ? "Belum Ada Data Staf Hukum"
+                : "Data Tidak Ditemukan"}
             </h3>
             <p className="text-xs sm:text-sm text-[#544942] font-light mb-6">
-              Tidak ada data dosen atau staf yang cocok dengan kata kunci atau
-              filter yang Anda pilih.
+              {activeCategory === "staf" && !searchQuery.trim()
+                ? "Data staf dan tenaga kependidikan Fakultas Hukum sedang dalam proses pembaruan."
+                : "Tidak ada data dosen atau staf yang cocok dengan kata kunci atau filter yang Anda pilih."}
             </p>
             <button
               type="button"

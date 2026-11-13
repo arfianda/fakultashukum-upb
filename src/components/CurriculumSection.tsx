@@ -59,27 +59,39 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
 
   const degrees = [
     {
-      program: "Sarjana Hukum (S.H.) - Kelas Reguler",
-      badge: "Program Sarjana Reguler",
+      program: "Sarjana Hukum (S.H.) - Reguler Pagi (Kelas Pagi)",
+      badge: "Program Reguler Pagi",
       period: "8 Semester (144 SKS)",
-      desc: "Perkuliahan komprehensif bagi lulusan SMA/SMK/MA sederajat dengan perkuliahan tatap muka penuh, praktikum peradilan semu intensif, dan pembinaan kepemimpinan hukum.",
+      desc: "Perkuliahan tatap muka penuh di pagi hari bagi lulusan SMA/SMK/MA sederajat dengan praktikum peradilan semu intensif dan pembinaan kemahiran hukum.",
       features: [
-        "Jadwal Perkuliahan Hari Kerja (Senin - Jumat)",
+        "Jadwal Perkuliahan Pagi Hari (Senin - Jumat)",
         "Praktik Peradilan Semu Wajib (Laboratorium Moot Court)",
         "Magang Terstruktur di Pengadilan & Kantor Advokat Mitra",
         "Lulusan berhak menyandang gelar Sarjana Hukum (S.H.)",
       ],
     },
     {
-      program: "Sarjana Hukum (S.H.) - Kelas Karyawan",
-      badge: "Program Sarjana Paralel",
+      program: "Sarjana Hukum (S.H.) - Reguler Malam",
+      badge: "Program Reguler Malam",
       period: "8 Semester (144 SKS)",
-      desc: "Dirancang fleksibel bagi para profesional, karyawan industri, dan aparatur yang hendak meraih gelar Sarjana Hukum tanpa meninggalkan rutinitas pekerjaan harian.",
+      desc: "Perkuliahan tatap muka malam hari bagi mahasiswa yang bekerja di siang hari, dirancang agar studi hukum berjalan selaras dengan aktivitas kerja.",
       features: [
-        "Jadwal Perkuliahan Fleksibel (Malam & Akhir Pekan Hybrid)",
-        "Kurikulum, Bobot 144 SKS & Akreditasi Setara Penuh Kelas Reguler",
-        "Diajar oleh Dosen Praktisi Hukum dan Akademisi Senior",
-        "Akses Penuh Laboratorium Sidang Semu & Klinik Hukum",
+        "Jadwal Perkuliahan Malam Hari (Senin - Jumat, mulai 18.30 WIB)",
+        "Kurikulum 144 SKS & Akreditasi Setara Penuh Kelas Pagi",
+        "Dosen Pengajar: Akademisi Senior & Praktisi Hukum Berpengalaman",
+        "Akses Penuh Laboratorium Sidang Semu & Klinik Bantuan Hukum",
+      ],
+    },
+    {
+      program: "Sarjana Hukum (S.H.) - Reguler Weekend",
+      badge: "Program Reguler Weekend",
+      period: "8 Semester (144 SKS)",
+      desc: "Perkuliahan fleksibel akhir pekan bagi karyawan industri, profesional, dan wirausahawan tanpa mengganggu hari kerja.",
+      features: [
+        "Jadwal Perkuliahan Jumat, Sabtu, dan Minggu",
+        "Pembahasan Studi Kasus Hukum Industri & Hubungan Kerja",
+        "Jejaring Rekan Profesional dari Berbagai Perusahaan Nasional/Multinasional",
+        "Lulusan berhak menyandang gelar Sarjana Hukum (S.H.)",
       ],
     },
     {

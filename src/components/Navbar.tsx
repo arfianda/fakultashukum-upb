@@ -234,7 +234,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   > = {
     study: {
       featured: {
-        image: "/images/hero-library.jpg",
+        image: "/images/navbar-program-studi.jpg",
         title: "Bidang Peminatan Hukum",
         desc: "Temukan peminatan keahlian doktrin dan kemahiran litigasi ruang sidang.",
         linkText: "LIHAT PROGRAM STUDI",
@@ -270,7 +270,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     },
     admissions: {
       featured: {
-        image: "/images/moot-court.jpg",
+        image: "/images/navbar-penerimaan.jpg",
         title: "Penerimaan & Bantuan Biaya",
         desc: "Investasi pendidikan hukum berintegritas tanpa pungutan liar.",
         linkText: "DAFTAR SEKARANG",
@@ -280,8 +280,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         {
           heading: "JALUR PENERIMAAN",
           links: [
-            { label: "Sarjana Hukum (S.H.) Reguler", href: "/penerimaan/reguler" },
-            { label: "Sarjana Hukum Kelas Karyawan", href: "/penerimaan/kelas-karyawan" },
+            { label: "Reguler Pagi (Kelas Pagi)", href: "/penerimaan/reguler-pagi" },
+            { label: "Reguler Malam", href: "/penerimaan/reguler-malam" },
+            { label: "Reguler Weekend (Jumat, Sabtu, Minggu)", href: "/penerimaan/reguler-weekend" },
             { label: "Persyaratan & Jadwal Gelombang", href: "/penerimaan/jadwal" },
           ],
         },
@@ -323,7 +324,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     },
     studentlife: {
       featured: {
-        image: "/images/feature-tour.jpg",
+        image: "/images/navbar-kehidupan-mahasiswa.jpg",
         title: "Kehidupan Mahasiswa",
         desc: "Kembangkan kepemimpinan, kemahiran debat hukum, dan advokasi sosial.",
         linkText: "JELAJAHI KEGIATAN",
