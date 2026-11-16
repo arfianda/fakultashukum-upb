@@ -98,17 +98,24 @@ model Event {
   updatedAt   DateTime    @updatedAt
 }
 
+enum FacultyCategory {
+  STRUKTURAL
+  DOSEN
+  STAF
+}
+
 model Faculty {
-  id             Int      @id @default(autoincrement())
+  id             Int             @id @default(autoincrement())
   name           String
   titles         String
-  nip            String   @unique
+  nip            String          @unique
   specialization String
-  bioQuote       String   @db.Text
+  bioQuote       String          @db.Text
   profileImage   String?
   researchLink   String?
-  displayOrder   Int      @default(0)
-  isActive       Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  category       FacultyCategory @default(DOSEN)
+  displayOrder   Int             @default(0)
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 }

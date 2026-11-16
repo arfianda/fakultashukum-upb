@@ -96,13 +96,25 @@ export async function getActiveFaculty(): Promise<FacultyItem[]> {
 
     if (faculty && faculty.length > 0) {
       return faculty.map((f) => {
-        const lowerTitle = f.titles.toLowerCase();
-        const isStaf =
-          lowerTitle.includes("staf") ||
-          lowerTitle.includes("staff") ||
-          lowerTitle.includes("sekretariat") ||
-          lowerTitle.includes("administrasi") ||
-          lowerTitle.includes("tenaga kependidikan");
+        let category: "struktural" | "dosen" | "staf" = "dosen";
+        if (f.category === "STRUKTURAL") {
+          category = "struktural";
+        } else if (f.category === "STAF") {
+          category = "staf";
+        } else if (f.category === "DOSEN") {
+          const lowerTitle = f.titles.toLowerCase();
+          if (
+            lowerTitle.includes("staf") ||
+            lowerTitle.includes("staff") ||
+            lowerTitle.includes("sekretariat") ||
+            lowerTitle.includes("administrasi") ||
+            lowerTitle.includes("tenaga kependidikan")
+          ) {
+            category = "staf";
+          } else {
+            category = "dosen";
+          }
+        }
 
         return {
           id: f.id,
@@ -115,7 +127,7 @@ export async function getActiveFaculty(): Promise<FacultyItem[]> {
           researchLink: f.researchLink || undefined,
           displayOrder: f.displayOrder,
           isActive: f.isActive,
-          category: isStaf ? ("staf" as const) : ("dosen" as const),
+          category,
         };
       });
     }
@@ -220,16 +232,23 @@ export async function getFacultyBySlug(slug: string): Promise<(FacultyItem & { s
   const allFaculty = await getFacultyData();
   const normalizedQuery = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-  const found = allFaculty.find((f) => {
+  const exactMatch = allFaculty.find((f) => {
     const label = f.name && f.name.trim().length > 0 ? f.name : f.titles;
     const fullSlug = createFacultySlug(f.name, f.titles);
     const normalizedName = label.toLowerCase().replace(/[^a-z0-9]/g, "");
-    return (
-      fullSlug === slug ||
-      normalizedName.includes(normalizedQuery) ||
-      normalizedQuery.includes(normalizedName)
-    );
+    return fullSlug === slug || normalizedName === normalizedQuery;
   });
+
+  const found =
+    exactMatch ||
+    allFaculty.find((f) => {
+      const label = f.name && f.name.trim().length > 0 ? f.name : f.titles;
+      const normalizedName = label.toLowerCase().replace(/[^a-z0-9]/g, "");
+      return (
+        normalizedName.includes(normalizedQuery) ||
+        normalizedQuery.includes(normalizedName)
+      );
+    });
 
   if (!found) return null;
 

@@ -43,7 +43,7 @@ export function FacultyDirectory({ facultyList }: { facultyList: FacultyItem[] }
             >
               <div>
                 {/* Formal Faculty Portrait */}
-                <div className="relative w-full aspect-[3/4] bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden mb-5">
+                <div className="relative w-full aspect-[4/5] bg-[#FAF7F2] border border-[#E2D9C8] overflow-hidden mb-5">
                   <Image
                     src={f.profileImage}
                     alt={displayHeading}

@@ -12,7 +12,7 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
       id: "tour",
       title: "Tur Kampus & Fasilitas",
       desc: "Jelajahi ruang sidang peradilan semu (Moot Court) modern berstandar Mahkamah Agung, perpustakaan riset hukum terlengkap, dan ruang mediasi sengketa.",
-      image: "/images/feature-tour.jpg",
+      image: "/images/feature-tour-mootcourt.jpg",
       actionText: "IKUTI TUR KAMPUS",
       onClick: () => setModalType("tour"),
     },
@@ -20,7 +20,7 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
       id: "faculty",
       title: "Tenaga Pengajar",
       desc: "Belajar langsung dari para Hakim Agung, Dewan Guru Besar, dan praktisi advokat terkemuka yang aktif membentuk yurisprudensi dan arah kebijakan hukum nasional.",
-      image: "/images/feature-faculty.jpg",
+      image: "/images/feature-faculty-team.jpg",
       actionText: "DIREKTORI DOSEN",
       href: "#fakultas",
     },
@@ -28,7 +28,7 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
       id: "centers",
       title: "Pusat Studi & Klinik Hukum",
       desc: "Wadah advokasi pro-bono bagi masyarakat pencari keadilan serta pusat riset regulasi bisnis kawasan industri di bawah supervisi advokat terakreditasi.",
-      image: "/images/feature-centers.jpg",
+      image: "/images/feature-centers-legal.jpg",
       actionText: "PELAJARI PROGRAM",
       onClick: () => setModalType("centers"),
     },
@@ -119,7 +119,7 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
                   Tur Kampus &amp; Fasilitas Hukum
                 </h3>
                 <div className="relative aspect-[16/9] w-full mb-4 border border-[#E2D9C8]">
-                  <Image src="/images/feature-tour.jpg" alt="Fasilitas Kampus" fill className="object-cover" />
+                  <Image src="/images/feature-tour-mootcourt.jpg" alt="Fasilitas Kampus" fill className="object-cover" />
                 </div>
                 <p className="text-xs sm:text-sm text-[#544942] leading-relaxed mb-4 font-light">
                   Fakultas Hukum Universitas Pelita Bangsa berlokasi strategis di Jl. Inspeksi Kalimalang, Cikarang Pusat, terintegrasi dengan pusat denyut ekonomi dan koridor industri terbesar di Asia Tenggara. Fasilitas mencakup:
@@ -148,7 +148,7 @@ export function UpbThreeFeatures({ onOpenAdmission }: { onOpenAdmission?: () => 
                   Pusat Studi &amp; Klinik Bantuan Hukum
                 </h3>
                 <div className="relative aspect-[16/9] w-full mb-4 border border-[#E2D9C8]">
-                  <Image src="/images/feature-centers.jpg" alt="Pusat Studi" fill className="object-cover" />
+                  <Image src="/images/feature-centers-legal.jpg" alt="Pusat Studi" fill className="object-cover" />
                 </div>
                 <p className="text-xs sm:text-sm text-[#544942] leading-relaxed mb-4 font-light">
                   Pusat Studi Hukum UPB mewadahi riset strategis dan pelayanan pro-bono masyarakat:

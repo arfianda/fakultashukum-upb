@@ -27,6 +27,12 @@ interface AdminHeaderProps {
   onOpenSearch: () => void;
   onOpenMobileMenu: () => void;
   onNavigateToView?: (view: "overview" | "articles" | "agenda" | "faculty" | "klbh") => void;
+  currentUser?: {
+    name: string;
+    email: string;
+    role: string;
+    roleLabel?: string;
+  };
 }
 
 interface NotificationItem {
@@ -43,6 +49,7 @@ export function AdminHeader({
   onOpenSearch,
   onOpenMobileMenu,
   onNavigateToView,
+  currentUser,
 }: AdminHeaderProps) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -53,11 +60,24 @@ export function AdminHeader({
   const notifRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const userName = session?.user?.name || "Superadmin";
-  const userHandle = `@${(session?.user?.name || "superadmin")
-    .toLowerCase()
-    .replace(/\s+/g, ".")}`;
-  const userRole = (session?.user as { role?: string })?.role;
+  const userRole =
+    currentUser?.role || (session?.user as { role?: string })?.role || "MAHASISWA";
+  const roleShortNameMap: Record<string, string> = {
+    SUPER_ADMIN: "Superadmin",
+    ADMIN: "Admin Fakultas",
+    KEPALA_LAB: "Kepala Lab",
+    DEKAN: "Pimpinan Dekanat",
+    WADEK: "Wakil Dekan",
+    DOSEN: "Dosen FH UPB",
+    STAFF: "Staf Fakultas",
+    MAHASISWA: "Mahasiswa FH UPB",
+  };
+  const userName =
+    currentUser?.name || session?.user?.name || roleShortNameMap[userRole] || "Pengguna";
+  const rawEmailPrefix = (currentUser?.email || session?.user?.email || "").split("@")[0];
+  const userHandle = rawEmailPrefix
+    ? `@${rawEmailPrefix.toLowerCase()}`
+    : `@${userRole.toLowerCase()}`;
   const roleSubtitleMap: Record<string, string> = {
     SUPER_ADMIN: "Hak Akses Penuh Sistem",
     ADMIN: "Administrator Portal & CMS",
@@ -431,14 +451,16 @@ export function AdminHeader({
                   <p className="text-[11px] text-[#73655D]">{roleSubtitle}</p>
                 </div>
 
-                <Link
-                  href="/admin/users"
-                  onClick={() => setShowProfileMenu(false)}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#710912] transition-colors"
-                >
-                  <User className="w-3.5 h-3.5" />
-                  <span>Manajemen Pengguna</span>
-                </Link>
+                {(userRole === "SUPER_ADMIN" || userRole === "ADMIN") && (
+                  <Link
+                    href="/admin/users"
+                    onClick={() => setShowProfileMenu(false)}
+                    className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-[#544942] hover:bg-[#FAF7F2] hover:text-[#710912] transition-colors"
+                  >
+                    <User className="w-3.5 h-3.5" />
+                    <span>Manajemen Pengguna</span>
+                  </Link>
+                )}
 
                 <Link
                   href="/"

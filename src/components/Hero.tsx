@@ -44,7 +44,6 @@ export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           muted
           playsInline
           preload="auto"
-          poster="/images/hero-library.jpg"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           className="w-full h-full object-cover object-center scale-105"

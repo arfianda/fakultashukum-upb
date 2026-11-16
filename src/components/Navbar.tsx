@@ -18,6 +18,7 @@ import {
   BookOpen,
   Briefcase,
   Building2,
+  Landmark,
   Newspaper,
   Calendar,
   Info,
@@ -45,6 +46,12 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
   const closeTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleOpenAudience = (tab: AudienceType) => {
+    if (tab === "mahasiswa" || tab === "dosen" || tab === "staf") {
+      handleCloseMenuImmediate();
+      setMobileMenuOpen(false);
+      router.push("/login");
+      return;
+    }
     setAudienceTab(tab);
     setAudienceModalOpen(true);
     handleCloseMenuImmediate();
@@ -316,8 +323,9 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
         {
           heading: "DIREKTORI FAKULTAS HUKUM",
           links: [
+            { label: "Struktural Hukum", href: "/dosen?kategori=struktural" },
             { label: "Dosen Fakultas Hukum", href: "/dosen?kategori=dosen" },
-            { label: "Staf Fakultas Hukum", href: "/dosen?kategori=staf" },
+            { label: "Staf & Admin Fakultas", href: "/dosen?kategori=staf" },
           ],
         },
       ],
@@ -504,6 +512,27 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
 
                             <div className="space-y-1">
                               <Link
+                                href="/dosen?kategori=struktural"
+                                onClick={handleCloseMenuImmediate}
+                                className="w-full text-left p-3 rounded-xl hover:bg-[#FAF7F2] border border-transparent hover:border-[#E2D9C8] group transition-all flex items-start gap-3 cursor-pointer"
+                              >
+                                <div className="w-9 h-9 rounded-xl bg-[#710912]/10 text-[#710912] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#710912] group-hover:text-white transition-colors">
+                                  <Landmark className="w-4 h-4" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[13px] font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
+                                      Struktural Hukum
+                                    </span>
+                                    <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                  </div>
+                                  <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
+                                    Pimpinan Fakultas, Dekanat, dan Ketua Program Studi Ilmu Hukum.
+                                  </p>
+                                </div>
+                              </Link>
+
+                              <Link
                                 href="/dosen?kategori=dosen"
                                 onClick={handleCloseMenuImmediate}
                                 className="w-full text-left p-3 rounded-xl hover:bg-[#FAF7F2] border border-transparent hover:border-[#E2D9C8] group transition-all flex items-start gap-3 cursor-pointer"
@@ -519,7 +548,7 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                                     <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                                   </div>
                                   <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
-                                    Dewan Guru Besar, dosen tetap, dan pengajar akademik Ilmu Hukum
+                                    Dewan Guru Besar, dosen tetap, dan pengajar akademik Ilmu Hukum.
                                   </p>
                                 </div>
                               </Link>
@@ -535,12 +564,12 @@ export function Navbar({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center justify-between">
                                     <span className="text-[13px] font-bold text-[#0D0D0D] group-hover:text-[#710912] transition-colors">
-                                      Staf Fakultas Hukum
+                                      Staf &amp; Admin Fakultas
                                     </span>
                                     <ChevronRight className="w-3.5 h-3.5 text-[#544942] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                                   </div>
                                   <p className="text-[11px] text-[#544942] mt-0.5 leading-snug">
-                                    Sekretariat dekanat, administrasi akademik, dan tenaga kependidikan
+                                    Sekretariat dekanat, admin fakultas, dan tenaga kependidikan.
                                   </p>
                                 </div>
                               </Link>

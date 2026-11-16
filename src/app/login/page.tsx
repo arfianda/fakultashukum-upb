@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,7 @@ import {
   GraduationCap,
   BookOpen,
   Building2,
+  Landmark,
   AlertCircle,
   HelpCircle,
   ExternalLink,
@@ -24,8 +25,42 @@ import {
 
 type DetectedRole = "mahasiswa" | "dosen" | "admin" | "superadmin" | "unknown";
 
+const ROLE_SHORTCUTS = [
+  {
+    key: "mahasiswa",
+    label: "Mahasiswa",
+    identifier: "mahasiswa@pelitabangsa.ac.id",
+    icon: GraduationCap,
+  },
+  {
+    key: "dosen",
+    label: "Dosen",
+    identifier: "dosen@pelitabangsa.ac.id",
+    icon: BookOpen,
+  },
+  {
+    key: "staf",
+    label: "Staf",
+    identifier: "staff@pelitabangsa.ac.id",
+    icon: Building2,
+  },
+  {
+    key: "pimpinan",
+    label: "Pimpinan",
+    identifier: "dekan@pelitabangsa.ac.id",
+    icon: Landmark,
+  },
+  {
+    key: "administrator",
+    label: "Administrator",
+    identifier: "superadmin@pelitabangsa.ac.id",
+    icon: ShieldCheck,
+  },
+] as const;
+
 export default function UniversalLoginPage() {
   const router = useRouter();
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -189,12 +224,52 @@ export default function UniversalLoginPage() {
             </div>
           </div>
 
-          <div className="mb-8">
+          <div className="mb-6">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#0D0D0D] tracking-tight mb-2">
               Pintu Masuk Terpadu
             </h2>
             <p className="text-xs sm:text-sm text-[#544942] leading-relaxed">
               Autentikasi resmi untuk <strong>Mahasiswa</strong>, <strong>Dosen</strong>, <strong>Staf</strong>, <strong>Pimpinan</strong>, dan <strong>Administrator</strong> Fakultas Hukum UPB.
+            </p>
+          </div>
+
+          {/* Temporary Role Shortcut Buttons */}
+          <div className="mb-6 p-3.5 rounded-2xl bg-white border border-[#E2D9C8] shadow-xs">
+            <span className="block text-[10px] font-bold uppercase tracking-widest text-[#73655D] mb-2.5">
+              Pintasan Peran Sementara
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {ROLE_SHORTCUTS.map((shortcut) => {
+                const Icon = shortcut.icon;
+                const isSelected = identifier.trim().toLowerCase() === shortcut.identifier;
+                return (
+                  <button
+                    key={shortcut.key}
+                    type="button"
+                    onClick={() => {
+                      setIdentifier(shortcut.identifier);
+                      setErrorMessage("");
+                      if (shortcut.key === "administrator") {
+                        setPassword("");
+                        passwordInputRef.current?.focus();
+                      } else {
+                        setPassword("FhUpb@2026");
+                      }
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-[#710912] text-white border-[#710912] shadow-xs"
+                        : "bg-[#FAF7F2] text-[#544942] border-[#E2D9C8] hover:border-[#710912]/40 hover:text-[#710912]"
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{shortcut.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-[11px] text-[#73655D]">
+              Klik peran <strong>Mahasiswa / Dosen / Staf / Pimpinan</strong> untuk mengisi email &amp; sandi sementara (<code>FhUpb@2026</code>), lalu tekan <strong>Masuk ke Sistem Terpadu</strong>.
             </p>
           </div>
 
@@ -290,6 +365,7 @@ export default function UniversalLoginPage() {
 
               <div className="relative">
                 <input
+                  ref={passwordInputRef}
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}

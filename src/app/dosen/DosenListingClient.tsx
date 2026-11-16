@@ -12,6 +12,7 @@ import {
   UserCheck,
   GraduationCap,
   Building2,
+  Landmark,
   Users,
 } from "lucide-react";
 import { FacultyItem } from "@/data/initialData";
@@ -26,7 +27,7 @@ interface DosenListingClientProps {
   fieldFilter?: string;
 }
 
-type CategoryTab = "all" | "dosen" | "staf";
+type CategoryTab = "all" | "struktural" | "dosen" | "staf";
 
 function DosenListingInner({
   initialFaculty,
@@ -52,19 +53,30 @@ function DosenListingInner({
   // Derive active category: manual click overrides URL param, URL param defaults to "all"
   const activeCategory: CategoryTab = useMemo(() => {
     if (manualCategory) return manualCategory;
+    if (urlKategori === "struktural") return "struktural";
     if (urlKategori === "dosen") return "dosen";
-    if (urlKategori === "staf" || urlKategori === "staff") return "staf";
+    if (urlKategori === "staf" || urlKategori === "staff" || urlKategori === "admin") {
+      return "staf";
+    }
     return "all";
   }, [manualCategory, urlKategori]);
 
-  const getItemCategory = (f: FacultyItem): "dosen" | "staf" => {
+  const getItemCategory = (f: FacultyItem): "struktural" | "dosen" | "staf" => {
     if (f.category) return f.category;
     const lowerTitle = f.titles.toLowerCase();
+    if (
+      lowerTitle.includes("dekan") ||
+      lowerTitle.includes("kaprodi") ||
+      lowerTitle.includes("ketua program studi")
+    ) {
+      return "struktural";
+    }
     if (
       lowerTitle.includes("staf") ||
       lowerTitle.includes("staff") ||
       lowerTitle.includes("sekretariat") ||
-      lowerTitle.includes("administrasi")
+      lowerTitle.includes("administrasi") ||
+      lowerTitle.includes("tenaga kependidikan")
     ) {
       return "staf";
     }
@@ -72,24 +84,24 @@ function DosenListingInner({
   };
 
   const counts = useMemo(() => {
+    let struktural = 0;
     let dosen = 0;
     let staf = 0;
     for (const f of initialFaculty) {
-      if (getItemCategory(f) === "staf") staf++;
+      const cat = getItemCategory(f);
+      if (cat === "struktural") struktural++;
+      else if (cat === "staf") staf++;
       else dosen++;
     }
-    return { all: initialFaculty.length, dosen, staf };
+    return { all: initialFaculty.length, struktural, dosen, staf };
   }, [initialFaculty]);
 
   const filteredFaculty = useMemo(() => {
     return initialFaculty.filter((f) => {
       const itemCat = getItemCategory(f);
 
-      // 1. Filter by Dosen / Staf category
-      if (activeCategory === "dosen" && itemCat !== "dosen") {
-        return false;
-      }
-      if (activeCategory === "staf" && itemCat !== "staf") {
+      // 1. Filter by Struktural / Dosen / Staf category
+      if (activeCategory !== "all" && itemCat !== activeCategory) {
         return false;
       }
 
@@ -125,12 +137,48 @@ function DosenListingInner({
     });
   }, [initialFaculty, activeCategory, fieldFilter, searchQuery]);
 
+  const headerMeta = useMemo(() => {
+    if (fieldFilter) {
+      return { kicker, title, description };
+    }
+    switch (activeCategory) {
+      case "struktural":
+        return {
+          kicker: "STRUKTURAL FAKULTAS",
+          title: "Struktural Hukum",
+          description:
+            "Pimpinan Fakultas, Dekanat, dan Ketua Program Studi Ilmu Hukum Universitas Pelita Bangsa.",
+        };
+      case "dosen":
+        return {
+          kicker: "TENAGA PENGAJAR",
+          title: "Dosen Fakultas Hukum",
+          description:
+            "Dewan Guru Besar, dosen tetap, dan pengajar akademik Ilmu Hukum Universitas Pelita Bangsa.",
+        };
+      case "staf":
+        return {
+          kicker: "TENAGA KEPENDIDIKAN",
+          title: "Staf & Admin Fakultas",
+          description:
+            "Sekretariat dekanat, admin fakultas, tata usaha, dan tenaga kependidikan Fakultas Hukum.",
+        };
+      default:
+        return {
+          kicker,
+          title: "Direktori Sivitas Fakultas Hukum",
+          description:
+            "Pimpinan struktural, dosen tetap, serta staf administrasi dan tenaga kependidikan Fakultas Hukum Universitas Pelita Bangsa.",
+        };
+    }
+  }, [activeCategory, fieldFilter, kicker, title, description]);
+
   return (
     <div>
       <PageHeader
-        kicker={kicker}
-        title={title}
-        description={description}
+        kicker={headerMeta.kicker}
+        title={headerMeta.title}
+        description={headerMeta.description}
         breadcrumbs={[
           { label: "Tenaga Pengajar", href: fieldFilter ? "/dosen" : undefined },
           ...(fieldFilter ? [{ label: title }] : []),
@@ -177,6 +225,21 @@ function DosenListingInner({
               <button
                 type="button"
                 role="tab"
+                aria-selected={activeCategory === "struktural"}
+                onClick={() => setManualCategory("struktural")}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  activeCategory === "struktural"
+                    ? "bg-[#710912] text-white shadow-xs"
+                    : "text-[#544942] hover:text-[#710912] hover:bg-white"
+                }`}
+              >
+                <Landmark className="w-3.5 h-3.5" />
+                <span>Struktural Hukum ({counts.struktural})</span>
+              </button>
+
+              <button
+                type="button"
+                role="tab"
                 aria-selected={activeCategory === "dosen"}
                 onClick={() => setManualCategory("dosen")}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${
@@ -201,7 +264,7 @@ function DosenListingInner({
                 }`}
               >
                 <Building2 className="w-3.5 h-3.5" />
-                <span>Staf Hukum ({counts.staf})</span>
+                <span>Staf &amp; Admin ({counts.staf})</span>
               </button>
             </div>
           </div>
@@ -218,16 +281,14 @@ function DosenListingInner({
               const displaySub = hasName
                 ? f.titles
                 : "Fakultas Hukum Universitas Pelita Bangsa";
-              const isLeadership =
-                f.titles.includes("Dekan") ||
-                f.titles.includes("Ketua Program Studi");
-              const badgeLabel = isLeadership
-                ? "JAJARAN PIMPINAN FAKULTAS"
-                : f.titles.includes("Guru Besar")
-                ? "DEWAN GURU BESAR"
-                : itemCat === "staf"
-                ? "STAF & TENAGA KEPENDIDIKAN"
-                : "DOSEN FAKULTAS HUKUM";
+              const badgeLabel =
+                itemCat === "struktural"
+                  ? "STRUKTURAL FAKULTAS"
+                  : f.titles.includes("Guru Besar")
+                  ? "DEWAN GURU BESAR"
+                  : itemCat === "staf"
+                  ? "STAF & ADMIN FAKULTAS"
+                  : "DOSEN FAKULTAS HUKUM";
 
               return (
                 <motion.article
@@ -244,9 +305,9 @@ function DosenListingInner({
                   className="bg-white border border-[#E2D9C8] rounded-2xl overflow-hidden shadow-xs hover:border-[#710912]/40 hover:shadow-[0_12px_28px_rgba(113,9,18,0.07)] transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    <div className="relative w-full aspect-[3/4] bg-[#FAF7F2] border-b border-[#E2D9C8] overflow-hidden">
+                    <div className="relative w-full aspect-[4/5] bg-[#FAF7F2] border-b border-[#E2D9C8] overflow-hidden">
                       <Image
-                        src={f.profileImage || "/images/jajaran/dekan.jpg"}
+                        src={f.profileImage || "/images/jajaran/dekan-fh.jpg"}
                         alt={displayHeading}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"

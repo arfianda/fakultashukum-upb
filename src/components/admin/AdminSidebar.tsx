@@ -45,41 +45,63 @@ export function AdminSidebar({
   const router = useRouter();
   const isRootAdmin = pathname === "/admin";
 
+  const allRoles = [
+    "SUPER_ADMIN",
+    "ADMIN",
+    "DEKAN",
+    "WADEK",
+    "DOSEN",
+    "STAFF",
+    "MAHASISWA",
+    "KEPALA_LAB",
+  ];
+
+  const roleBrandSubtitle: Record<string, string> = {
+    SUPER_ADMIN: "Pusat Kelola Fakultas",
+    ADMIN: "Pusat Kelola Fakultas",
+    DEKAN: "Portal Pimpinan Dekanat",
+    WADEK: "Portal Pimpinan Dekanat",
+    DOSEN: "Portal Dewan Dosen",
+    STAFF: "Portal Staf & Admin",
+    MAHASISWA: "Portal Sivitas Mahasiswa",
+    KEPALA_LAB: "Portal Laboratorium Hukum",
+  };
+
   const allNavItems = [
     {
       id: "overview" as AdminViewType,
       label: "Dashboard",
       icon: LayoutDashboard,
       badge: null,
-      roles: ["SUPER_ADMIN", "ADMIN"],
+      roles: allRoles,
     },
     {
       id: "articles" as AdminViewType,
       label: "Artikel & Berita",
       icon: FileText,
       badge: postCount > 0 ? postCount : null,
-      roles: ["SUPER_ADMIN", "ADMIN"],
+      roles: allRoles,
     },
     {
       id: "agenda" as AdminViewType,
       label: "Agenda & Jadwal",
       icon: CalendarDays,
       badge: eventCount > 0 ? eventCount : null,
-      roles: ["SUPER_ADMIN", "ADMIN"],
+      roles: allRoles,
     },
     {
       id: "faculty" as AdminViewType,
       label: "Dewan Dosen",
       icon: Users,
       badge: facultyCount > 0 ? facultyCount : null,
-      roles: ["SUPER_ADMIN", "ADMIN"],
+      roles: allRoles,
     },
     {
       id: "klbh" as AdminViewType,
       label: "Konsultasi KLBH",
       icon: Scale,
       badge: "3",
-      roles: ["SUPER_ADMIN", "ADMIN"],
+      roles: allRoles,
     },
   ];
 
@@ -140,7 +162,9 @@ export function AdminSidebar({
                       FH UPB
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#73655D]">Pusat Kelola Fakultas</p>
+                  <p className="text-[11px] text-[#73655D]">
+                    {roleBrandSubtitle[userRole] || "Pusat Kelola Fakultas"}
+                  </p>
                 </div>
               </Link>
             </div>
@@ -195,35 +219,39 @@ export function AdminSidebar({
                 );
               })}
 
-              <div className="px-3 pt-4 pb-1 text-[11px] font-semibold tracking-wider text-[#9C8F85] uppercase">
-                Keamanan &amp; Akun
-              </div>
-              {routeLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive = pathname.startsWith(link.href);
+              {routeLinks.length > 0 && (
+                <>
+                  <div className="px-3 pt-4 pb-1 text-[11px] font-semibold tracking-wider text-[#9C8F85] uppercase">
+                    Keamanan &amp; Akun
+                  </div>
+                  {routeLinks.map((link) => {
+                    const Icon = link.icon;
+                    const isActive = pathname.startsWith(link.href);
 
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 ${
-                      isActive
-                        ? "bg-[#710912] text-white shadow-sm shadow-[#710912]/20"
-                        : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? "text-[#EFE5D2]" : "text-[#73655D]"
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs font-semibold transition-all duration-200 ${
+                          isActive
+                            ? "bg-[#710912] text-white shadow-sm shadow-[#710912]/20"
+                            : "text-[#544942] hover:bg-[#FAF7F2] hover:text-[#0D0D0D]"
                         }`}
-                      />
-                      <span>{link.label}</span>
-                    </div>
-                  </Link>
-                );
-              })}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Icon
+                            className={`w-4 h-4 transition-colors ${
+                              isActive ? "text-[#EFE5D2]" : "text-[#73655D]"
+                            }`}
+                          />
+                          <span>{link.label}</span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </>
+              )}
             </nav>
           </div>
 

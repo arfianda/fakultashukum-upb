@@ -110,23 +110,9 @@ export function hasPermission(role: RoleType, permission: Permission): boolean {
 }
 
 export function getRoleHomePath(role: RoleType): string {
-  switch (role) {
-    case "SUPER_ADMIN":
-    case "ADMIN":
-      return "/admin";
-    case "KEPALA_LAB":
-      return "/dashboard/lab";
-    case "DEKAN":
-    case "WADEK":
-      return "/dashboard/pimpinan";
-    case "DOSEN":
-      return "/dashboard/dosen";
-    case "STAFF":
-      return "/dashboard/staff";
-    case "MAHASISWA":
-    default:
-      return "/dashboard/mahasiswa";
-  }
+  // Sementara: semua role diarahkan ke dashboard Lintas Hukum sebelum pemisahan role
+  void role;
+  return "/admin";
 }
 
 /**

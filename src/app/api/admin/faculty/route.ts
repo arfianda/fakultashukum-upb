@@ -12,6 +12,7 @@ const createFacultySchema = z.object({
   bioQuote: z.string().trim().optional().default(""),
   profileImage: z.string().trim().optional(),
   researchLink: z.string().trim().optional().nullable(),
+  category: z.enum(["STRUKTURAL", "DOSEN", "STAF"]).optional().default("DOSEN"),
   displayOrder: z.union([z.number(), z.string()]).optional().default(0),
 });
 
@@ -65,6 +66,7 @@ export async function POST(request: Request) {
       bioQuote,
       profileImage,
       researchLink,
+      category,
       displayOrder,
     } = parsed.data;
 
@@ -77,6 +79,7 @@ export async function POST(request: Request) {
         bioQuote,
         profileImage: profileImage || "/images/jajaran/dekan.jpg",
         researchLink: researchLink || null,
+        category,
         displayOrder:
           typeof displayOrder === "number"
             ? displayOrder

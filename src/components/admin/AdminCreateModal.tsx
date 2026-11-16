@@ -51,6 +51,7 @@ export function AdminCreateModal({
   const [facultyNip, setFacultyNip] = useState("");
   const [facultySpec, setFacultySpec] = useState("");
   const [facultyQuote, setFacultyQuote] = useState("");
+  const [facultyCategory, setFacultyCategory] = useState<"STRUKTURAL" | "DOSEN" | "STAF">("DOSEN");
 
   if (!isOpen) return null;
 
@@ -162,10 +163,17 @@ export function AdminCreateModal({
           nip: facultyNip,
           specialization: facultySpec,
           bioQuote: facultyQuote,
+          category: facultyCategory,
         }),
       });
       const result = await res.json();
       if (result.success) {
+        const mappedCategory =
+          facultyCategory === "STRUKTURAL"
+            ? "struktural"
+            : facultyCategory === "STAF"
+            ? "staf"
+            : "dosen";
         const newFaculty: FacultyItem = {
           id: result.data.id || Date.now(),
           name: facultyName,
@@ -176,14 +184,16 @@ export function AdminCreateModal({
           profileImage: "/images/prof-hendra.jpg",
           displayOrder: 99,
           isActive: true,
+          category: mappedCategory,
         };
         onFacultyCreated(newFaculty);
-        showToast("Profil dosen / guru besar baru berhasil didaftarkan.");
+        showToast("Data SDM / tenaga pengajar baru berhasil didaftarkan.");
         setFacultyName("");
         setFacultyTitles("");
         setFacultyNip("");
         setFacultySpec("");
         setFacultyQuote("");
+        setFacultyCategory("DOSEN");
         onClose();
       } else {
         showToast(result.error || "Gagal mendaftarkan dosen.");
@@ -442,6 +452,25 @@ export function AdminCreateModal({
         {/* Form 3: Faculty */}
         {activeTab === "faculty" && (
           <form onSubmit={handleSubmitFaculty} className="space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
+                Kategori SDM *
+              </label>
+              <select
+                value={facultyCategory}
+                onChange={(e) =>
+                  setFacultyCategory(
+                    e.target.value as "STRUKTURAL" | "DOSEN" | "STAF"
+                  )
+                }
+                className="w-full px-3.5 py-2.5 bg-[#FAF7F2] border border-[#E2D9C8] rounded-2xl text-xs text-[#0D0D0D] focus:border-[#710912] focus:outline-none"
+              >
+                <option value="STRUKTURAL">Struktural Hukum (Dekanat &amp; Kaprodi)</option>
+                <option value="DOSEN">Dosen Fakultas Hukum</option>
+                <option value="STAF">Staf &amp; Admin Fakultas</option>
+              </select>
+            </div>
+
             <div>
               <label className="block text-xs font-semibold text-[#0D0D0D] mb-1">
                 Nama Lengkap &amp; Gelar *

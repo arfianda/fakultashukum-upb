@@ -156,6 +156,13 @@ export function AdminFacultyView({
                   </div>
 
                   <div>
+                    <span className="inline-block px-2 py-0.5 mb-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#FAF7F2] text-[#710912] border border-[#E2D9C8]">
+                      {item.category === "struktural"
+                        ? "Struktural Hukum"
+                        : item.category === "staf"
+                        ? "Staf & Admin Fakultas"
+                        : "Dosen Fakultas Hukum"}
+                    </span>
                     <h4 className="font-serif font-bold text-sm text-[#0D0D0D]">
                       {item.name || item.titles}
                     </h4>

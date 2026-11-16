@@ -32,9 +32,8 @@ export const authConfig = {
             new URL("/dashboard/ganti-password", nextUrl)
           );
         }
-        const destination =
-          role === "SUPER_ADMIN" || role === "ADMIN" ? "/admin" : "/dashboard";
-        return Response.redirect(new URL(destination, nextUrl));
+        // Sementara: seluruh role diarahkan ke dashboard Lintas Hukum (/admin)
+        return Response.redirect(new URL("/admin", nextUrl));
       }
 
       if ((isAdminRoute || isDashboardRoute) && !isLoggedIn) {
@@ -54,14 +53,6 @@ export const authConfig = {
       }
 
       if (isAdminRoute && isLoggedIn) {
-        if (role !== "SUPER_ADMIN" && role !== "ADMIN") {
-          const forbiddenUrl = new URL("/403", nextUrl);
-          forbiddenUrl.searchParams.set("required", "SUPER_ADMIN, ADMIN");
-          forbiddenUrl.searchParams.set("current", role || "UNKNOWN");
-          forbiddenUrl.searchParams.set("from", pathname);
-          return Response.redirect(forbiddenUrl);
-        }
-
         if (pathname.startsWith("/admin/audit") && role !== "SUPER_ADMIN") {
           const forbiddenUrl = new URL("/403", nextUrl);
           forbiddenUrl.searchParams.set("required", "SUPER_ADMIN");

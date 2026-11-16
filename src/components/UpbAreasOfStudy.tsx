@@ -17,8 +17,8 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
   const areas = [
     {
       id: "pidana",
-      title: "Hukum Pidana & Keadilan Transisional",
-      subtitle: "CRIMINAL LAW & LITIGATION",
+      title: "Pidana",
+      subtitle: "HUKUM PIDANA",
       image: "/images/study-criminal.jpg",
       desc: "Mendalami teori pemidanaan kontemporer, peradilan pidana khusus (korupsi, siber, korporasi), teknik investigasi forensik, serta implementasi keadilan restoratif.",
       subjects: [
@@ -30,25 +30,25 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
       careers: "Hakim Pidana, Jaksa Penuntut Umum, Advokat Litigasi Pidana, Analis Lembaga Pemasyarakatan & Komisi Yudisial.",
     },
     {
-      id: "bisnis",
-      title: "Hukum Bisnis & Transaksi Digital",
-      subtitle: "CORPORATE & COMMERCIAL LAW",
+      id: "perdata",
+      title: "Perdata",
+      subtitle: "HUKUM PERDATA",
       image: "/images/study-business.jpg",
-      desc: "Fokus pada struktur transaksi komersial industri manufaktur koridor Cikarang-Bekasi, perancangan kontrak bisnis internasional, kepatuhan korporasi, dan perlindungan data fintech.",
+      desc: "Fokus pada hukum perikatan dan perjanjian, hukum kebendaan dan jaminan, hukum waris dan keluarga, serta penyelesaian sengketa dan kontrak komersial.",
       subjects: [
-        "Hukum Kontrak Komersial & Drafting",
-        "Hukum Perseroan & Kepailitan",
-        "Regulasi Fintech, AI & Cyber Law",
-        "Arbitrase & Penyelesaian Sengketa Bisnis",
+        "Hukum Perikatan & Perancangan Kontrak",
+        "Hukum Benda, Jaminan & Agraria",
+        "Hukum Acara Perdata & Eksekusi Putusan",
+        "Arbitrase & Penyelesaian Sengketa Perdata",
       ],
-      careers: "In-House Legal Counsel, Corporate Lawyer di Law Firm Komersial, Analis Kepatuhan Korporasi, Arbiter Bisnis.",
+      careers: "Hakim Perdata, Advokat & Konsultan Hukum Perdata, Notaris/PPAT, In-House Legal Counsel.",
     },
     {
-      id: "tatanegara",
-      title: "Hukum Tata Negara & Konstitusi",
-      subtitle: "CONSTITUTIONAL & PUBLIC LAW",
+      id: "ketatanegaraan",
+      title: "Ketatanegaraan",
+      subtitle: "HUKUM KETATANEGARAAN",
       image: "/images/study-constitutional.jpg",
-      desc: "Menelaah doktrin pemisahan kekuasaan, peradilan konstitusi, hukum administrasi publik di kawasan industri, serta teknik perancangan peraturan perundang-undangan (legal drafting).",
+      desc: "Menelaah doktrin pemisahan kekuasaan, peradilan konstitusi, hukum administrasi publik, pemerintahan daerah, serta teknik perancangan peraturan perundang-undangan (legal drafting).",
       subjects: [
         "Hukum Acara Mahkamah Konstitusi",
         "Perancangan Peraturan Perundang-undangan",
@@ -195,7 +195,7 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
                 onClick={() => setActiveArea(null)}
                 className="flex-1 py-3 bg-[#710912] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#48060B] rounded-full transition-colors shadow-xs text-center inline-flex items-center justify-center"
               >
-                Daftar Program Studi Ini
+                Daftar S1 Hukum
               </a>
               <button
                 onClick={() => setActiveArea(null)}

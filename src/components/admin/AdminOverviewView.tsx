@@ -24,15 +24,47 @@ interface AdminOverviewViewProps {
   faculty: FacultyItem[];
   onOpenCreateModal: () => void;
   onNavigateToTab: (tab: "articles" | "agenda" | "faculty") => void;
+  currentUser?: {
+    name: string;
+    email: string;
+    role: string;
+    roleLabel: string;
+  };
 }
 
 export function AdminOverviewView({
   posts,
   onOpenCreateModal,
   onNavigateToTab,
+  currentUser,
 }: AdminOverviewViewProps) {
   const { data: session } = useSession();
-  const displayName = session?.user?.name || "Superadmin";
+  const displayName =
+    currentUser?.name || session?.user?.name || "Sivitas FH UPB";
+  const activeRole =
+    currentUser?.role ||
+    (session?.user as { role?: string })?.role ||
+    "MAHASISWA";
+
+  const roleSubtitleMap: Record<string, string> = {
+    SUPER_ADMIN:
+      "Berikut ringkasan operasional akademik & publikasi hukum hari ini (Super Administrator)",
+    ADMIN:
+      "Berikut ringkasan pengelolaan portal akademik & publikasi Fakultas Hukum UPB",
+    DEKAN:
+      "Ringkasan eksekutif pimpinan dekanat, capaian riset, dan agenda Fakultas Hukum UPB",
+    WADEK:
+      "Ringkasan eksekutif wakil dekan, pengawasan akademik, dan agenda Fakultas Hukum UPB",
+    DOSEN:
+      "Portal akademik dosen pengajar, jadwal perkuliahan, dan publikasi riset Fakultas Hukum UPB",
+    STAFF:
+      "Portal operasional staf administrasi, layanan persuratan, dan agenda Fakultas Hukum UPB",
+    MAHASISWA:
+      "Portal akademik mahasiswa, jadwal praktikum peradilan semu, dan informasi Fakultas Hukum UPB",
+  };
+  const greetingSubtitle =
+    roleSubtitleMap[activeRole] ||
+    "Berikut ringkasan operasional akademik & publikasi hukum hari ini";
 
   // Greeting based on current time
   const currentHour = new Date().getHours();
@@ -166,7 +198,7 @@ export function AdminOverviewView({
             {greeting}, {displayName}
           </h1>
           <p className="text-xs text-[#73655D] mt-0.5">
-            Berikut ringkasan operasional akademik &amp; publikasi hukum hari ini
+            {greetingSubtitle}
           </p>
         </div>
 

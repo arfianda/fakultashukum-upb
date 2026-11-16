@@ -56,11 +56,14 @@ export default async function DosenDetailPage({
     <div>
       <PageHeader
         kicker={
+          faculty.category === "struktural" ||
           faculty.titles.includes("Dekan") ||
           faculty.titles.includes("Ketua Program Studi")
-            ? "JAJARAN PIMPINAN FAKULTAS"
+            ? "STRUKTURAL FAKULTAS"
             : faculty.titles.includes("Guru Besar")
             ? "DEWAN GURU BESAR"
+            : faculty.category === "staf"
+            ? "STAF & ADMIN FAKULTAS"
             : "TENAGA PENGAJAR"
         }
         title={displayHeading}
@@ -107,9 +110,15 @@ export default async function DosenDetailPage({
               <div className="pt-4 border-t border-[#E2D9C8] space-y-2 text-xs text-left text-[#544942]">
                 <div>
                   <span className="block text-[11px] font-bold uppercase tracking-wider text-[#0D0D0D]">
-                    Status Akademik:
+                    Kategori SDM:
                   </span>
-                  <span>Dosen Tetap Fakultas Hukum</span>
+                  <span>
+                    {faculty.category === "struktural"
+                      ? "Struktural Hukum"
+                      : faculty.category === "staf"
+                      ? "Staf & Admin Fakultas"
+                      : "Dosen Tetap Fakultas Hukum"}
+                  </span>
                 </div>
                 <div>
                   <span className="block text-[11px] font-bold uppercase tracking-wider text-[#0D0D0D]">

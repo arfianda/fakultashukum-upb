@@ -1,10 +1,11 @@
 import React from "react";
-import { requireRole, ROLE_LABELS } from "@/lib/rbac";
+import { requireAuthenticatedUser, ROLE_LABELS } from "@/lib/rbac";
 import { prisma } from "@/lib/prisma";
 import { AdminDashboardClient } from "@/components/admin/AdminDashboardClient";
 
 export default async function AdminDashboardPage() {
-  const user = await requireRole("SUPER_ADMIN", "ADMIN");
+  // Sementara: seluruh pengguna terautentikasi dapat mengakses dashboard Lintas Hukum
+  const user = await requireAuthenticatedUser();
 
   const [userCount, dbPostCount, dbEventCount] = await Promise.all([
     prisma.user.count(),
