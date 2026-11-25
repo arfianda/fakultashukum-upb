@@ -9,7 +9,7 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
   const concentrations = [
     {
       id: "pidana",
-      title: "Hukum Pidana & Peradilan Pidana",
+      title: "Pidana",
       subtitle: "Litigasi Perkara Pidana, Kejahatan Siber & Forensik Digital",
       subjects: [
         "Hukum Pidana Korporasi & White-Collar Crime",
@@ -21,39 +21,39 @@ export function CurriculumSection({ onOpenAdmission }: { onOpenAdmission?: () =>
     },
     {
       id: "perdata",
-      title: "Hukum Perdata, Bisnis & Transaksi Digital",
-      subtitle: "Tata Kelola Korporasi, Kontrak Komersial & Hak Cipta",
+      title: "Perdata",
+      subtitle: "Hukum Perikatan, Kebendaan, Waris & Acara Perdata",
+      subjects: [
+        "Hukum Perikatan & Perjanjian Keperdataan",
+        "Hukum Benda, Jaminan & Agraria",
+        "Hukum Keluarga & Waris",
+        "Hukum Acara Perdata & Eksekusi Putusan",
+      ],
+      careers: "Hakim Perdata, Advokat & Konsultan Hukum Perdata, Notaris/PPAT, Mediator Sengketa Perdata.",
+    },
+    {
+      id: "hukum-bisnis",
+      title: "Hukum Bisnis",
+      subtitle: "Tata Kelola Korporasi, Kontrak Komersial & Transaksi Digital",
       subjects: [
         "Perancangan Kontrak Komersial & Negosiasi Bisnis (Legal Drafting)",
-        "Hukum Kepailitan, PKPU & Restrukturisasi Keuangan",
+        "Hukum Perseroan, Kepailitan & PKPU",
+        "Regulasi Fintech, AI & Perlindungan Data Pribadi",
         "Penyelesaian Sengketa Arbitrase Komersial (BANI & SIAC)",
-        "Hak Cipta, Paten, Merek & Perlindungan Data Pribadi",
       ],
-      careers: "Corporate Legal Counsel, Konsultan Pasar Modal, Notaris/PPAT, In-House Counsel BUMN.",
+      careers: "Corporate Legal Counsel, Konsultan Pasar Modal, In-House Counsel Perusahaan/BUMN, Arbiter Bisnis.",
     },
     {
-      id: "htn",
-      title: "Hukum Tata Negara & Kebijakan Publik",
-      subtitle: "Kajian Konstitusi, Pengawasan Regulasi & Reformasi Birokrasi",
+      id: "hubungan-industrial",
+      title: "Hubungan Industrial dan Hukum Ketenagakerjaan",
+      subtitle: "Regulasi Ketenagakerjaan, Perjanjian Kerja & Pengadilan Hubungan Industrial",
       subjects: [
-        "Hukum Acara Mahkamah Konstitusi & Uji Materiil",
-        "Hukum Keuangan Negara & Pengadaan Barang/Jasa (PBJ)",
-        "Perancangan Naskah Akademik & Legislative Drafting",
-        "Hukum Tata Kelola Daerah & Otonomi Publik",
+        "Hukum Ketenagakerjaan & Perjanjian Kerja Bersama",
+        "Penyelesaian Perselisihan Hubungan Industrial (PHI)",
+        "Hukum Serikat Pekerja & Perlindungan Tenaga Kerja",
+        "Kepatuhan K3, Pengupahan & Jaminan Sosial",
       ],
-      careers: "Analis Kebijakan Publik, Tenaga Ahli DPR/DPRD, Auditor Hukum Lembaga Negara, Hakim PTUN.",
-    },
-    {
-      id: "internasional",
-      title: "Hukum Internasional & Transnasional",
-      subtitle: "Perdagangan Global, Yurisdiksi Lintas Batas & Arbitrase Dagang",
-      subjects: [
-        "Hukum Perdagangan Dunia (WTO) & Regulasi Investasi Asing",
-        "Hukum Humaniter Internasional & Hak Asasi Manusia",
-        "Penyelesaian Sengketa Maritim & Hukum Laut Internasional (UNCLOS)",
-        "Hukum Perjanjian Diplomatik & Konsuler",
-      ],
-      careers: "Diplomat Kementerian Luar Negeri, Legal Specialist Lembaga Multilateral, Arbiter Internasional.",
+      careers: "HR Legal & Industrial Relations Specialist, Mediator Hubungan Industrial, Advokat PHI, Konsultan Ketenagakerjaan.",
     },
   ];
 

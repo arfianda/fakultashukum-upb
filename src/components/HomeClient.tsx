@@ -8,6 +8,7 @@ import { UpbAreasOfStudy } from "@/components/UpbAreasOfStudy";
 import { UpbThreeFeatures } from "@/components/UpbThreeFeatures";
 import { UpbStudentSpotlight } from "@/components/UpbStudentSpotlight";
 import { DeanCreed } from "@/components/DeanCreed";
+import { HistorySection } from "@/components/HistorySection";
 import { CurriculumSection } from "@/components/CurriculumSection";
 import { FacultyDirectory } from "@/components/FacultyDirectory";
 import { AlumniSection } from "@/components/AlumniSection";
@@ -49,6 +50,9 @@ export function HomeClient({
 
       {/* 7. Academic Integrity & Dean's Statement */}
       <DeanCreed />
+
+      {/* 7b. Sejarah Berdirinya Fakultas Hukum */}
+      <HistorySection />
 
       {/* 8. Detailed Curriculum & Concentrations (4 Concentrations + Degree Tracks S.H. & PKPA) */}
       <CurriculumSection onOpenAdmission={openAdmission} />

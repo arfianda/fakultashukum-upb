@@ -255,7 +255,7 @@ export const pagesData: Record<string, InfoPageData> = {
     siblings: academicSiblings,
     sections: [
       {
-        title: "Tiga Rumpun Konsentrasi Keilmuan Hukum",
+        title: "Empat Rumpun Konsentrasi Keilmuan Hukum",
         content: [
           "Mahasiswa Program Sarjana Hukum memilih salah satu rumpun konsentrasi pada semester 5 untuk mendalami mata kuliah peminatan khusus dan menyusun penelitian tugas akhir skripsi.",
         ],
@@ -275,11 +275,18 @@ export const pagesData: Record<string, InfoPageData> = {
             link: { label: "Detail Konsentrasi Perdata", href: "/akademik/peminatan/hukum-perdata-bisnis" },
           },
           {
-            title: "Ketatanegaraan",
-            subtitle: "Kajian Konstitusi & Perancangan Peraturan",
-            description: "Menelaah doktrin pemisahan kekuasaan, peradilan konstitusi, hukum administrasi publik, dan legislative drafting.",
-            badge: "Ketatanegaraan",
-            link: { label: "Detail Konsentrasi Ketatanegaraan", href: "/akademik/peminatan/hukum-tata-negara" },
+            title: "Hukum Bisnis",
+            subtitle: "Tata Kelola Korporasi & Kontrak Komersial",
+            description: "Mempelajari perancangan kontrak komersial, hukum perseroan, kepailitan/PKPU, transaksi digital, dan arbitrase bisnis.",
+            badge: "Hukum Bisnis",
+            link: { label: "Detail Konsentrasi Hukum Bisnis", href: "/akademik/peminatan/hukum-perdata-bisnis" },
+          },
+          {
+            title: "Hubungan Industrial dan Hukum Ketenagakerjaan",
+            subtitle: "Regulasi Ketenagakerjaan & Perselisihan Hubungan Industrial",
+            description: "Menelaah hukum ketenagakerjaan, perjanjian kerja bersama, perlindungan tenaga kerja, serta penyelesaian perselisihan hubungan industrial (PHI).",
+            badge: "Ketenagakerjaan",
+            link: { label: "Detail Konsentrasi Ketenagakerjaan", href: "/akademik/peminatan/hukum-ketenagakerjaan" },
           },
         ],
       },
@@ -1614,6 +1621,43 @@ export const pagesData: Record<string, InfoPageData> = {
         },
       },
       {
+        title: "Sejarah & Tonggak Kepemimpinan Fakultas Hukum",
+        content: [
+          "Perjalanan Fakultas Hukum Universitas Pelita Bangsa mencerminkan dinamika pertumbuhan institusi yang adaptif dan berkelanjutan. Dimulai sebagai sebuah program studi di bawah naungan fakultas lintas disiplin, Program Studi Hukum terus berkembang secara akademik maupun kelembagaan hingga resmi berdiri mandiri sebagai Fakultas Hukum yang berfokus mencetak lulusan hukum yang berintegritas, profesional, dan relevan dengan perkembangan zaman.",
+        ],
+        items: [
+          {
+            title: "Awal Perjalanan di Bawah Naungan FEBIS",
+            subtitle: "2019 – 2022 • Kaprodi: Ibu Syifa & Ibu Arum",
+            description:
+              "Program Studi Ilmu Hukum beroperasi sebagai bagian dari Fakultas Ekonomi, Bisnis, dan Ilmu Sosial (FEBIS) Universitas Pelita Bangsa dengan meletakkan fondasi dasar kurikulum serta tata kelola akademik.",
+            badge: "Fase Perintisan (FEBIS)",
+          },
+          {
+            title: "Transisi & Penguatan Mutu di Bawah FIKT",
+            subtitle: "2022 – 2024 • Kaprodi: Ibu Septi Ayu",
+            description:
+              "Seiring restrukturisasi klaster keilmuan universitas, Program Studi Ilmu Hukum bernaung di bawah FIKT dalam rangka penguatan mutu akademik dan kesiapan kemandirian kelembagaan.",
+            badge: "Fase Transisi (FIKT)",
+          },
+          {
+            title: "Resmi Berdiri Mandiri sebagai Fakultas Hukum",
+            subtitle: "2024 – 2025 • Dekan: Ibu Septi Ayu | Kaprodi: Bapak Trias",
+            description:
+              "Tonggak sejarah baru tercapai dengan berdirinya Fakultas Hukum (FH) Universitas Pelita Bangsa secara mandiri dengan struktur dekanat perdana.",
+            badge: "Kemandirian Fakultas (FH)",
+          },
+          {
+            title: "Penguatan Tata Kelola & Pengembangan Fakultas",
+            subtitle:
+              "Oktober 2025 – Sekarang • Dekan: Muhammad Zulkarnaen Dharmawi, S.H., MH | Wadek: Dr. Hj. R.R.Wening Ken Widodasih, S.H., M.M | Kaprodi: Dr. Wulan Windiarti, S.H., M.H",
+            description:
+              "Fakultas Hukum terus memperluas jejaring, kualitas tridarma perguruan tinggi, serta tata kelola fakultas di bawah jajaran pimpinan saat ini.",
+            badge: "Periode Berjalan (FH)",
+          },
+        ],
+      },
+      {
         title: "Visi & Misi Fakultas Hukum",
         content: [
           "Menjadi pusat pendidikan tinggi hukum terkemuka di tingkat nasional yang unggul dalam penguasaan hukum bisnis industri dan kemahiran peradilan yang berintegritas pada tahun 2030.",
@@ -1925,6 +1969,21 @@ export const peminatanDetails: Record<string, PeminatanDetail> = {
       "Hukum Perjanjian Diplomatik & Konsuler",
     ],
     careers: "Diplomat Kementerian Luar Negeri, Legal Specialist Lembaga Multilateral, Arbiter Internasional.",
+  },
+  "hukum-ketenagakerjaan": {
+    slug: "hukum-ketenagakerjaan",
+    title: "Hubungan Industrial dan Hukum Ketenagakerjaan",
+    subtitle: "Regulasi Ketenagakerjaan, Perjanjian Kerja & Perselisihan Hubungan Industrial",
+    kicker: "KONSENTRASI AKADEMIK",
+    description:
+      "Menelaah regulasi hubungan kerja, perjanjian kerja bersama, jaminan sosial tenaga kerja, perlindungan buruh, serta penyelesaian perselisihan hubungan industrial (PHI) di kawasan industri.",
+    subjects: [
+      "Hukum Ketenagakerjaan & Perjanjian Kerja Bersama",
+      "Penyelesaian Perselisihan Hubungan Industrial (PHI)",
+      "Hukum Serikat Pekerja & Perlindungan Tenaga Kerja",
+      "Kepatuhan K3, Pengupahan & Jaminan Sosial",
+    ],
+    careers: "HR Legal & Industrial Relations Specialist, Mediator Hubungan Industrial, Advokat PHI, Konsultan Ketenagakerjaan.",
   },
 };
 

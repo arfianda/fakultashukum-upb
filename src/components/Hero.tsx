@@ -33,7 +33,7 @@ export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
     <section
       id="hero"
       className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-center items-center bg-[#0D0D0D] text-white overflow-hidden text-center"
-      aria-label="Pusat Keunggulan Pendidikan Hukum"
+      aria-label="Website Resmi Fakultas Hukum"
     >
       {/* Full-bleed Architectural Campus Video Background with Ambient Motion */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0D0D0D]">
@@ -80,7 +80,7 @@ export function Hero({ onOpenAdmission }: { onOpenAdmission?: () => void }) {
           transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-white leading-[1.12] sm:leading-[1.08] text-balance max-w-4xl mx-auto drop-shadow-md mb-6"
         >
-          Pusat Keunggulan Pendidikan Hukum
+          Website Resmi Fakultas Hukum
         </motion.h1>
 
         {/* Subtitle Statement on Critical Thinking and Legal Intellect */}

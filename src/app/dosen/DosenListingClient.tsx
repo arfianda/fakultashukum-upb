@@ -281,14 +281,43 @@ function DosenListingInner({
               const displaySub = hasName
                 ? f.titles
                 : "Fakultas Hukum Universitas Pelita Bangsa";
+              const lowerTitles = f.titles.toLowerCase();
+              const isWakilDekan =
+                itemCat === "struktural" && lowerTitles.includes("wakil dekan");
+              const isDekan =
+                itemCat === "struktural" &&
+                !isWakilDekan &&
+                lowerTitles.includes("dekan");
+              const isKaprodi =
+                itemCat === "struktural" &&
+                (lowerTitles.includes("kaprodi") ||
+                  lowerTitles.includes("ketua program studi"));
+
               const badgeLabel =
                 itemCat === "struktural"
-                  ? "STRUKTURAL FAKULTAS"
+                  ? isDekan
+                    ? "DEKAN FAKULTAS HUKUM"
+                    : isWakilDekan
+                    ? "WAKIL DEKAN FAKULTAS HUKUM"
+                    : isKaprodi
+                    ? "KETUA PROGRAM STUDI"
+                    : "STRUKTURAL FAKULTAS"
                   : f.titles.includes("Guru Besar")
                   ? "DEWAN GURU BESAR"
                   : itemCat === "staf"
                   ? "STAF & ADMIN FAKULTAS"
                   : "DOSEN FAKULTAS HUKUM";
+
+              const badgeClass =
+                itemCat === "struktural"
+                  ? isDekan
+                    ? "text-xs px-3.5 py-1.5 bg-[#710912] text-white border-[#710912] shadow-xs mb-3"
+                    : isWakilDekan
+                    ? "text-xs px-3.5 py-1.5 bg-[#1E293B] text-white border-[#1E293B] shadow-xs mb-3"
+                    : isKaprodi
+                    ? "text-xs px-3.5 py-1.5 bg-[#EFE5D2] text-[#710912] border-[#C28D39]/60 shadow-2xs mb-3"
+                    : "text-xs px-3.5 py-1.5 bg-[#FAF7F2] text-[#710912] border-[#E2D9C8] mb-3"
+                  : "text-[10px] px-2.5 py-0.5 bg-[#FAF7F2] border-[#E2D9C8] text-[#710912] mb-2.5";
 
               return (
                 <motion.article
@@ -316,20 +345,26 @@ function DosenListingInner({
                     </div>
 
                     <div className="p-6">
-                      <span className="inline-flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E2D9C8] text-[#710912] mb-2.5">
-                        {itemCat === "staf" ? (
-                          <Building2 className="w-3 h-3" />
+                      <span
+                        className={`inline-flex items-center gap-1.5 uppercase font-bold tracking-wider rounded-full border ${badgeClass}`}
+                      >
+                        {itemCat === "struktural" ? (
+                          <Landmark className="w-3.5 h-3.5 shrink-0" />
+                        ) : itemCat === "staf" ? (
+                          <Building2 className="w-3 h-3 shrink-0" />
                         ) : (
-                          <GraduationCap className="w-3 h-3" />
+                          <GraduationCap className="w-3 h-3 shrink-0" />
                         )}
                         <span>{badgeLabel}</span>
                       </span>
                       <h2 className="font-serif text-lg sm:text-xl font-bold text-[#0D0D0D] mb-1 leading-snug">
                         {displayHeading}
                       </h2>
-                      <p className="text-xs font-medium text-[#710912]">
-                        {displaySub}
-                      </p>
+                      {itemCat !== "struktural" && (
+                        <p className="text-xs font-medium text-[#710912]">
+                          {displaySub}
+                        </p>
+                      )}
 
                       {f.bioQuote && (
                         <blockquote className="mt-4 p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E2D9C8] text-xs text-[#544942] italic font-light">

@@ -33,29 +33,43 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
       id: "perdata",
       title: "Perdata",
       subtitle: "HUKUM PERDATA",
-      image: "/images/study-business.jpg",
-      desc: "Fokus pada hukum perikatan dan perjanjian, hukum kebendaan dan jaminan, hukum waris dan keluarga, serta penyelesaian sengketa dan kontrak komersial.",
+      image: "/images/study-constitutional.jpg",
+      desc: "Fokus pada hukum perikatan dan perjanjian, hukum kebendaan dan jaminan, hukum waris dan keluarga, serta hukum acara dan penyelesaian sengketa perdata.",
       subjects: [
-        "Hukum Perikatan & Perancangan Kontrak",
+        "Hukum Perikatan & Perjanjian",
         "Hukum Benda, Jaminan & Agraria",
+        "Hukum Keluarga & Waris",
         "Hukum Acara Perdata & Eksekusi Putusan",
-        "Arbitrase & Penyelesaian Sengketa Perdata",
       ],
-      careers: "Hakim Perdata, Advokat & Konsultan Hukum Perdata, Notaris/PPAT, In-House Legal Counsel.",
+      careers: "Hakim Perdata, Advokat & Konsultan Hukum Perdata, Notaris/PPAT, Mediator Sengketa Perdata.",
     },
     {
-      id: "ketatanegaraan",
-      title: "Ketatanegaraan",
-      subtitle: "HUKUM KETATANEGARAAN",
-      image: "/images/study-constitutional.jpg",
-      desc: "Menelaah doktrin pemisahan kekuasaan, peradilan konstitusi, hukum administrasi publik, pemerintahan daerah, serta teknik perancangan peraturan perundang-undangan (legal drafting).",
+      id: "hukum-bisnis",
+      title: "Hukum Bisnis",
+      subtitle: "CORPORATE & COMMERCIAL LAW",
+      image: "/images/study-business.jpg",
+      desc: "Mempelajari struktur transaksi komersial industri koridor Cikarang-Bekasi, perancangan kontrak bisnis, hukum perseroan, kepailitan, dan transaksi digital.",
       subjects: [
-        "Hukum Acara Mahkamah Konstitusi",
-        "Perancangan Peraturan Perundang-undangan",
-        "Hukum Pemerintahan Daerah & Otonomi",
-        "Hukum Administrasi Publik & Perizinan",
+        "Hukum Kontrak Komersial & Legal Drafting",
+        "Hukum Perseroan & Kepailitan (PKPU)",
+        "Regulasi Fintech, AI & Cyber Law",
+        "Arbitrase & Penyelesaian Sengketa Bisnis",
       ],
-      careers: "Perancang Peraturan (Legal Drafter) di Kementerian/DPRD, Staf Ahli Komisi Negara, Hakim PTUN, Peneliti Hukum Publik.",
+      careers: "In-House Legal Counsel, Corporate Lawyer di Law Firm Komersial, Konsultan Pasar Modal, Arbiter Bisnis.",
+    },
+    {
+      id: "hubungan-industrial",
+      title: "Hubungan Industrial dan Hukum Ketenagakerjaan",
+      subtitle: "INDUSTRIAL & LABOR LAW",
+      image: "/images/feature-centers-legal.jpg",
+      desc: "Menelaah regulasi hubungan kerja, perjanjian kerja bersama, jaminan sosial tenaga kerja, perlindungan buruh, serta penyelesaian perselisihan hubungan industrial (PHI).",
+      subjects: [
+        "Hukum Ketenagakerjaan & Perjanjian Kerja",
+        "Penyelesaian Perselisihan Hubungan Industrial (PHI)",
+        "Hukum Serikat Pekerja & Perjanjian Kerja Bersama",
+        "Kepatuhan K3, Pengupahan & Jaminan Sosial",
+      ],
+      careers: "HR Legal & Industrial Relations Specialist, Mediator Hubungan Industrial, Advokat PHI, Konsultan Ketenagakerjaan.",
     },
   ];
 
@@ -89,8 +103,8 @@ export function UpbAreasOfStudy({ onOpenAdmission }: { onOpenAdmission?: () => v
           </a>
         </div>
 
-        {/* 3 Large Photographic Cards with modern symmetric rounded shape and refined glass border */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+        {/* 4 Photographic Cards with modern symmetric rounded shape and refined glass border */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7 mb-12">
           {areas.map((area) => (
             <div
               key={area.id}
